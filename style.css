@@ -1,0 +1,37 @@
+.outer {
+  margin-top: 50px;
+}
+
+.side {
+  position: sticky;
+  top: 50px;
+  margin-bottom: 32px; /* margin top 被bootstrap设置了 */
+}
+
+#question-container::after, .answer::after {
+  content: '';
+  display: block;
+  border: 1px solid #f5f5f5;
+  margin: 1rem 0.25rem 1.5rem;
+}
+
+.proposition {
+  cursor: pointer;
+}
+.proposition ~ input[type="checkbox"] {
+  position: absolute;
+  transform: scale(0.75) translate(-0rem, -0.4rem);
+  visibility: hidden;
+}
+.proposition ~ input[type="checkbox"]:checked {
+  visibility: visible;
+}
+
+#note-container:blank {
+  background-color: black;
+}
+
+.placeholder {
+  color: rgb(185, 194, 204);
+  margin: 1rem 0;
+}

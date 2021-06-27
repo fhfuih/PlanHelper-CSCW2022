@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#FFFFFF" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/mark.js@8.11.1/dist/mark.es6.js"></script> -->
+  <script src="https://cdn.jsdelivr.net/npm/mark.js@8.11.1/dist/mark.es6.min.js" integrity="sha256-51i9DIUkhl5gZzZ5xKiWbJ2qXewVR6W0MUZYPVwmyJ4=" crossorigin="anonymous"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script> -->
+  <script src="main.js"></script>
+  <title>CQA</title>
+</head>
+<body>
+  <noscript>You need to enable JavaScript to run this app.</noscript>
+  <div class="container outer">
+    <div class="row gy-3 justify-content-center align-items-start">
+      <div class="col col-6">
+        <div id="question-container">
+          <h1 id="question" class="h3"></h1>
+          <div id="question-description" class="text-muted"></div>
+        </div>
+        <div id="answer-container" style="height: 2000px;">
+          <template id="template-answer">
+            <div class="answer my-3">
+              <!-- Single Answer here -->
+            </div>
+          </template>
+        </div>
+      </div>
+      <div class="col col-4 side">
+        <div class="mb-4 card">
+          <div class="card-header">
+            Note Pane
+          </div>
+          <div class="card-body">
+            <ul id="note-container" class="my-3">
+              <template id="template-note">
+                <li class="note" data-answer="" data-proposition=""></li>
+              </template>
+            </ul>
+            <div class="placeholder">
+              Click on highlighted propositions to add them here
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            Concept Pane
+          </div>
+          <div class="card-body">
+            <div class="placeholder">placeholder</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
