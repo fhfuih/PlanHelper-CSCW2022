@@ -90,20 +90,19 @@ document.addEventListener('DOMContentLoaded', async () => {
         el.addEventListener('click', () => {
           if (!checkbox.checked) { // 如果没有check，check并加入note
             checkbox.checked = true
+            // check whether the concept name already exists or not
             const conceptElements = noteContainer.querySelectorAll(".concept")
 
             let conceptExist = false;
             const conceptName = answers[ansIdx].propositions[propIdx].category
             const propositionContent = answers[ansIdx].propositions[propIdx].content
             conceptElements.forEach(concept_el => {
-              console.log(concept_el.textContent)
-              console.log(conceptName)
               if (concept_el.textContent == conceptName){
                 conceptExist = true;
               }
             })
             
-            console.log(conceptExist)
+            // if not exists, just create a new <li> containing the concept, and a <ul> containing the corresponding <li>proposition under it.
 
             if (!conceptExist){
               const conceptElement = document.createElement('li')
@@ -128,6 +127,7 @@ document.addEventListener('DOMContentLoaded', async () => {
               noteContainer.append(propositionContainer)
             }
 
+            // if exists, just find the target concept and add the <li>proposition in the <ul> proposition container
             if (conceptExist){
               const propositionContainer = noteContainer.querySelector(`[data-concept="${conceptName}"]`)
               const propositionElement= document.createElement('li')
@@ -140,20 +140,16 @@ document.addEventListener('DOMContentLoaded', async () => {
             
 
 
-            // const noteElement = document.getElementById('template-note').content.firstElementChild.cloneNode(true)
-            // noteElement.textContent = answers[ansIdx].propositions[propIdx].content
-            // noteElement.setAttribute('data-answer', ansIdx)
-            // noteElement.setAttribute('data-proposition', propIdx)
-            // noteContainer.append(noteElement)
-            // noteContainer.nextElementSibling.classList.add('d-none')
           } else { // uncheck并移除
             checkbox.checked = false
-            
+            // remove the proposition
             const propositionElement = noteContainer.querySelector(`[data-answer="${ansIdx}"][data-proposition="${propIdx}"]`)
             const propositionContainer = propositionElement.parentElement
             const conceptName = propositionContainer.getAttribute('data-concept')
             const conceptElement = noteContainer.querySelector(`[concept-name="${conceptName}"]`)
             propositionElement.remove()
+            // after removal, if there is no proposition under a concept, delete it
+
             if (propositionContainer.childElementCount == 0){
               propositionContainer.remove()
               conceptElement.remove()
