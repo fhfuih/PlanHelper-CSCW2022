@@ -31,6 +31,14 @@
   background-color: black;
 }
 
+.edit-button {
+  color: #0d6efd;
+  cursor: pointer;
+}
+.edit-button:hover {
+  color: #0a58ca;
+}
+
 .placeholder {
   color: rgb(185, 194, 204);
   margin: 1rem 0;

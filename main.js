@@ -1,6 +1,9 @@
+let answers; // 全局answers（应该不需要全局留着question把，就只留answers部分了）
+
 function getAnswers(question) {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
+      answers = mock.answers
       resolve(mock)
     }, 1000)
   })
@@ -78,8 +81,8 @@ document.addEventListener('DOMContentLoaded', async () => {
               propositionContainer.id = `proposition-${propIdx}-container`
               propositionContainer.setAttribute('data-concept', conceptName)
 
-              const propositionElement = document.createElement('li')
-              propositionElement.textContent = propositionContent
+              const propositionElement = document.getElementById('single-note-template').content.firstElementChild.cloneNode(true)
+              propositionElement.firstElementChild.textContent = propositionContent
               propositionElement.setAttribute('data-answer', ansIdx)
               propositionElement.setAttribute('data-proposition', propIdx)
 
@@ -132,3 +135,16 @@ document.addEventListener('DOMContentLoaded', async () => {
   })
 
 })
+
+function editProposition(e) {
+  const newProp = prompt('Please enter your proposition')
+  const {target} = e;
+  target.closest('li').firstElementChild.textContent = newProp
+}
+
+function resetProposition(e) {
+  const li = e.target.closest('li')
+  const ansIdx = li.getAttribute('data-answer')
+  const propIdx = li.getAttribute('data-proposition')
+  li.firstElementChild.textContent = answers[ansIdx].propositions[propIdx].content
+}
