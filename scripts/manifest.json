@@ -1,0 +1,19 @@
+{
+  "name": "Fuck Quora",
+  "description": "Fuck Quora with exclamation mark!",
+  "version": "1.0",
+  "manifest_version": 3,
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "permissions": [
+    "activeTab",
+    "scripting"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["https://*.quora.com/*"],
+      "js": ["contentScript.js"]
+    }
+  ]
+}
