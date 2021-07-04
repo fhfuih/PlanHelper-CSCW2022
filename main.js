@@ -82,22 +82,80 @@ document.addEventListener('DOMContentLoaded', async () => {
       checkbox.type = 'checkbox'
       checkbox.classList.add('form-check-input')
       markedLast.insertAdjacentElement('afterend', checkbox)
+
+      
       // 点击proposition的时候自动check
       const noteContainer = document.getElementById('note-container')
       markedElements.forEach(el => {
         el.addEventListener('click', () => {
           if (!checkbox.checked) { // 如果没有check，check并加入note
             checkbox.checked = true
-            const noteElement = document.getElementById('template-note').content.firstElementChild.cloneNode(true)
-            noteElement.textContent = answers[ansIdx].propositions[propIdx].content
-            noteElement.setAttribute('data-answer', ansIdx)
-            noteElement.setAttribute('data-proposition', propIdx)
-            noteContainer.append(noteElement)
-            noteContainer.nextElementSibling.classList.add('d-none')
+            // check whether the concept name already exists or not
+            const conceptElements = noteContainer.querySelectorAll(".concept")
+
+            let conceptExist = false;
+            const conceptName = answers[ansIdx].propositions[propIdx].category
+            const propositionContent = answers[ansIdx].propositions[propIdx].content
+            conceptElements.forEach(concept_el => {
+              if (concept_el.textContent == conceptName){
+                conceptExist = true;
+              }
+            })
+            
+            // if not exists, just create a new <li> containing the concept, and a <ul> containing the corresponding <li>proposition under it.
+
+            if (!conceptExist){
+              const conceptElement = document.createElement('li')
+              conceptElement.textContent = conceptName
+              conceptElement.classList.add('concept')
+              conceptElement.setAttribute('concept-name', conceptName)
+              noteContainer.append(conceptElement)
+              noteContainer.nextElementSibling.classList.add('d-none')
+
+              const propositionContainer = document.createElement('ul')
+              propositionContainer.classList.add('proposition-container')
+              propositionContainer.id = `proposition-${propIdx}-container`
+              propositionContainer.setAttribute('data-concept', conceptName)
+
+              const propositionElement = document.createElement('li')
+              propositionElement.textContent = propositionContent
+              propositionElement.setAttribute('data-answer', ansIdx)
+              propositionElement.setAttribute('data-proposition', propIdx)
+
+              propositionContainer.append(propositionElement)
+              
+              noteContainer.append(propositionContainer)
+            }
+
+            // if exists, just find the target concept and add the <li>proposition in the <ul> proposition container
+            if (conceptExist){
+              const propositionContainer = noteContainer.querySelector(`[data-concept="${conceptName}"]`)
+              const propositionElement= document.createElement('li')
+              propositionElement.textContent = propositionContent
+              propositionElement.setAttribute('data-answer', ansIdx)
+              propositionElement.setAttribute('data-proposition', propIdx)
+
+              propositionContainer.append(propositionElement)
+            }
+            
+
+
           } else { // uncheck并移除
             checkbox.checked = false
-            const noteElement = noteContainer.querySelector(`[data-answer="${ansIdx}"][data-proposition="${propIdx}"]`)
-            noteElement.remove()
+            // remove the proposition
+            const propositionElement = noteContainer.querySelector(`[data-answer="${ansIdx}"][data-proposition="${propIdx}"]`)
+            const propositionContainer = propositionElement.parentElement
+            const conceptName = propositionContainer.getAttribute('data-concept')
+            const conceptElement = noteContainer.querySelector(`[concept-name="${conceptName}"]`)
+            propositionElement.remove()
+            // after removal, if there is no proposition under a concept, delete it
+
+            if (propositionContainer.childElementCount == 0){
+              propositionContainer.remove()
+              conceptElement.remove()
+            }
+            
+
             if (noteContainer.childElementCount == 1) noteContainer.nextElementSibling.classList.remove('d-none')
           }
         })
