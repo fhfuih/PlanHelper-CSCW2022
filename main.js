@@ -10,15 +10,15 @@ function getAnswers(question) {
         propositions: [
           {
             content: 'Diam quam nulla porttitor massa id neque aliquam',
-            category: 'lorem',
+            concept: 'lorem',
           },
           {
             content: 'Parturient montes nascetur ridiculus mus mauris vitae ultricies',
-            category: 'foo',
+            concept: 'foo',
           },
           {
             content: 'Et molestie ac feugiat sed lectus vestibulum mattis ullamcorper',
-            category: 'bar',
+            concept: 'bar',
           }
         ]
       },
@@ -28,11 +28,11 @@ function getAnswers(question) {
         propositions: [
           {
             content: 'Leo vel fringilla est ullamcorper eget nulla',
-            category: 'foo',
+            concept: 'foo',
           },
           {
             content: 'Mauris cursus mattis molestie a iaculis at erat pellentesque adipiscing',
-            category: 'bar',
+            concept: 'bar',
           }
         ]
       }
@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // mark单个回答的所有proposition
     const markContext = new Mark(answerNode)
-    ans.propositions.forEach(({content, category}, propIdx) => {
+    ans.propositions.forEach(({content, concept}, propIdx) => {
       // mark单个回答的单个proposition
       markContext.mark(content, {
         className: `proposition proposition-${propIdx}`,
@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             const conceptElements = noteContainer.querySelectorAll(".concept")
 
             let conceptExist = false;
-            const conceptName = answers[ansIdx].propositions[propIdx].category
+            const conceptName = answers[ansIdx].propositions[propIdx].concept
             const propositionContent = answers[ansIdx].propositions[propIdx].content
             conceptElements.forEach(concept_el => {
               if (concept_el.textContent == conceptName){
