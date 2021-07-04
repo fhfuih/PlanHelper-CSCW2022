@@ -1,43 +1,4 @@
 function getAnswers(question) {
-  const mock = {
-    question: 'What is Lorem Ipsum?',
-    description: 'From its medieval origins to the digital era, learn everything there is to know about the ubiquitous lorem ipsum passage.',
-    answers: [
-      {
-        content: `<p>Diam quam <strong>nulla</strong> porttitor massa id neque aliquam. Diam maecenas sed enim ut sem viverra aliquet. Nulla facilisi etiam dignissim diam quis.</p>
-<p>Parturient montes <em>nascetur</em> ridiculus mus mauris vitae ultricies. Facilisi cras fermentum odio eu. Gravida arcu ac tortor dignissim convallis aenean. Suspendisse potenti nullam ac tortor vitae purus faucibus ornare.</p>
-<p>Et molestie ac feugiat sed lectus vestibulum mattis <em>ullamcorper</em>. Amet risus nullam eget felis eget nunc. Porta lorem mollis aliquam ut porttitor leo a diam sollicitudin. Ac orci phasellus egestas tellus rutrum.</p>`,
-        propositions: [
-          {
-            content: 'Diam quam nulla porttitor massa id neque aliquam',
-            concept: 'lorem',
-          },
-          {
-            content: 'Parturient montes nascetur ridiculus mus mauris vitae ultricies',
-            concept: 'foo',
-          },
-          {
-            content: 'Et molestie ac feugiat sed lectus vestibulum mattis ullamcorper',
-            concept: 'bar',
-          }
-        ]
-      },
-      {
-        content: `<p>Leo vel fringilla est ullamcorper eget nulla.</p>
-<p>Mauris cursus mattis molestie a iaculis at erat pellentesque adipiscing.</p>`,
-        propositions: [
-          {
-            content: 'Leo vel fringilla est ullamcorper eget nulla',
-            concept: 'foo',
-          },
-          {
-            content: 'Mauris cursus mattis molestie a iaculis at erat pellentesque adipiscing',
-            concept: 'bar',
-          }
-        ]
-      }
-    ]
-  }
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       resolve(mock)
@@ -62,7 +23,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // 加载单个回答的内容
     const answerNode = answerTemplate.cloneNode(true)
     answerNode.classList.add(`answer-${ansIdx}`)
-    answerNode.innerHTML = ans.content
+    answerNode.innerHTML = ans.html
     answerContainer.append(answerNode)
 
     // mark单个回答的所有proposition
