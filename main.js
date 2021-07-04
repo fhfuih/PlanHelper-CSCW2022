@@ -156,7 +156,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
             
 
-            if (noteContainer.childElementCount == 1) noteContainer.nextElementSibling.classList.remove('d-none')
+            if (!noteContainer.childElementCount) noteContainer.nextElementSibling.classList.remove('d-none')
           }
         })
         el.addEventListener('mouseenter', () => {
