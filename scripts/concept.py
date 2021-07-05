@@ -10,10 +10,10 @@ with open(path, encoding='utf-8') as fp:
     j = json.load(fp)
 
 concepts = set()
-for answer in j:
+for answer in j['answers']:
     concepts.update([prop['concept'] for prop in answer['propositions'] if prop['concept']])
 concepts = list(concepts)
-lenans = len(j)
+lenans = len(j['answers'])
 print(f'Curent concept list: {concepts}')
 
 def save(force=False):
@@ -25,7 +25,7 @@ def save(force=False):
     with open(path, 'w', encoding='utf-8') as fp:
         json.dump(j, fp, indent=2, ensure_ascii=False)
 
-for ians, answer in enumerate(j):
+for ians, answer in enumerate(j['answers']):
     progress = len([None for prop in answer['propositions'] if prop['concept']]), len(answer['propositions'])
     print('========')
     print(f'({ians}/{lenans}) ({answer.get("author", "<Unknown>")}) {answer["content"][:50]}...')
@@ -63,4 +63,4 @@ for ians, answer in enumerate(j):
             proposition['concept'] = con
             print(f'Selecting concept {con}')
             # save()
-        save(True)
+    save(True)
