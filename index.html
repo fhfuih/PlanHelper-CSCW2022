@@ -12,6 +12,8 @@
   <!-- <script src="https://cdn.jsdelivr.net/npm/mark.js@8.11.1/dist/mark.es6.js"></script> -->
   <script src="https://cdn.jsdelivr.net/npm/mark.js@8.11.1/dist/mark.es6.min.js" integrity="sha256-51i9DIUkhl5gZzZ5xKiWbJ2qXewVR6W0MUZYPVwmyJ4=" crossorigin="anonymous"></script>
   <!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script> -->
+  <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js" integrity="sha256-qXBd/EfAdjOA2FGrGAG+b3YBn2tn5A6bhz+LSgYD96k=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dayjs@1.10.5/dayjs.min.js" integrity="sha256-v+HEJfGs5a3wK8/uqXs31dH/xcyJDf21m0AuZUWP3PA=" crossorigin="anonymous"></script>
   <script type="text/javascript" src="mock.js"></script>
   <script type="text/javascript" src="main.js"></script>
   <title>CQA</title>
@@ -28,7 +30,19 @@
         <div id="answer-container">
           <template id="template-answer">
             <div class="answer my-3">
-              <!-- Single Answer here -->
+              <div class="profile d-flex align-items-center">
+                <img src="assets/avatar.png" class="avatar rounded-circle border me-2">
+                <div class="profile-text">
+                  <div>
+                    <span class="author-name fw-bold"></span>
+                    <span class="author-description"></span>
+                  </div>
+                  <div class="date text-muted"></div>
+                </div>
+              </div>
+              <div class="answer-content">
+                <!-- Single Answer here -->
+              </div>
             </div>
           </template>
         </div>
@@ -39,20 +53,20 @@
             Note Pane
           </div>
           <div class="card-body">
+            <template id="single-note-template">
+              <li>
+                <span>
+                  <!-- text here -->
+                </span>
+                <button type="button" class="btn btn-link p-0" onclick="editProposition(event)">
+                  <i class="bi bi-pencil-square"></i>
+                </button>
+                <button type="button" class="btn btn-link p-0" onclick="resetProposition(event)">
+                  <i class="bi bi-arrow-counterclockwise"></i>
+                </button>
+              </li>
+            </template>
             <ul id="note-container" class="my-3">
-              <template id="single-note-template">
-                <li>
-                  <span>
-                    <!-- text here -->
-                  </span>
-                  <button type="button" class="btn btn-link p-0" onclick="editProposition(event)">
-                    <i class="bi bi-pencil-square"></i>
-                  </button>
-                  <button type="button" class="btn btn-link p-0" onclick="resetProposition(event)">
-                    <i class="bi bi-arrow-counterclockwise"></i>
-                  </button>
-                </li>
-              </template>
             </ul>
             <div class="placeholder">
               Click on highlighted propositions to add them here

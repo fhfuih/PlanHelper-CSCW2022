@@ -1,7 +1,7 @@
 let answers; // 全局answers（应该不需要全局留着question把，就只留answers部分了）
 
 function getAnswers(question) {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     setTimeout(() => {
       answers = mock.answers
       resolve(mock)
@@ -12,7 +12,6 @@ function getAnswers(question) {
 // 等价于jQuery的 $.ready(...) 即 $(...)
 document.addEventListener('DOMContentLoaded', async () => {
   const res = await getAnswers();
-  console.log(res)
   const {question, description, answers} = res;
 
   // 加载问题
@@ -26,7 +25,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     // 加载单个回答的内容
     const answerNode = answerTemplate.cloneNode(true)
     answerNode.classList.add(`answer-${ansIdx}`)
-    answerNode.innerHTML = ans.html
+    answerNode.querySelector('.answer-content').innerHTML = ans.html
+    answerNode.querySelector('.date').textContent = dayjs(ans.date).format('MMM D, YYYY')
+    answerNode.querySelector('.author-name').textContent = ans.author.name
+    answerNode.querySelector('.author-description').textContent = ans.author.description
+    // answerNode.querySelector('.avatar').src = ans.author.avatar
     answerContainer.append(answerNode)
 
     // mark单个回答的所有proposition
@@ -67,7 +70,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             })
             
             // if not exists, just create a new <li> containing the concept, and a <ul> containing the corresponding <li>proposition under it.
-
+            let propositionContainer;
             if (!conceptExist){
               const conceptElement = document.createElement('li')
               conceptElement.textContent = conceptName
@@ -76,31 +79,22 @@ document.addEventListener('DOMContentLoaded', async () => {
               noteContainer.append(conceptElement)
               noteContainer.nextElementSibling.classList.add('d-none')
 
-              const propositionContainer = document.createElement('ul')
+              propositionContainer = document.createElement('ul')
               propositionContainer.classList.add('proposition-container')
               propositionContainer.id = `proposition-${propIdx}-container`
               propositionContainer.setAttribute('data-concept', conceptName)
-
-              const propositionElement = document.getElementById('single-note-template').content.firstElementChild.cloneNode(true)
-              propositionElement.firstElementChild.textContent = propositionContent
-              propositionElement.setAttribute('data-answer', ansIdx)
-              propositionElement.setAttribute('data-proposition', propIdx)
-
-              propositionContainer.append(propositionElement)
-              
               noteContainer.append(propositionContainer)
             }
 
             // if exists, just find the target concept and add the <li>proposition in the <ul> proposition container
             if (conceptExist){
-              const propositionContainer = noteContainer.querySelector(`[data-concept="${conceptName}"]`)
-              const propositionElement= document.createElement('li')
-              propositionElement.textContent = propositionContent
+              propositionContainer = noteContainer.querySelector(`[data-concept="${conceptName}"]`)
+            }
+            const propositionElement = document.getElementById('single-note-template').content.firstElementChild.cloneNode(true)
+            propositionElement.firstElementChild.textContent = propositionContent
               propositionElement.setAttribute('data-answer', ansIdx)
               propositionElement.setAttribute('data-proposition', propIdx)
-
               propositionContainer.append(propositionElement)
-            }
             
 
 

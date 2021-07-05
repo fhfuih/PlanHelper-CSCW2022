@@ -15,6 +15,19 @@
   margin: 1rem 0.25rem 1.5rem;
 }
 
+.avatar {
+  max-width: 36px;
+  max-height: 36px;
+}
+
+.profile-text {
+  font-style: 12px;
+}
+
+.date {
+  font-size: 10px;
+}
+
 .proposition {
   cursor: pointer;
 }
