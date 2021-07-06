@@ -166,3 +166,10 @@ function resetProposition(e) {
   const propIdx = li.getAttribute('data-proposition')
   li.firstElementChild.textContent = answers[ansIdx].propositions[propIdx].content
 }
+
+function removeNote(e) {
+  const li = e.target.closest('li')
+  const ansIdx = li.getAttribute('data-answer')
+  const propIdx = li.getAttribute('data-proposition')
+  document.querySelector(`.answer-${ansIdx} .proposition-${propIdx}`).click()
+}
