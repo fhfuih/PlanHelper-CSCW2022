@@ -29,8 +29,8 @@
         </div>
         <div id="answer-container">
           <template id="template-answer">
-            <div class="answer my-3">
-              <div class="profile d-flex align-items-center">
+            <div class="answer mt-2 mb-3">
+              <div class="profile d-flex align-items-center my-2">
                 <img src="assets/avatar.png" class="avatar rounded-circle border me-2">
                 <div class="profile-text">
                   <div>
@@ -40,10 +40,35 @@
                   <div class="date text-muted"></div>
                 </div>
               </div>
-              <div class="answer-content">
-                <!-- Single Answer here -->
+              <div class="answer-content my-2">
+                <!-- Answer content HTML here -->
+              </div>
+              <div class="similar-answers w-75 ms-auto my-2 d-none">
+                <div id="" class="accordion">
+                  <div class="accordion-item">
+                    <div class="accordion-header">
+                      <button class="accordion-button collapsed py-2 px-3 bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#collapseId" aria-expanded="false" aria-controls="collapseId">
+                        Similar Answers
+                      </button>
+                    </div>
+                    <div id="" class="accordion-collapse collapse" data-bs-parent="#accordionId">
+                      <div class="accordion-body p-0">
+                        <ul class="list-group list-group-flush">
+                          <!-- <li class="list-group-item"></li> -->
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
+          </template>
+          <template id="template-similar-answer">
+            <li class="list-group-item">
+              <div class="author-name fw-bold text-truncate"></div>
+              <div class="content lh-sm block-truncate"></div>
+              <div class="concept text-muted text-truncate mt-1"></div>
+            </li>
           </template>
         </div>
       </div>

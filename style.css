@@ -8,7 +8,7 @@
   margin-bottom: 32px; /* margin top 被bootstrap设置了 */
 }
 
-#question-container::after, .answer::after {
+#question-container::after, .answer:not(:last-child):after {
   content: '';
   display: block;
   border: 1px solid #f5f5f5;
@@ -21,7 +21,7 @@
 }
 
 .profile-text {
-  font-style: 12px;
+  font-size: 14px;
 }
 
 .date {
@@ -40,6 +40,23 @@
   visibility: visible;
 }
 
+.similar-answers .author-name {
+  font-size: 12px;
+}
+
+.similar-answers .content {
+  font-size: 14px;
+}
+
+.similar-answers .content p,ul {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.similar-answers .concept {
+  font-size: 12px;
+}
+
 #note-container:blank {
   background-color: black;
 }
@@ -55,4 +72,11 @@
 .placeholder {
   color: rgb(185, 194, 204);
   margin: 1rem 0;
+}
+
+.block-truncate {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
