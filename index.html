@@ -54,7 +54,7 @@
                     <div id="" class="accordion-collapse collapse" data-bs-parent="#accordionId">
                       <div class="accordion-body p-0">
                         <ul class="list-group list-group-flush">
-                          <!-- <li class="list-group-item"></li> -->
+                          <!-- Similar answer here -->
                         </ul>
                       </div>
                     </div>
@@ -66,8 +66,9 @@
           <template id="template-similar-answer">
             <li class="list-group-item">
               <div class="author-name fw-bold text-truncate"></div>
-              <div class="content lh-sm block-truncate"></div>
+              <div class="content lh-sm truncate"></div>
               <div class="concept text-muted text-truncate mt-1"></div>
+              <button class="d-block btn btn-link ms-auto p-0">(Expand)</button>
             </li>
           </template>
         </div>
@@ -83,13 +84,13 @@
                 <span>
                   <!-- text here -->
                 </span>
-                <button type="button" class="btn btn-link p-0" onclick="editProposition(event)">
+                <button type="button" class="btn btn-link p-0" onclick="editProposition(event)" title="Edit note">
                   <i class="bi bi-pencil-square"></i>
                 </button>
-                <button type="button" class="btn btn-link p-0" onclick="resetProposition(event)">
+                <button type="button" class="btn btn-link p-0" onclick="resetProposition(event)" title="Reset note">
                   <i class="bi bi-arrow-counterclockwise"></i>
                 </button>
-                <button type="button" class="btn btn-link p-0" onclick="removeNote(event)">
+                <button type="button" class="btn btn-link p-0" onclick="removeNote(event)" title="Remove note">
                   <i class="bi bi-trash"></i>
                 </button>
               </li>

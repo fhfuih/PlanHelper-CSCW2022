@@ -1,3 +1,4 @@
+/* layout */
 .outer {
   margin-top: 50px;
 }
@@ -8,6 +9,7 @@
   margin-bottom: 32px; /* margin top 被bootstrap设置了 */
 }
 
+/* question */
 #question-container::after, .answer:not(:last-child):after {
   content: '';
   display: block;
@@ -15,6 +17,7 @@
   margin: 1rem 0.25rem 1.5rem;
 }
 
+/* profile */
 .avatar {
   max-width: 36px;
   max-height: 36px;
@@ -28,6 +31,11 @@
   font-size: 10px;
 }
 
+/* answer & its propositions */
+mark, .mark {
+  padding-left: 0;
+  padding-right: 0;
+}
 .proposition {
   cursor: pointer;
 }
@@ -40,12 +48,14 @@
   visibility: visible;
 }
 
+/* similar answer & its propositions */
 .similar-answers .author-name {
   font-size: 12px;
 }
 
 .similar-answers .content {
   font-size: 14px;
+  transition: all .5s;
 }
 
 .similar-answers .content p,ul {
@@ -53,14 +63,19 @@
   margin-bottom: 0;
 }
 
+.similar-answers .content mark {
+  padding: 0;
+  cursor: default;
+}
+.similar-answers .content.truncate mark {
+  background-color: unset !important;
+}
+
 .similar-answers .concept {
   font-size: 12px;
 }
 
-#note-container:blank {
-  background-color: black;
-}
-
+/* note */
 .edit-button {
   color: #0d6efd;
   cursor: pointer;
@@ -69,12 +84,13 @@
   color: #0a58ca;
 }
 
+/* common */
 .placeholder {
   color: rgb(185, 194, 204);
   margin: 1rem 0;
 }
 
-.block-truncate {
+.truncate {
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;

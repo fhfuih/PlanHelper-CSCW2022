@@ -1,3 +1,6 @@
+// Randomly generated using http://medialab.github.io/iwanthue/. Other tools to check out: http://vrl.cs.brown.edu/color https://carto.com/carto-colors/ https://colorbrewer2.org/ https://stackoverflow.com/questions/470690/how-to-automatically-generate-n-distinct-colors
+const COLORS = ["#ae3652", "#46a338", "#7547cb", "#909537", "#d24ac2", "#43966d", "#d64a2e", "#6176c0", "#b06f32", "#a15191", "#5a6426", "#d77075"]
+
 let answers; // 全局answers（应该不需要全局留着question吧）
 let collapsedAnswers;
 
@@ -11,11 +14,161 @@ function getAnswers(question) {
   })
 }
 
+function markPropositions(contextElement, propositionList) {
+  const markContext = new Mark(contextElement)
+  propositionList.forEach((prop, propIdx) => {
+    // mark单个回答的单个proposition
+    markContext.mark(prop.content, {
+      className: `proposition proposition-${propIdx}`,
+      separateWordSearch: false,
+      acrossElements: true,
+    })
+  })
+}
+
+function linkPropositionAndNote(contextElement, propositionList, dataAnswer) {
+  propositionList.forEach((prop, propIdx) => {
+    // 给这个proposition（的最后一个<mark>之后）加checkbox
+    const markedElements = contextElement.querySelectorAll(`.proposition-${propIdx}`)
+    const markedLast = markedElements[markedElements.length - 1]
+    const checkbox = document.createElement('input')
+    checkbox.type = 'checkbox'
+    checkbox.classList.add('form-check-input')
+    markedLast.insertAdjacentElement('afterend', checkbox)
+    
+    // 点击proposition的时候自动check
+    const noteContainer = document.getElementById('note-container')
+    markedElements.forEach(el => {
+      el.addEventListener('click', () => {
+        if (!checkbox.checked) { // 如果没有check，check并加入note
+          checkbox.checked = true
+          // check whether the concept name already exists or not
+          const conceptElements = noteContainer.querySelectorAll(".concept")
+
+          let conceptExist = false;
+          const conceptName = prop.concept
+          const propositionContent = prop.content
+          conceptElements.forEach(concept_el => {
+            if (concept_el.textContent == conceptName){
+              conceptExist = true;
+            }
+          })
+          
+          let propositionContainer;
+          // if not exists, just create a new <li> containing the concept, and a <ul> containing the corresponding <li>proposition under it.
+          if (!conceptExist){
+            const conceptElement = document.createElement('li')
+            conceptElement.textContent = conceptName
+            conceptElement.classList.add('concept')
+            conceptElement.setAttribute('concept-name', conceptName)
+            noteContainer.append(conceptElement)
+            noteContainer.nextElementSibling.classList.add('d-none')
+
+            propositionContainer = document.createElement('ul')
+            propositionContainer.classList.add('proposition-container')
+            propositionContainer.id = `proposition-${propIdx}-container`
+            propositionContainer.setAttribute('data-concept', conceptName)
+            noteContainer.append(propositionContainer)
+          }
+          // if exists, just find the target concept and add the <li>proposition in the <ul> proposition container
+          else{
+            propositionContainer = noteContainer.querySelector(`[data-concept="${conceptName}"]`)
+          }
+          const propositionElement = document.getElementById('single-note-template').content.firstElementChild.cloneNode(true)
+          propositionElement.firstElementChild.textContent = propositionContent
+          propositionElement.setAttribute(dataAnswer.key, dataAnswer.value)
+          propositionElement.setAttribute('data-proposition', propIdx)
+          propositionContainer.append(propositionElement)
+        } else { // uncheck并移除
+          checkbox.checked = false
+          // remove the proposition
+          const propositionElement = noteContainer.querySelector(`[${dataAnswer.key}="${dataAnswer.value}"][data-proposition="${propIdx}"]`)
+          const propositionContainer = propositionElement.parentElement
+          const conceptName = propositionContainer.getAttribute('data-concept')
+          const conceptElement = noteContainer.querySelector(`[concept-name="${conceptName}"]`)
+          propositionElement.remove()
+          // after removal, if there is no proposition under a concept, delete it
+
+          if (propositionContainer.childElementCount == 0){
+            propositionContainer.remove()
+            conceptElement.remove()
+          }
+          
+
+          if (!noteContainer.childElementCount) noteContainer.nextElementSibling.classList.remove('d-none')
+        }
+      })
+      // 给proposition mark添加鼠标进入监听
+      el.addEventListener('mouseenter', () => {
+        checkbox.style.visibility = 'visible'
+      })
+      el.addEventListener('mouseleave', () => {
+        checkbox.style.removeProperty('visibility')
+      })
+    })    
+  })
+}
+
+function onSimilarAnswerExpand(ansIdx, simAnsIdx) {
+  function handler(e) {
+    const button = e.target
+    const content = document.querySelector(`.answer-${ansIdx} .similar-answer-${simAnsIdx} .content`)
+    const isCollapsed = content.classList.contains('truncate')
+    if (isCollapsed) { // 没有expand，要展开
+      button.textContent = '(Collapse)'
+      content.classList.remove('truncate')
+    } else {
+      button.textContent = '(Expand)'
+      content.classList.add('truncate')
+    }
+  }
+  return handler
+}
+
+function addSimilarAnswer(ansIdx) {
+  const ans = answers[ansIdx]
+  if (!ans.similarAnswers.length) return;
+  const allSimAnsContainer = document.querySelector(`.answer-${ansIdx} .similar-answers`)
+  const accordionButton = allSimAnsContainer.querySelector('.accordion-button')
+  const accordionCollapse = allSimAnsContainer.querySelector('.accordion-collapse.collapse')
+  allSimAnsContainer.classList.remove('d-none')
+  // 折叠容器配置，参见bootstrap文档
+  const accordionId = `similar-answer-accordion-${ansIdx}`
+  const collapseId = `similar-answer-collapse-${ansIdx}`
+  allSimAnsContainer.querySelector('.accordion').id = accordionId
+  accordionCollapse.id = collapseId
+  accordionCollapse.setAttribute('data-bs-parent', `#${accordionId}`)
+  accordionButton.append(`(${ans.similarAnswers.length})`)
+  accordionButton.setAttribute('data-bs-target', `#${collapseId}`)
+  accordionButton.setAttribute('aria-controls', collapseId)
+  // 创建每一个similar answer的组件
+  const simAnsNodes = ans.similarAnswers.map((simAnsNumber, simAnsIdx) => {
+    const simAns = collapsedAnswers[simAnsNumber]
+    const node = document.getElementById('template-similar-answer').content.firstElementChild.cloneNode(true)
+    const contentNode = node.querySelector('.content')
+    const expandButton = node.querySelector('button')
+    node.classList.add(`similar-answer-${simAnsIdx}`)
+    node.querySelector('.author-name').textContent = simAns.author?.name ?? 'Anonymous'
+    node.querySelector('.concept').textContent = simAns.propositions.map(p => p.concept).join(', ')
+    contentNode.innerHTML = simAns.html
+    expandButton.addEventListener('click', onSimilarAnswerExpand(ansIdx, simAnsIdx))
+    markPropositions(contentNode, simAns.propositions)
+    return node
+  })
+  allSimAnsContainer.querySelector('ul').append(...simAnsNodes)
+}
+
 // 等价于jQuery的 $.ready(...) 即 $(...)
 document.addEventListener('DOMContentLoaded', async () => {
   const res = await getAnswers();
   const {question, description} = res; // answers 和 collapsedAnswers在await之后已经写入全局
 
+  // 计算Concept集合以及颜色对应
+  const conceptList = _.uniq(answers.reduce((acc, cur) => [
+    ...acc,
+    ...cur.propositions.map(prop => prop.concept)
+  ], [])).sort()
+  const conceptColorMap = _.zipObject(conceptList, COLORS)
 
   // 加载问题
   document.getElementById('question').textContent = question
@@ -36,120 +189,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     answerContainer.append(answerNode)
 
     // mark单个回答的所有proposition
-    const markContext = new Mark(answerNode)
-    ans.propositions.forEach(({content, concept}, propIdx) => {
-      // mark单个回答的单个proposition
-      markContext.mark(content, {
-        className: `proposition proposition-${propIdx}`,
-        separateWordSearch: false,
-        acrossElements: true,
-      })
-
-      // 给这个proposition加checkbox
-      const markedElements = document.querySelectorAll(`.answer-${ansIdx} .proposition-${propIdx}`)
-      const markedLast = markedElements[markedElements.length - 1]
-      const checkbox = document.createElement('input')
-      checkbox.type = 'checkbox'
-      checkbox.classList.add('form-check-input')
-      markedLast.insertAdjacentElement('afterend', checkbox)
-
-      
-      // 点击proposition的时候自动check
-      const noteContainer = document.getElementById('note-container')
-      markedElements.forEach(el => {
-        el.addEventListener('click', () => {
-          if (!checkbox.checked) { // 如果没有check，check并加入note
-            checkbox.checked = true
-            // check whether the concept name already exists or not
-            const conceptElements = noteContainer.querySelectorAll(".concept")
-
-            let conceptExist = false;
-            const conceptName = answers[ansIdx].propositions[propIdx].concept
-            const propositionContent = answers[ansIdx].propositions[propIdx].content
-            conceptElements.forEach(concept_el => {
-              if (concept_el.textContent == conceptName){
-                conceptExist = true;
-              }
-            })
-            
-            let propositionContainer;
-            // if not exists, just create a new <li> containing the concept, and a <ul> containing the corresponding <li>proposition under it.
-            if (!conceptExist){
-              const conceptElement = document.createElement('li')
-              conceptElement.textContent = conceptName
-              conceptElement.classList.add('concept')
-              conceptElement.setAttribute('concept-name', conceptName)
-              noteContainer.append(conceptElement)
-              noteContainer.nextElementSibling.classList.add('d-none')
-
-              propositionContainer = document.createElement('ul')
-              propositionContainer.classList.add('proposition-container')
-              propositionContainer.id = `proposition-${propIdx}-container`
-              propositionContainer.setAttribute('data-concept', conceptName)
-              noteContainer.append(propositionContainer)
-            }
-            // if exists, just find the target concept and add the <li>proposition in the <ul> proposition container
-            else{
-              propositionContainer = noteContainer.querySelector(`[data-concept="${conceptName}"]`)
-            }
-            const propositionElement = document.getElementById('single-note-template').content.firstElementChild.cloneNode(true)
-            propositionElement.firstElementChild.textContent = propositionContent
-              propositionElement.setAttribute('data-answer', ansIdx)
-              propositionElement.setAttribute('data-proposition', propIdx)
-              propositionContainer.append(propositionElement)
-          } else { // uncheck并移除
-            checkbox.checked = false
-            // remove the proposition
-            const propositionElement = noteContainer.querySelector(`[data-answer="${ansIdx}"][data-proposition="${propIdx}"]`)
-            const propositionContainer = propositionElement.parentElement
-            const conceptName = propositionContainer.getAttribute('data-concept')
-            const conceptElement = noteContainer.querySelector(`[concept-name="${conceptName}"]`)
-            propositionElement.remove()
-            // after removal, if there is no proposition under a concept, delete it
-
-            if (propositionContainer.childElementCount == 0){
-              propositionContainer.remove()
-              conceptElement.remove()
-            }
-            
-
-            if (!noteContainer.childElementCount) noteContainer.nextElementSibling.classList.remove('d-none')
-          }
-        })
-        el.addEventListener('mouseenter', () => {
-          checkbox.style.visibility = 'visible'
-        })
-        el.addEventListener('mouseleave', () => {
-          checkbox.style.removeProperty('visibility')
-        })
-      })
-    })
+    markPropositions(answerNode, ans.propositions)
+    linkPropositionAndNote(answerNode, ans.propositions, {key: 'data-answer', value: ansIdx})
 
     // 增加单个回答的所有类似回答
-    if (ans.similarAnswers?.length) {
-      const allSimAnsContainer = answerNode.querySelector('.similar-answers')
-      allSimAnsContainer.classList.remove('d-none')
-      // 折叠accordion配置，参见bootstrap文档
-      const accordionId = `similar-answer-accordion-${ansIdx}`
-      const collapseId = `similar-answer-collapse-${ansIdx}`
-      allSimAnsContainer.querySelector('.accordion').id = accordionId
-      const accordionButton = allSimAnsContainer.querySelector('.accordion-button')
-      const accordionCollapse = allSimAnsContainer.querySelector('.accordion-collapse.collapse')
-      accordionCollapse.id = collapseId
-      accordionCollapse.setAttribute('data-bs-parent', `#${accordionId}`)
-      accordionButton.append(`(${ans.similarAnswers.length})`)
-      accordionButton.setAttribute('data-bs-target', `#${collapseId}`)
-      accordionButton.setAttribute('aria-controls', collapseId)
-      const simAnsNodes = ans.similarAnswers.map(simAnsIdx => {
-        const simAns = collapsedAnswers[simAnsIdx]
-        const node = document.getElementById('template-similar-answer').content.firstElementChild.cloneNode(true)
-        node.querySelector('.author-name').textContent = simAns.author?.name ?? 'Anonymous'
-        node.querySelector('.content').innerHTML = simAns.html
-        node.querySelector('.concept').textContent = simAns.propositions.map(p => p.concept).join(', ')
-        return node
-      })
-      answerNode.querySelector('.similar-answers ul').append(...simAnsNodes)
-    }
+    addSimilarAnswer(ansIdx)
   })
 
 })
