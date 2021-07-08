@@ -1,6 +1,14 @@
 // Randomly generated using http://medialab.github.io/iwanthue/. Other tools to check out: http://vrl.cs.brown.edu/color https://carto.com/carto-colors/ https://colorbrewer2.org/ https://stackoverflow.com/questions/470690/how-to-automatically-generate-n-distinct-colors
 const COLORS = ["#ae3652", "#46a338", "#7547cb", "#909537", "#d24ac2", "#43966d", "#d64a2e", "#6176c0", "#b06f32", "#a15191", "#5a6426", "#d77075"]
 
+const sortableOptions = {
+  group: 'note',
+  animation: 150,
+  fallbackOnBody: true,
+  swapThreshold: 0.65,
+  handle: '.drag-handle'
+}
+
 let answers; // 全局answers（应该不需要全局留着question吧）
 let collapsedAnswers;
 
@@ -26,6 +34,68 @@ function markPropositions(contextElement, propositionList) {
   })
 }
 
+function addToNote(prop, propIdx, dataAnswer) {
+  const noteContainer = document.getElementById('note-container')
+  // check whether the concept name already exists or not
+  const conceptElements = noteContainer.querySelectorAll(".concept")
+
+  let conceptExist = false;
+  const conceptName = prop.concept
+  const propositionContent = prop.content
+  conceptElements.forEach(concept_el => {
+    if (concept_el.textContent == conceptName){
+      conceptExist = true;
+    }
+  })
+  
+  let propositionContainer;
+  // if not exists, just create a new <li> containing the concept, and a <ul> containing the corresponding <li>proposition under it.
+  if (!conceptExist){
+    const conceptElement = document.getElementById('template-single-concept').content.firstElementChild.cloneNode(true)
+    conceptElement.append(conceptName)
+    conceptElement.setAttribute('concept-name', conceptName)
+    noteContainer.append(conceptElement)
+    noteContainer.nextElementSibling.classList.add('d-none')
+
+    propositionContainer = document.createElement('ul')
+    propositionContainer.classList.add('proposition-container')
+    propositionContainer.id = `proposition-${propIdx}-container`
+    propositionContainer.setAttribute('data-concept', conceptName)
+    conceptElement.append(propositionContainer)
+
+    // Initialize drag'n'drop
+    new Sortable(propositionContainer, sortableOptions)
+  }
+  // if exists, just find the target concept and add the <li>proposition in the <ul> proposition container
+  else{
+    propositionContainer = noteContainer.querySelector(`[data-concept="${conceptName}"]`)
+  }
+  const propositionElement = document.getElementById('single-note-template').content.firstElementChild.cloneNode(true)
+  propositionElement.querySelector('.content').textContent = propositionContent
+  propositionElement.setAttribute(dataAnswer.key, dataAnswer.value)
+  propositionElement.setAttribute('data-proposition', propIdx)
+  propositionContainer.append(propositionElement)
+}
+
+function removeFromNote(propIdx, dataAnswer) {
+  const noteContainer = document.getElementById('note-container')
+  // remove the proposition
+  const propositionElement = noteContainer.querySelector(`[${dataAnswer.key}="${dataAnswer.value}"][data-proposition="${propIdx}"]`)
+  const propositionContainer = propositionElement.parentElement
+  const conceptName = propositionContainer.getAttribute('data-concept')
+  const conceptElement = noteContainer.querySelector(`[concept-name="${conceptName}"]`)
+  // Destroy d'n'd
+  Sortable.get(propositionContainer).destroy()
+  propositionElement.remove()
+  // after removal, if there is no proposition under a concept, delete it
+
+  if (propositionContainer.childElementCount == 0){
+    propositionContainer.remove()
+    conceptElement.remove()
+  }
+  if (!noteContainer.childElementCount) noteContainer.nextElementSibling.classList.remove('d-none')
+}
+
 function linkPropositionAndNote(contextElement, propositionList, dataAnswer) {
   propositionList.forEach((prop, propIdx) => {
     // 给这个proposition（的最后一个<mark>之后）加checkbox
@@ -37,65 +107,14 @@ function linkPropositionAndNote(contextElement, propositionList, dataAnswer) {
     markedLast.insertAdjacentElement('afterend', checkbox)
     
     // 点击proposition的时候自动check
-    const noteContainer = document.getElementById('note-container')
     markedElements.forEach(el => {
       el.addEventListener('click', () => {
         if (!checkbox.checked) { // 如果没有check，check并加入note
           checkbox.checked = true
-          // check whether the concept name already exists or not
-          const conceptElements = noteContainer.querySelectorAll(".concept")
-
-          let conceptExist = false;
-          const conceptName = prop.concept
-          const propositionContent = prop.content
-          conceptElements.forEach(concept_el => {
-            if (concept_el.textContent == conceptName){
-              conceptExist = true;
-            }
-          })
-          
-          let propositionContainer;
-          // if not exists, just create a new <li> containing the concept, and a <ul> containing the corresponding <li>proposition under it.
-          if (!conceptExist){
-            const conceptElement = document.createElement('li')
-            conceptElement.textContent = conceptName
-            conceptElement.classList.add('concept')
-            conceptElement.setAttribute('concept-name', conceptName)
-            noteContainer.append(conceptElement)
-            noteContainer.nextElementSibling.classList.add('d-none')
-
-            propositionContainer = document.createElement('ul')
-            propositionContainer.classList.add('proposition-container')
-            propositionContainer.id = `proposition-${propIdx}-container`
-            propositionContainer.setAttribute('data-concept', conceptName)
-            noteContainer.append(propositionContainer)
-          }
-          // if exists, just find the target concept and add the <li>proposition in the <ul> proposition container
-          else{
-            propositionContainer = noteContainer.querySelector(`[data-concept="${conceptName}"]`)
-          }
-          const propositionElement = document.getElementById('single-note-template').content.firstElementChild.cloneNode(true)
-          propositionElement.firstElementChild.textContent = propositionContent
-          propositionElement.setAttribute(dataAnswer.key, dataAnswer.value)
-          propositionElement.setAttribute('data-proposition', propIdx)
-          propositionContainer.append(propositionElement)
+          addToNote(prop, propIdx, dataAnswer)
         } else { // uncheck并移除
           checkbox.checked = false
-          // remove the proposition
-          const propositionElement = noteContainer.querySelector(`[${dataAnswer.key}="${dataAnswer.value}"][data-proposition="${propIdx}"]`)
-          const propositionContainer = propositionElement.parentElement
-          const conceptName = propositionContainer.getAttribute('data-concept')
-          const conceptElement = noteContainer.querySelector(`[concept-name="${conceptName}"]`)
-          propositionElement.remove()
-          // after removal, if there is no proposition under a concept, delete it
-
-          if (propositionContainer.childElementCount == 0){
-            propositionContainer.remove()
-            conceptElement.remove()
-          }
-          
-
-          if (!noteContainer.childElementCount) noteContainer.nextElementSibling.classList.remove('d-none')
+          removeFromNote(propIdx, dataAnswer)
         }
       })
       // 给proposition mark添加鼠标进入监听
@@ -196,6 +215,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     addSimilarAnswer(ansIdx)
   })
 
+  // 初始化note pane外层的dnd
+  const noteContainer = document.getElementById('note-container')
+  new Sortable(noteContainer, {
+    ...sortableOptions,
+    group: 'concept',
+  })
 })
 
 function editProposition(e) {

@@ -3,7 +3,8 @@
     "include": [
       "jquery",
       "lodash",
-      "dayjs"
+      "dayjs",
+      "sortablejs"
     ]
   }
 }

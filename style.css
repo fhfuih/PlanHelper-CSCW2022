@@ -84,6 +84,35 @@ mark, .mark {
   color: #0a58ca;
 }
 
+ul#note-container:not(:empty) {
+  padding: 1rem 0 1rem 1rem !important;
+}
+
+ul#note-container, #note-container ul {
+  list-style: none;
+}
+
+#note-container .drag-handle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translateX(-100%);
+  box-sizing: border-box;
+  cursor: all-scroll;
+  color: rgba(60, 60, 60, 0.75);
+}
+#note-container .drag-handle:hover::before { /* 悬浮半透明背景 */
+  content: '';
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  background-color: rgba(224, 224, 224, 0.5);
+  border-radius: 5px;
+  z-index: -1;
+}
+
 /* common */
 .placeholder {
   color: rgb(185, 194, 204);

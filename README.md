@@ -2,3 +2,19 @@
 
 我暂时没有加jQuery，因为现在好多地方都不用jQuery了，纯原生API已经做的比较全（且比jQ快了）。
 如果想加jQuery的话，我在index.html里面留了一个comment直接打开就有了
+
+## TODO
+
+> 20210707
+
+* Concept text 自定义
+* Contept 颜色自定义
+* note pane metadata (redundancy 等)
+* note pane ordering (ranx by x)
+* note pane drag&drop ordering
+* note pane icon button clustering
+* vote number
+* similar answer concept hashtag-style
+* adjuect proposition click behavior
+* dbclick note to jump to original answer (or overleaf synctax-style arrows)
+* answer pane 根据concept来highlight
