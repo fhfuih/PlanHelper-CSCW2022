@@ -7,6 +7,8 @@
 
 > 20210707
 
+前端
+
 * [ ] Concept text 自定义
 * [ ] Contept 颜色自定义
 * [ ] note pane metadata (redundancy 等) (wait for data processing)
@@ -17,4 +19,14 @@
 * [x] similar answer concept hashtag-style
 * [ ] adjusct proposition click behavior
 * [ ] dbclick note to jump to original answer (or overleaf synctax-style arrows)
-* [ ] answer pane 根据concept来highlight
+* [ ] answer pane 根据concept来highlight（同2）
+
+后端（数据处理）
+
+* [ ] 计算good answer和折叠answer
+
+数据爬取和标记
+
+* [ ] 标sub concept
+* [ ] 计算redundancy
+* [ ] （minor）重爬带votes的数据
