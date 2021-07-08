@@ -92,6 +92,10 @@ ul#note-container, #note-container ul {
   list-style: none;
 }
 
+#note-container .proposition-container {
+  padding-left: 1rem !important;
+}
+
 #note-container .drag-handle {
   position: absolute;
   top: 0;

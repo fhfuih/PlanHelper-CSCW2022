@@ -168,7 +168,12 @@ function addSimilarAnswer(ansIdx) {
     const expandButton = node.querySelector('button')
     node.classList.add(`similar-answer-${simAnsIdx}`)
     node.querySelector('.author-name').textContent = simAns.author?.name ?? 'Anonymous'
-    node.querySelector('.concept').textContent = simAns.propositions.map(p => p.concept).join(', ')
+    node.querySelector('.concept').append(...simAns.propositions.map(p => {
+      const el = document.createElement('span')
+      el.textContent = p.concept
+      el.classList.add('badge', 'bg-secondary', 'me-1')
+      return el
+    }))
     contentNode.innerHTML = simAns.html
     expandButton.addEventListener('click', onSimilarAnswerExpand(ansIdx, simAnsIdx))
     markPropositions(contentNode, simAns.propositions)

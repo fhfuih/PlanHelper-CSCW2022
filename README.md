@@ -7,14 +7,14 @@
 
 > 20210707
 
-* Concept text 自定义
-* Contept 颜色自定义
-* note pane metadata (redundancy 等)
-* note pane ordering (ranx by x)
-* note pane drag&drop ordering
-* note pane icon button clustering
-* vote number
-* similar answer concept hashtag-style
-* adjuect proposition click behavior
-* dbclick note to jump to original answer (or overleaf synctax-style arrows)
-* answer pane 根据concept来highlight
+* [ ] Concept text 自定义
+* [ ] Contept 颜色自定义
+* [ ] note pane metadata (redundancy 等) (wait for data processing)
+* [ ] note pane ordering (ranx by x) (Overlap with dnd ordering?)
+* [x] note pane drag&drop ordering
+* [ ] note pane icon button clustering
+* [ ] vote number (wait for data; need to re-crawl)
+* [x] similar answer concept hashtag-style
+* [ ] adjusct proposition click behavior
+* [ ] dbclick note to jump to original answer (or overleaf synctax-style arrows)
+* [ ] answer pane 根据concept来highlight
