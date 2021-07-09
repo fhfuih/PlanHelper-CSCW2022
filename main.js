@@ -61,7 +61,7 @@ function markPropositions(contextElement, propositionList) {
 function addToNote(prop, propIdx, dataAnswer) {
   const noteContainer = document.getElementById('note-container')
   // check whether the concept name already exists or not
-  const conceptElements = noteContainer.querySelectorAll(".concept")
+  const conceptElements = noteContainer.querySelectorAll(".concept .content")
 
   let conceptExist = false;
   const conceptName = prop.concept
