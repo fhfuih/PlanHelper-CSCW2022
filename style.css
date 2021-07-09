@@ -133,3 +133,23 @@ ul#note-container, #note-container ul {
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+.blink {
+  border: solid 0px red;
+  animation: anim-blink 2s ease-in-out 0s;
+}
+.blink.blink-first {
+  border-right-width: 0 !important;
+}
+.blink.blink-last {
+  border-right-width: 0 !important;
+}
+
+@keyframes anim-blink {
+  0%, 50%, 100% {
+    border-width: 0px;
+  }
+  25%, 75% {
+    border-width: 3px;
+  }
+}

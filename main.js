@@ -25,6 +25,27 @@ function getAnswers(question) {
   })
 }
 
+function scrollIntoView(el) {
+  if (typeof el === 'string' || el instanceof String) {
+    el = document.querySelectorAll(el)
+  }
+  if (el instanceof NodeList || Array.isArray(el)) {
+    el[0].scrollIntoViewIfNeeded()
+    el.forEach((e, i) => {
+      if (e.classList.contains('blink')) return
+      if (i == 0) e.classList.add('blink', 'blink-first')
+      else if (i == el.length) e.classList.add('blink', 'blink-last')
+      else e.classList.add('blink')
+      setTimeout(() => e.classList.remove('blink', 'blink-first', 'blink-last'), 2000)
+    })
+  } else {
+    el.scrollIntoViewIfNeeded()
+    if (el.classList.contains('blink')) return
+    el.classList.add('blink')
+    setTimeout(() => el.classList.remove('blink', 'blink-first', 'blink-last'), 2000)
+  }
+}
+
 function markPropositions(contextElement, propositionList) {
   const markContext = new Mark(contextElement)
   propositionList.forEach((prop, propIdx) => {
@@ -128,6 +149,18 @@ function linkPropositionAndNote(contextElement, propositionList, dataAnswer) {
         checkbox.style.removeProperty('visibility')
       })
     })    
+  })
+}
+
+function initNotePaneDoubleClickNote() {
+  document.getElementById('note-container').addEventListener('dblclick', (e) => {
+    if (e.target && e.target.matches('.note > .content')) {
+      e.preventDefault()
+      const li = e.target.closest('li')
+      const ansIdx = li.getAttribute('data-answer')
+      const propIdx = li.getAttribute('data-proposition')
+      scrollIntoView(`.answer-${ansIdx} .proposition-${propIdx}`)
+    }
   })
 }
 
@@ -260,6 +293,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   })
   // 初始化note pane的button menu
   initNotePaneButtonMenu()
+  // 初始化note pane双击跳转
+  initNotePaneDoubleClickNote()
 })
 
 function onEditNoteClick() {

@@ -18,7 +18,7 @@
 * [ ] vote number (wait for data; need to re-crawl)
 * [x] similar answer concept hashtag-style
 * [ ] adjust proposition click behavior
-* [ ] dbclick note to jump to original answer (or overleaf synctax-style arrows)
+* [x] dbclick note to jump to original answer (or overleaf synctax-style arrows)
 * [ ] answer pane 根据concept来highlight（同2）
 
 后端（数据处理）
