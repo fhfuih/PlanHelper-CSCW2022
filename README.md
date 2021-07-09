@@ -15,8 +15,8 @@
 * [x] note pane drag&drop ordering
 * [x] note pane icon button clustering
 * [x] similar answer concept hashtag-style
-* [x] dbclick note to jump to original answer (or overleaf synctax-style arrows)
-* [ ] adjust proposition click behavior
+* [x] ~~dbclick~~ctrl+click note to jump to original answer (or overleaf synctax-style arrows) (Also: ctrl+click a proposition in answer pane to jump to note pane. Not using double click because it will confuse "click to add prop. to note pane")
+* [ ] ~~adjust proposition click behavior~~ (或许不需要了？因为有了note pane的拖拽排序减少用户的recover成本，同时增加了proposition的悬浮提示。如果只点击checkbox才添加到note的话，点击区域还是有点小了。不好操作。而且现有的coding实现比较麻烦)
 * [ ] note pane metadata (redundancy 等) (wait for data processing)
 * [ ] note pane ordering (ranx by x) (Overlap with dnd ordering?)
 * [ ] vote number (wait for data; need to re-crawl)

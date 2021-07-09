@@ -30,19 +30,19 @@ function scrollIntoView(el) {
     el = document.querySelectorAll(el)
   }
   if (el instanceof NodeList || Array.isArray(el)) {
-    el[0].scrollIntoViewIfNeeded()
+    if (!el.length) return
+    el[0].scrollIntoView()
     el.forEach((e, i) => {
       if (e.classList.contains('blink')) return
-      if (i == 0) e.classList.add('blink', 'blink-first')
-      else if (i == el.length) e.classList.add('blink', 'blink-last')
-      else e.classList.add('blink')
-      setTimeout(() => e.classList.remove('blink', 'blink-first', 'blink-last'), 2000)
+      e.classList.add('blink')
+      setTimeout(() => e.classList.remove('blink'), 2000)
     })
   } else {
-    el.scrollIntoViewIfNeeded()
+    if (!el) return
+    el.scrollIntoView()
     if (el.classList.contains('blink')) return
     el.classList.add('blink')
-    setTimeout(() => el.classList.remove('blink', 'blink-first', 'blink-last'), 2000)
+    setTimeout(() => el.classList.remove('blink'), 2000)
   }
 }
 
@@ -54,6 +54,9 @@ function markPropositions(contextElement, propositionList) {
       className: `proposition proposition-${propIdx} concept-${prop.concept}`,
       separateWordSearch: false,
       acrossElements: true,
+      each(el) {
+        el.title = 'Click to add the proposition to the note pane.\nCtrl+click to locate the proposition in the note pane (if exists).'
+      }
     })
   })
 }
@@ -132,7 +135,15 @@ function linkPropositionAndNote(contextElement, propositionList, dataAnswer) {
     
     // 点击proposition的时候自动check
     markedElements.forEach(el => {
-      el.addEventListener('click', () => {
+      el.addEventListener('click', (e) => {
+        if (e.ctrlKey) { // 跳转到note
+          const answer = e.target.closest('.answer')
+          let ansIdx, propIdx;
+          answer.classList.forEach(c => c.slice(0, -1) == 'answer-' && (ansIdx = c.charAt(c.length - 1)))
+          e.target.classList.forEach(c => c.slice(0, -1) == 'proposition-' && (propIdx = c.charAt(c.length - 1)))
+          scrollIntoView(`.note[data-answer="${ansIdx}"][data-proposition="${propIdx}"]`)
+          return
+        } // 添加note
         if (!checkbox.checked) { // 如果没有check，check并加入note
           checkbox.checked = true
           addToNote(prop, propIdx, dataAnswer)
@@ -170,8 +181,8 @@ function clearConceptColor(concept) {
 }
 
 function initNotePaneDoubleClickNote() {
-  document.getElementById('note-container').addEventListener('dblclick', (e) => {
-    if (e.target && e.target.matches('.note > .content')) {
+  document.getElementById('note-container').addEventListener('click', (e) => {
+    if (e.target && e.target.matches('.note > .content') && e.ctrlKey) {
       e.preventDefault()
       const li = e.target.closest('li')
       const ansIdx = li.getAttribute('data-answer')
@@ -342,6 +353,13 @@ document.addEventListener('DOMContentLoaded', async () => {
   // 初始化note pane双击跳转
   initNotePaneDoubleClickNote()
 })
+
+// 监听ctrl键有没有按下并调整style
+function ctrlHandler(e) {
+  document.body.className = e.ctrlKey ? 'ctrl-down' : ''
+}
+document.addEventListener('keydown', ctrlHandler)
+document.addEventListener('keyup', ctrlHandler)
 
 function onEditNoteClick() {
   const newProp = prompt('Please enter your proposition')
