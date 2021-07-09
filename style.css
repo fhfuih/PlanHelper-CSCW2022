@@ -117,6 +117,10 @@ ul#note-container, #note-container ul {
   z-index: -1;
 }
 
+.popover-body {
+  padding: 5px 15px;
+}
+
 /* common */
 .placeholder {
   color: rgb(185, 194, 204);

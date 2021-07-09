@@ -91,16 +91,21 @@
                 <span class="content">
                   <!-- text here -->
                 </span>
-                <button type="button" class="btn btn-link p-0" onclick="editProposition(event)" title="Edit note">
-                  <i class="bi bi-pencil-square"></i>
-                </button>
-                <button type="button" class="btn btn-link p-0" onclick="resetProposition(event)" title="Reset note">
-                  <i class="bi bi-arrow-counterclockwise"></i>
-                </button>
-                <button type="button" class="btn btn-link p-0" onclick="removeNote(event)" title="Remove note">
-                  <i class="bi bi-trash"></i>
-                </button>
+                <a class="popover-button-menu" tabindex="0" role="button" data-bs-toggle="popover">
+                  <i class="bi bi-three-dots"></i>
+                </a>
               </li>
+            </template>
+            <template id="template-popover-button-menu">
+              <button type="button" class="btn btn-link p-0" onclick="onEditNoteClick()" title="Edit note">
+                <i class="bi bi-pencil-square"></i>
+              </button>
+              <button type="button" class="btn btn-link p-0" onclick="onResetNoteClick()" title="Reset note">
+                <i class="bi bi-arrow-counterclockwise"></i>
+              </button>
+              <button type="button" class="btn btn-link p-0" onclick="onRemoveNoteClick()" title="Remove note">
+                <i class="bi bi-trash"></i>
+              </button>
             </template>
             <ul id="note-container"></ul>
             <div class="placeholder">

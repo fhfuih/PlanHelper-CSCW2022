@@ -1,6 +1,7 @@
 // Randomly generated using http://medialab.github.io/iwanthue/. Other tools to check out: http://vrl.cs.brown.edu/color https://carto.com/carto-colors/ https://colorbrewer2.org/ https://stackoverflow.com/questions/470690/how-to-automatically-generate-n-distinct-colors
 const COLORS = ["#ae3652", "#46a338", "#7547cb", "#909537", "#d24ac2", "#43966d", "#d64a2e", "#6176c0", "#b06f32", "#a15191", "#5a6426", "#d77075"]
 
+// note pane dnd
 const sortableOptions = {
   group: 'note',
   animation: 150,
@@ -8,6 +9,8 @@ const sortableOptions = {
   swapThreshold: 0.65,
   handle: '.drag-handle'
 }
+// note pane popover button menu
+let lastPopoverReference;
 
 let answers; // 全局answers（应该不需要全局留着question吧）
 let collapsedAnswers;
@@ -128,6 +131,25 @@ function linkPropositionAndNote(contextElement, propositionList, dataAnswer) {
   })
 }
 
+function initNotePaneButtonMenu() {
+  const noteContainer = document.getElementById('note-container')
+  new bootstrap.Popover(noteContainer, {
+    selector: '.popover-button-menu',
+    trigger: 'focus',
+    container: 'body',
+    placement: 'bottom',
+    content: document.getElementById('template-popover-button-menu').innerHTML.trim(),
+    html: true, // the content is three HTML buttons. Inject them as-is
+    sanitize: false, // By default, button elements are sanitized and not allowed (https://getbootstrap.com/docs/5.0/getting-started/javascript/#sanitizer). Turn this off
+    popperConfig: { // remember which three-dot button is clicked. This cannot be traced on-the-fly because the popover element is appended to body, not the note element's child
+      onFirstUpdate: (state) => {
+        const {elements: {reference}} = state
+        lastPopoverReference = reference
+      }
+    }
+  })
+}
+
 function onSimilarAnswerExpand(ansIdx, simAnsIdx) {
   function handler(e) {
     const button = e.target
@@ -226,23 +248,25 @@ document.addEventListener('DOMContentLoaded', async () => {
     ...sortableOptions,
     group: 'concept',
   })
+  // 初始化note pane的button menu
+  initNotePaneButtonMenu()
 })
 
-function editProposition(e) {
+function onEditNoteClick() {
   const newProp = prompt('Please enter your proposition')
-  const {target} = e;
-  target.closest('li').firstElementChild.textContent = newProp
+  if (!newProp) return
+  lastPopoverReference.closest('li').querySelector('.content').textContent = newProp
 }
 
-function resetProposition(e) {
-  const li = e.target.closest('li')
+function onResetNoteClick() {
+  const li = lastPopoverReference.closest('li')
   const ansIdx = li.getAttribute('data-answer')
   const propIdx = li.getAttribute('data-proposition')
-  li.firstElementChild.textContent = answers[ansIdx].propositions[propIdx].content
+  li.querySelector('.content').textContent = answers[ansIdx].propositions[propIdx].content
 }
 
-function removeNote(e) {
-  const li = e.target.closest('li')
+function onRemoveNoteClick() {
+  const li = lastPopoverReference.closest('li')
   const ansIdx = li.getAttribute('data-answer')
   const propIdx = li.getAttribute('data-proposition')
   document.querySelector(`.answer-${ansIdx} .proposition-${propIdx}`).click()

@@ -14,10 +14,10 @@
 * [ ] note pane metadata (redundancy 等) (wait for data processing)
 * [ ] note pane ordering (ranx by x) (Overlap with dnd ordering?)
 * [x] note pane drag&drop ordering
-* [ ] note pane icon button clustering
+* [x] note pane icon button clustering
 * [ ] vote number (wait for data; need to re-crawl)
 * [x] similar answer concept hashtag-style
-* [ ] adjusct proposition click behavior
+* [ ] adjust proposition click behavior
 * [ ] dbclick note to jump to original answer (or overleaf synctax-style arrows)
 * [ ] answer pane 根据concept来highlight（同2）
 
@@ -29,4 +29,5 @@
 
 * [ ] 标sub concept
 * [ ] 计算redundancy
+* [ ] 再找一两个qustion
 * [ ] （minor）重爬带votes的数据
