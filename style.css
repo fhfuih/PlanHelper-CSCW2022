@@ -117,8 +117,17 @@ ul#note-container, #note-container ul {
   z-index: -1;
 }
 
-.popover-body {
+.popover-body { /* 这是bootstrap的类 */
   padding: 5px 15px;
+}
+
+/* Color Picker */
+.pcr-clear {
+  background: whitesmoke !important;
+  color: black !important;
+}
+.pcr-clear:focus {
+  box-shadow: 0 0 0 1px hsl(0deg 0% 100% / 85%), 0 0 0 3px rgb(245 245 245 / 40%) !important;
 }
 
 /* common */

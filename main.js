@@ -252,6 +252,15 @@ function initNotePaneButtonMenu() {
           changeConceptColor(concept, color, isDark)
           instance.hide()
         })
+        // 妈的这里不想处理了
+        // 总之就是，popover消失的时候是直接从DOM树删除了的，Pickr必须在构造的时候挂靠在当时popover（中的button）上。
+        // popover再点一遍的时候就是新的popover元素了，也要创建新的Pickr实例。
+        // 久而久之，老的Pickr实例也没有销毁，就有内存泄漏。
+        // naive的解决方法是在Pickr hide时自我销毁，因为打开Pickr的瞬间focus发生变化、popover已经没了，所以等这次Pickr隐藏时理论上可以销毁
+        // 但是这样做蜜汁在save时可以，在clear时报错。所以加了个1秒的延迟
+        pickr.on('hide', instance => {
+          if (!document.body.contains(instance.el)) setTimeout(() => instance.destroyAndRemove(), 1000)
+        })
       }
     }
   })
