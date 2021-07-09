@@ -55,7 +55,7 @@ function addToNote(prop, propIdx, dataAnswer) {
   // if not exists, just create a new <li> containing the concept, and a <ul> containing the corresponding <li>proposition under it.
   if (!conceptExist){
     const conceptElement = document.getElementById('template-single-concept').content.firstElementChild.cloneNode(true)
-    conceptElement.append(conceptName)
+    conceptElement.querySelector('.content').textContent = conceptName
     conceptElement.setAttribute('concept-name', conceptName)
     noteContainer.append(conceptElement)
     noteContainer.nextElementSibling.classList.add('d-none')
@@ -132,13 +132,10 @@ function linkPropositionAndNote(contextElement, propositionList, dataAnswer) {
 }
 
 function initNotePaneButtonMenu() {
-  const noteContainer = document.getElementById('note-container')
-  new bootstrap.Popover(noteContainer, {
-    selector: '.popover-button-menu',
+  const options = {
     trigger: 'focus',
     container: 'body',
     placement: 'bottom',
-    content: document.getElementById('template-popover-button-menu').innerHTML.trim(),
     html: true, // the content is three HTML buttons. Inject them as-is
     sanitize: false, // By default, button elements are sanitized and not allowed (https://getbootstrap.com/docs/5.0/getting-started/javascript/#sanitizer). Turn this off
     popperConfig: { // remember which three-dot button is clicked. This cannot be traced on-the-fly because the popover element is appended to body, not the note element's child
@@ -147,6 +144,19 @@ function initNotePaneButtonMenu() {
         lastPopoverReference = reference
       }
     }
+  }
+  const noteContainer = document.getElementById('note-container')
+  // Note menu
+  new bootstrap.Popover(noteContainer, {
+    ...options,
+    selector: '.popover-note-menu',
+    content: document.getElementById('template-note-popover').innerHTML.trim(),
+  })
+  // Concept menu
+  new bootstrap.Popover(noteContainer, {
+    ...options,
+    selector: '.popover-concept-menu',
+    content: document.getElementById('template-concept-popover').innerHTML.trim(),
   })
 }
 
@@ -270,4 +280,15 @@ function onRemoveNoteClick() {
   const ansIdx = li.getAttribute('data-answer')
   const propIdx = li.getAttribute('data-proposition')
   document.querySelector(`.answer-${ansIdx} .proposition-${propIdx}`).click()
+}
+
+function onEditConceptClick() {
+  onEditNoteClick()
+}
+function onResetConceptClick() {
+  const li = lastPopoverReference.closest('li')
+  li.querySelector('.content').textContent = li.getAttribute('concept-name')
+}
+function onColorConceptClick() {
+
 }
