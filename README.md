@@ -10,16 +10,16 @@
 前端
 
 * [x] Concept text 自定义
-* [ ] Contept 颜色自定义
-* [ ] note pane metadata (redundancy 等) (wait for data processing)
-* [ ] note pane ordering (ranx by x) (Overlap with dnd ordering?)
+* [x] Contept 颜色自定义
+* [x] answer pane 根据concept来highlight（同2）
 * [x] note pane drag&drop ordering
 * [x] note pane icon button clustering
-* [ ] vote number (wait for data; need to re-crawl)
 * [x] similar answer concept hashtag-style
-* [ ] adjust proposition click behavior
 * [x] dbclick note to jump to original answer (or overleaf synctax-style arrows)
-* [ ] answer pane 根据concept来highlight（同2）
+* [ ] adjust proposition click behavior
+* [ ] note pane metadata (redundancy 等) (wait for data processing)
+* [ ] note pane ordering (ranx by x) (Overlap with dnd ordering?)
+* [ ] vote number (wait for data; need to re-crawl)
 
 后端（数据处理）
 

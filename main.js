@@ -1,5 +1,5 @@
 // Randomly generated using http://medialab.github.io/iwanthue/. Other tools to check out: http://vrl.cs.brown.edu/color https://carto.com/carto-colors/ https://colorbrewer2.org/ https://stackoverflow.com/questions/470690/how-to-automatically-generate-n-distinct-colors
-const COLORS = ["#ae3652", "#46a338", "#7547cb", "#909537", "#d24ac2", "#43966d", "#d64a2e", "#6176c0", "#b06f32", "#a15191", "#5a6426", "#d77075"]
+const COLORS = ["#c7ffdd", "#f5c8ff", "#86e4b8", "#f4ba9a", "#45e0e9", "#d9cc80", "#64d5ff", "#f3ffb6", "#abd7dd", "#ffe0c8"]
 
 // note pane dnd
 const sortableOptions = {
@@ -51,7 +51,7 @@ function markPropositions(contextElement, propositionList) {
   propositionList.forEach((prop, propIdx) => {
     // mark单个回答的单个proposition
     markContext.mark(prop.content, {
-      className: `proposition proposition-${propIdx}`,
+      className: `proposition proposition-${propIdx} concept-${prop.concept}`,
       separateWordSearch: false,
       acrossElements: true,
     })
@@ -152,6 +152,23 @@ function linkPropositionAndNote(contextElement, propositionList, dataAnswer) {
   })
 }
 
+function changeConceptColor(concept, color, isDark) {
+  document.querySelectorAll(`mark.proposition.concept-${concept}`).forEach((el) => {
+    el.style.backgroundColor = color
+    el.style.color = isDark ? 'white' : 'black'
+  })
+  const el = lastPopoverReference.closest('li').querySelector('.content')
+  el.style.backgroundColor = color
+  el.style.color = isDark ? 'white' : 'black'
+}
+
+function clearConceptColor(concept) {
+  document.querySelectorAll(`mark.proposition.concept-${concept}`).forEach((el) => {
+    el.removeAttribute('style')
+  })
+  lastPopoverReference.closest('li').querySelector('.content').removeAttribute('style')
+}
+
 function initNotePaneDoubleClickNote() {
   document.getElementById('note-container').addEventListener('dblclick', (e) => {
     if (e.target && e.target.matches('.note > .content')) {
@@ -190,6 +207,42 @@ function initNotePaneButtonMenu() {
     ...options,
     selector: '.popover-concept-menu',
     content: document.getElementById('template-concept-popover').innerHTML.trim(),
+    popperConfig: {
+      onFirstUpdate: (state) => {
+        // console.log(state)
+        const {elements: {reference}} = state
+        lastPopoverReference = reference
+        const pickr = new Pickr({
+          el: '.color-picker',
+          theme: 'nano',
+          useAsButton: true,
+          swatches: COLORS,
+          default: '#000000',
+          lockOpacity: true,
+          components: {
+            preview: true,
+            hue: true,
+            interaction: {
+                hex: true,
+                rgba: true,
+                input: true,
+                clear: true,
+                save: true
+            }
+          }
+        })
+        pickr.on('save', (color, instance) => {
+          const li = lastPopoverReference.closest('li')
+          const concept = li.getAttribute('concept-name')
+          if (!color) return clearConceptColor(concept)
+          const isDark = color.toHSLA()[2] < 50
+          color = color.toHEXA().toString()
+          console.log('Saving color', color, 'to concept', concept);
+          changeConceptColor(concept, color, isDark)
+          instance.hide()
+        })
+      }
+    }
   })
 }
 
@@ -251,13 +304,6 @@ function addSimilarAnswer(ansIdx) {
 document.addEventListener('DOMContentLoaded', async () => {
   const res = await getAnswers();
   const {question, description} = res; // answers 和 collapsedAnswers在await之后已经写入全局
-
-  // 计算Concept集合以及颜色对应
-  const conceptList = _.uniq(answers.reduce((acc, cur) => [
-    ...acc,
-    ...cur.propositions.map(prop => prop.concept)
-  ], [])).sort()
-  const conceptColorMap = _.zipObject(conceptList, COLORS)
 
   // 加载问题
   document.getElementById('question').textContent = question
