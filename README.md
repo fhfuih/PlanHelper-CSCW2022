@@ -9,7 +9,7 @@
 
 前端
 
-* [ ] Concept text 自定义
+* [x] Concept text 自定义
 * [ ] Contept 颜色自定义
 * [ ] note pane metadata (redundancy 等) (wait for data processing)
 * [ ] note pane ordering (ranx by x) (Overlap with dnd ordering?)
