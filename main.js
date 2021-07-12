@@ -15,7 +15,7 @@ let lastPopoverReference;
 let answers; // 全局answers（应该不需要全局留着question吧）
 let collapsedAnswers;
 
-function getAnswers(question) {
+function fetchPageData(question) {
   return new Promise((resolve) => {
     setTimeout(() => {
       answers = mock.answers
@@ -31,7 +31,7 @@ function scrollIntoView(el) {
   }
   if (el instanceof NodeList || Array.isArray(el)) {
     if (!el.length) return
-    el[0].scrollIntoView()
+    el[0].scrollIntoView({block: 'center'})
     el.forEach((e, i) => {
       if (e.classList.contains('blink')) return
       e.classList.add('blink')
@@ -39,14 +39,80 @@ function scrollIntoView(el) {
     })
   } else {
     if (!el) return
-    el.scrollIntoView()
+    el.scrollIntoView({block: 'center'})
     if (el.classList.contains('blink')) return
     el.classList.add('blink')
     setTimeout(() => el.classList.remove('blink'), 2000)
   }
 }
 
-function markPropositions(contextElement, propositionList) {
+function setElData(el, data) {
+  const {ansIdx, colAnsIdx, simAnsIdx, propIdx} = data
+  el.setAttribute('data-proposition', propIdx)
+  if (ansIdx != undefined) {
+    el.setAttribute('data-answer', ansIdx)
+  }
+  if (simAnsIdx != undefined && colAnsIdx != undefined) {
+    el.setAttribute('data-similar-answer', simAnsIdx)
+    el.setAttribute('data-collapsed-answer', colAnsIdx)
+  }
+}
+
+function getElData(el) {
+  const propEl = el.closest('[data-proposition]')
+  const ansEl = el.closest('[data-answer]')
+  const simAnsEl = el.closest('[data-similar-answer]')
+  if (!propEl) return null
+  if (!ansEl && !simAnsEl) return null
+  else if (simAnsEl) {
+    return {
+      propIdx: propEl.dataset.proposition,
+      simAnsIdx: simAnsEl.dataset.similarAnswer,
+      colAnsIdx: simAnsEl.dataset.collapsedAnswer,
+    }
+  } else {
+    return {
+      propIdx: propEl.dataset.proposition,
+      ansIdx: ansEl.dataset.answer,
+    }
+  }
+}
+
+function getDataSelector(data) {
+  const {ansIdx, colAnsIdx, simAnsIdx, propIdx} = data
+  if (ansIdx != undefined) return `[data-answer="${ansIdx}"][data-proposition="${propIdx}"]`
+  else if (colAnsIdx != undefined && simAnsIdx != undefined) return `[data-similar-answer="${simAnsIdx}"][data-collapsed-answer="${colAnsIdx}"][data-proposition="${propIdx}"]`
+}
+
+function getAnswer(data) {
+  const {ansIdx, colAnsIdx} = data
+  if (ansIdx != undefined) return answers[ansIdx]
+  else if (colAnsIdx != undefined) return collapsedAnswers[colAnsIdx]
+}
+
+function getProposition(data) {
+  const ans = getAnswer(data)
+  return ans.propositions[data.propIdx]
+}
+
+/** 既然现在answer container 和note container都会标注data-*，不传入parent可能导致选择的元素并非是自己想要的 */ 
+function getPropositionEl(data, parent, all=false) {
+  parent = parent ?? document
+  const {ansIdx, colAnsIdx, simAnsIdx, propIdx} = data
+  const method = all ? 'querySelectorAll' : 'querySelector'
+  if (ansIdx != undefined) return parent[method](`[data-answer="${ansIdx}"][data-proposition="${propIdx}"]`)
+  else if (colAnsIdx != undefined) return parent[method](`[data-collapsed-answer="${colAnsIdx}"][data-proposition="${propIdx}"]`)
+  else if (simAnsIdx != undefined) return parent[method](`[data-similar-answer="${simAnsIdx}"][data-proposition="${propIdx}"]`)
+  return null
+}
+
+function getPropositionCheckboxEl(data) {
+  const elList = getPropositionEl(data, document.getElementById('answer-container'), true)
+  const lastEl = elList[elList.length - 1]
+  return lastEl.nextElementSibling
+}
+
+function markPropositions(contextElement, propositionList, dataWithoutPropIdx) {
   const markContext = new Mark(contextElement)
   propositionList.forEach((prop, propIdx) => {
     // mark单个回答的单个proposition
@@ -56,15 +122,18 @@ function markPropositions(contextElement, propositionList) {
       acrossElements: true,
       each(el) {
         el.title = 'Click to add the proposition to the note pane.\nCtrl+click to locate the proposition in the note pane (if exists).'
+        el.setAttribute('data-proposition', propIdx)
+        setElData(el, {...dataWithoutPropIdx, propIdx})
       }
     })
   })
 }
 
-function addToNote(prop, propIdx, dataAnswer) {
+function addToNote(data) {
   const noteContainer = document.getElementById('note-container')
   // check whether the concept name already exists or not
   const conceptElements = noteContainer.querySelectorAll(".concept .content")
+  const prop = getProposition(data)
 
   let conceptExist = false;
   const conceptName = prop.concept
@@ -86,7 +155,7 @@ function addToNote(prop, propIdx, dataAnswer) {
 
     propositionContainer = document.createElement('ul')
     propositionContainer.classList.add('proposition-container')
-    propositionContainer.id = `proposition-${propIdx}-container`
+    propositionContainer.id = `proposition-${data.propIdx}-container`
     propositionContainer.setAttribute('data-concept', conceptName)
     conceptElement.append(propositionContainer)
 
@@ -99,31 +168,52 @@ function addToNote(prop, propIdx, dataAnswer) {
   }
   const propositionElement = document.getElementById('single-note-template').content.firstElementChild.cloneNode(true)
   propositionElement.querySelector('.content').textContent = propositionContent
-  propositionElement.setAttribute(dataAnswer.key, dataAnswer.value)
-  propositionElement.setAttribute('data-proposition', propIdx)
+  setElData(propositionElement, data)
   propositionContainer.append(propositionElement)
 }
 
-function removeFromNote(propIdx, dataAnswer) {
+function removeFromNote(data) {
   const noteContainer = document.getElementById('note-container')
   // remove the proposition
-  const propositionElement = noteContainer.querySelector(`[${dataAnswer.key}="${dataAnswer.value}"][data-proposition="${propIdx}"]`)
+  const propositionElement = getPropositionEl(data, noteContainer)
   const propositionContainer = propositionElement.parentElement
   const conceptName = propositionContainer.getAttribute('data-concept')
   const conceptElement = noteContainer.querySelector(`[concept-name="${conceptName}"]`)
-  // Destroy d'n'd
-  Sortable.get(propositionContainer).destroy()
   propositionElement.remove()
   // after removal, if there is no proposition under a concept, delete it
-
+  
   if (propositionContainer.childElementCount == 0){
+    // Destroy d'n'd
+    Sortable.get(propositionContainer).destroy()
     propositionContainer.remove()
     conceptElement.remove()
   }
   if (!noteContainer.childElementCount) noteContainer.nextElementSibling.classList.remove('d-none')
 }
 
-function linkPropositionAndNote(contextElement, propositionList, dataAnswer) {
+function handlePropositionClicked(el, ctrlKey, isClickingCheckbox) {
+  const data = getElData(el)
+  // const propIdx = el.dataset.proposition
+  const checkbox = getPropositionCheckboxEl(data)
+  console.debug(data, 'clicked')
+  // 跳转到note
+  if (ctrlKey) {
+    scrollIntoView(`.note${getDataSelector(data)}`)
+    return
+  }
+  // toggle Checkbox (因为如果点击的是checkbox本身而不是文本，就不用程序toggle了)
+  if (!isClickingCheckbox) {
+    checkbox.checked = !checkbox.checked
+  }
+  // 添加note
+  if (checkbox.checked) {
+    addToNote(data)
+  } else { // uncheck并移除
+    removeFromNote(data)
+  }
+}
+
+function linkPropositionAndNote(contextElement, propositionList) {
   propositionList.forEach((prop, propIdx) => {
     // 给这个proposition（的最后一个<mark>之后）加checkbox
     const markedElements = contextElement.querySelectorAll(`.proposition-${propIdx}`)
@@ -135,31 +225,16 @@ function linkPropositionAndNote(contextElement, propositionList, dataAnswer) {
     
     // 点击proposition的时候自动check
     markedElements.forEach(el => {
-      el.addEventListener('click', (e) => {
-        if (e.ctrlKey) { // 跳转到note
-          const answer = e.target.closest('.answer')
-          let ansIdx, propIdx;
-          answer.classList.forEach(c => c.slice(0, -1) == 'answer-' && (ansIdx = c.charAt(c.length - 1)))
-          e.target.classList.forEach(c => c.slice(0, -1) == 'proposition-' && (propIdx = c.charAt(c.length - 1)))
-          scrollIntoView(`.note[data-answer="${ansIdx}"][data-proposition="${propIdx}"]`)
-          return
-        } // 添加note
-        if (!checkbox.checked) { // 如果没有check，check并加入note
-          checkbox.checked = true
-          addToNote(prop, propIdx, dataAnswer)
-        } else { // uncheck并移除
-          checkbox.checked = false
-          removeFromNote(propIdx, dataAnswer)
-        }
-      })
       // 给proposition mark添加鼠标进入监听
       el.addEventListener('mouseenter', () => {
+        if (el.closest('.content').classList.contains('truncate')) return
         checkbox.style.visibility = 'visible'
       })
       el.addEventListener('mouseleave', () => {
+        if (el.closest('.content').classList.contains('truncate')) return
         checkbox.style.removeProperty('visibility')
       })
-    })    
+    })
   })
 }
 
@@ -266,22 +341,6 @@ function initNotePaneButtonMenu() {
   })
 }
 
-function onSimilarAnswerExpand(ansIdx, simAnsIdx) {
-  function handler(e) {
-    const button = e.target
-    const content = document.querySelector(`.answer-${ansIdx} .similar-answer-${simAnsIdx} .content`)
-    const isCollapsed = content.classList.contains('truncate')
-    if (isCollapsed) { // 没有expand，要展开
-      button.textContent = '(Collapse)'
-      content.classList.remove('truncate')
-    } else {
-      button.textContent = '(Expand)'
-      content.classList.add('truncate')
-    }
-  }
-  return handler
-}
-
 function addSimilarAnswer(ansIdx) {
   const ans = answers[ansIdx]
   if (!ans.similarAnswers.length) return;
@@ -299,11 +358,10 @@ function addSimilarAnswer(ansIdx) {
   accordionButton.setAttribute('data-bs-target', `#${collapseId}`)
   accordionButton.setAttribute('aria-controls', collapseId)
   // 创建每一个similar answer的组件
-  const simAnsNodes = ans.similarAnswers.map((simAnsNumber, simAnsIdx) => {
-    const simAns = collapsedAnswers[simAnsNumber]
+  const simAnsNodes = ans.similarAnswers.map((colAnsIdx, simAnsIdx) => {
+    const simAns = collapsedAnswers[colAnsIdx]
     const node = document.getElementById('template-similar-answer').content.firstElementChild.cloneNode(true)
     const contentNode = node.querySelector('.content')
-    const expandButton = node.querySelector('button')
     node.classList.add(`similar-answer-${simAnsIdx}`)
     node.querySelector('.author-name').textContent = simAns.author?.name ?? 'Anonymous'
     node.querySelector('.concept').append(...simAns.propositions.map(p => {
@@ -313,16 +371,45 @@ function addSimilarAnswer(ansIdx) {
       return el
     }))
     contentNode.innerHTML = simAns.html
-    expandButton.addEventListener('click', onSimilarAnswerExpand(ansIdx, simAnsIdx))
-    markPropositions(contentNode, simAns.propositions)
+    markPropositions(contentNode, simAns.propositions, {colAnsIdx, simAnsIdx})
+    linkPropositionAndNote(contentNode, simAns.propositions)
     return node
   })
   allSimAnsContainer.querySelector('ul').append(...simAnsNodes)
 }
 
+function initConceptPane() {
+  const id = 'mindmap-container'
+  document.getElementById(id).style.setProperty('height', '500px')
+  const mind = {
+    "meta":{
+      "name": "CQA", // 这个参数居然是必须的？？
+      "author": "HCI Lab, HKUST",
+      "version": "1"
+    },
+    "format":"node_tree",
+    "data": {"id":"root","topic":"Diet","children":[
+        {"id":"diet1","topic":"Eat this"},
+        {"id":"diet2","topic":"Eat that"},
+        {"id":"diet3","topic":"Don't eat this"},
+        {"id":"diet4","topic":"Don't eat that"},
+    ]}
+  };
+  const options = {
+    container: id,
+    theme: 'orange',
+    view: {
+      hmargin: 0,        // 思维导图距容器外框的最小水平距离
+      vmargin: 0,         // 思维导图距容器外框的最小垂直距离
+    },
+  };
+  const jm = new jsMind(options)
+  jm.show(mind)
+}
+
 // 等价于jQuery的 $.ready(...) 即 $(...)
 document.addEventListener('DOMContentLoaded', async () => {
-  const res = await getAnswers();
+  const res = await fetchPageData();
   const {question, description} = res; // answers 和 collapsedAnswers在await之后已经写入全局
 
   // 加载问题
@@ -336,7 +423,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // 加载单个回答的内容
     const answerNode = answerTemplate.cloneNode(true)
     answerNode.classList.add(`answer-${ansIdx}`)
-    answerNode.querySelector('.answer-content').innerHTML = ans.html
+    answerNode.querySelector('.content').innerHTML = ans.html
     answerNode.querySelector('.date').textContent = dayjs(ans.date).format('MMM D, YYYY')
     answerNode.querySelector('.author-name').textContent = ans.author?.name ?? 'Anonymous'
     answerNode.querySelector('.author-description').textContent = ans.author?.description
@@ -344,8 +431,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     answerContainer.append(answerNode)
 
     // mark单个回答的所有proposition
-    markPropositions(answerNode, ans.propositions)
-    linkPropositionAndNote(answerNode, ans.propositions, {key: 'data-answer', value: ansIdx})
+    markPropositions(answerNode, ans.propositions, {ansIdx})
+    linkPropositionAndNote(answerNode, ans.propositions)
 
     // 增加单个回答的所有类似回答
     addSimilarAnswer(ansIdx)
@@ -361,6 +448,26 @@ document.addEventListener('DOMContentLoaded', async () => {
   initNotePaneButtonMenu()
   // 初始化note pane双击跳转
   initNotePaneDoubleClickNote()
+
+  // 初始化concept pane
+  initConceptPane()
+})
+
+// 监听所有(Expand)按钮的事件
+document.addEventListener('click', (e) => {
+  if (e.target && e.target.matches('.content-collapse-button')) {
+    const buttonEl = e.target
+    const contentEl = buttonEl.parentElement.querySelector('.content')
+    if (contentEl.classList.toggle('truncate')) { // returns true if now present
+      buttonEl.textContent = '(Expand)'
+    } else {
+      buttonEl.textContent = '(Collapse)'
+    }
+  } else if (e.target && e.target.matches('.content:not(.truncate) .proposition')) {
+    handlePropositionClicked(e.target, e.ctrlKey, false)
+  } else if (e.target && e.target.matches('.content:not(.truncate) .proposition~input[type="checkbox"]')) {
+    handlePropositionClicked(e.target.previousSibling, e.ctrlKey, true)
+  }
 })
 
 // 监听ctrl键有没有按下并调整style
@@ -378,16 +485,14 @@ function onEditNoteClick() {
 
 function onResetNoteClick() {
   const li = lastPopoverReference.closest('li')
-  const ansIdx = li.getAttribute('data-answer')
-  const propIdx = li.getAttribute('data-proposition')
-  li.querySelector('.content').textContent = answers[ansIdx].propositions[propIdx].content
+  const data = getElData(li)
+  li.querySelector('.content').textContent = getProposition(data).content
 }
 
 function onRemoveNoteClick() {
   const li = lastPopoverReference.closest('li')
-  const ansIdx = li.getAttribute('data-answer')
-  const propIdx = li.getAttribute('data-proposition')
-  document.querySelector(`.answer-${ansIdx} .proposition-${propIdx}`).click()
+  const data = getElData(li)
+  getPropositionEl(data, document.getElementById('answer-container')).click()
 }
 
 function onEditConceptClick() {

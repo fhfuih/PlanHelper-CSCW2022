@@ -14,39 +14,48 @@ const mock = {
       "propositions": [
         {
           "content": "Believe that it is going to make you feel better, because it will.",
-          "concept": "Motivation"
+          "concept": "Motivation",
+          "subconcept": "Belief"
         },
         {
           "content": "Don't think that your muscles are going to rip out and you'll suddenly transform yourself to somebody else.",
-          "concept": "Patience"
+          "concept": "Patience",
+          "subconcept": "Persistance"
         },
         {
           "content": "Identify the different exercises that you can do for each muscle",
-          "concept": "Knowledge"
+          "concept": "Knowledge",
+          "subconcept": "Muscle Exercises"
         },
         {
           "content": "Go to the gym at least 5 days a week.",
-          "concept": "Persistence"
+          "concept": "Persistence",
+          "subconcept": "Gym Frequently"
         },
         {
           "content": "Separate cardio and weights as far as possible.",
-          "concept": "Methodology"
+          "concept": "Methodology",
+          "subconcept": "Cardio&Weight"
         },
         {
           "content": "Eat right",
-          "concept": "Diet"
+          "concept": "Diet",
+          "subconcept": "Eat Right"
         },
         {
           "content": "Do not over do it.",
-          "concept": "Methodology"
+          "concept": "Methodology",
+          "subconcept": "Be Temperate"
         },
         {
           "content": "Make absolutely sure that you're breathing well.",
-          "concept": "Methodology"
+          "concept": "Methodology",
+          "subconcept": "Breathing Well"
         },
         {
           "content": "You should never be done with working out",
-          "concept": "Persistence"
+          "concept": "Persistence",
+          "subconcept": "Keep Working Out"
         }
       ],
       "similarAnswers": [
@@ -65,251 +74,145 @@ const mock = {
       "propositions": [
         {
           "content": "You need to rest your body.",
-          "concept": "Rest"
+          "concept": "Rest",
+          "subconcept": "Get Rest"
         },
         {
           "content": "I believe, for a beginner or an intermediate lifter, isolation techniques likes bicep curls and tricep pull downs are totally unnecessary.",
-          "concept": "Methodology"
+          "concept": "Methodology",
+          "subconcept": "Isolation Techniques"
         },
         {
           "content": "Always get a good warm-up session when you get to the gym.",
-          "concept": "Methodology"
+          "concept": "Methodology",
+          "subconcept": "Warm-Up"
         },
         {
           "content": "If it is possible for you, then get a good coach. It helps a lot.",
-          "concept": "Coaching"
+          "concept": "Coaching",
+          "subconcept": "Coach"
         },
         {
           "content": "When you do cardio take up HIIT cardio most of the time.",
-          "concept": "Methodology"
+          "concept": "Methodology",
+          "subconcept": "Cardio&Weight"
         },
         {
           "content": "Use traditional cardio once in a while.",
-          "concept": "Methodology"
+          "concept": "Methodology",
+          "subconcept": "Cardio&Weight"
         },
         {
           "content": "Don't completely ignore pushups even if you get to advanced weight training.",
-          "concept": "Methodology"
+          "concept": "Methodology",
+          "subconcept": "Cardio&Weight"
         },
         {
           "content": "calisthenics have their own place no matter what.",
-          "concept": "Methodology"
+          "concept": "Methodology",
+          "subconcept": "Calisthenics"
         },
         {
           "content": "Pay attention to your diet.",
-          "concept": "Diet"
+          "concept": "Diet",
+          "subconcept": "Eat Right"
         },
         {
           "content": "You might feel like am a bit inclined away from isolation workouts, which are an essential part of any body building routine.",
-          "concept": "Methodology"
+          "concept": "Methodology",
+          "subconcept": "Isolation Techniques"
         },
         {
           "content": "Advanced body builder will use tricks like partial reps to build up more pump in their muscles.",
-          "concept": "Methodology"
+          "concept": "Methodology",
+          "subconcept": "Advance Tricks"
         },
         {
           "content": "Exercise Through a Full Range of Motion",
-          "concept": "Methodology"
+          "concept": "Methodology",
+          "subconcept": "Muscle Exercises"
         },
         {
           "content": "Maintain Constant Tension",
-          "concept": "Methodology"
+          "concept": "Methodology",
+          "subconcept": "Persistance"
         },
         {
           "content": "Focus on the Negative (Eccentric Contraction)",
-          "concept": "Methodology"
+          "concept": "Methodology",
+          "subconcept": "Muscle Exercises"
         },
         {
           "content": "Slow Down Rep Speed",
-          "concept": "Methodology"
+          "concept": "Methodology",
+          "subconcept": "Muscle Exercises"
         },
         {
           "content": "Achieve Peak Contraction",
-          "concept": "Methodology"
+          "concept": "Methodology",
+          "subconcept": "Muscle Exercises"
         },
         {
           "content": "Deadlifts are the best exersice you can include in your routine.",
-          "concept": "Methodology"
+          "concept": "Methodology",
+          "subconcept": "Muscle Exercises"
         },
         {
           "content": "Also, make sure to bring about sufficient variety in your routine once every 2 months or so.",
-          "concept": "Methodology"
+          "concept": "Methodology",
+          "subconcept": "Muscle Exercises"
         }
       ],
       "similarAnswers": [2],
     },
     {
-      "html": "<p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">Easy tips for the beginning bodybuiIder and weightIifter in no particuIar order</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">1. Food is aIways better than suppIements</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">2. Sugar is the worst and incIudes white bread/simpIe carbohydrates</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">3. Form over weight any day of the week.</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">4. For a naturaI bodybuiIder the progressive overIoad theory is king Which basicaIIy means more weight or more voIume on a consistent basis= gains</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">5. If you aren't getting stronger check your diet, check your sIeep, or check your regimen. 6.sIow and steady wins the race and persistence is king</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">6. Write out your workout pIans for the week at the beginning of the week or stick to a written scheduIe. Your voIume or chosen Iifts may change but you are committing yourseIf to that workout when you write it down.</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">7. PIan your workout time at Ieast the day before so you don't run out of time</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">8. Figure out ways to motivate</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">9. If you buy suppIements, research them make sure they're quaIity</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">10. What works for me won't aIways work for you. Adjust your training according to your needs and your body</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">11. My ruIe of thumb compIex carbs aIways, except post workout simpIe carb meaI.</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">12. 1 gram of protein per body weight is standard for weight gain. This is not one size fits aII it's a ruIe of thumb.</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">13. Macros are fat, protein, carbs</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">14. Count your macros, at Ieast have a generaI idea depending on your goaIs.</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">15. Avoid high fructose corn syrup, dextrose, Iactose, fructose, maItose, maItodextrin, syrups or maIts on ingredients IabeIs. There are others but that's a good start gain muscIe it's best to be taking in more caIories than than your burning.</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">16. Fat is not your enemy.... Sugar is</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">17. Good fats are unsaturated an poIy unsaturated. Bad fats are saturated or trans.</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">18. If it says hydrogenated on the ingredients IabeI don't eat it.</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">19. Organic doesn't mean it's heaIthy however it's better to eat reaI food than chemicaI repIacements</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">20. Go fucking hard in the gym. But keep form. ControIIed chaos is key</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">21. Ask questions to anyone and gather information as much as you can.</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">22. Write down your poundage a and reps for your workouts. Be honest</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">23. Cheating on form or a rep is cheating yourseIf. It doesn't effect anyone eIse but you 26.drink tons of water. TONS</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">24. AIcohoI is bad for gains. Period.</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">25. Smoking is bad for gains. Period.</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">26. If you want to do either. That's fine but Iimit yourseIf if you want to improve</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">27. Preworkout is fucking amazing but a Iot of preworkouts have skepticaI shit.</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">28. If you take creatine, preworkout ect. CycIe off that shit. Don't stay on for more than a month at a time</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">29. Read the directions and IabeIs on suppIements.</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">30. Don't beIieve everything peopIe teII you. I'm sure some of my shit isn't even true. Question everything and decide for yourseIf what you want to beIieve.</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">31. Compound Iifts are the best Iifts ExampIe: squats,bench,deadIift</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">32. Don't spend too much time on isoIation exercises.</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">33. Free weights are 10x better than machines. But Iearn proper technique on how to use free weights.</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">34. If you ever have a question about form just ask someone around you. Most gym guys are ridicuIousIy friendIy and respectfuI</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">35. The bigger the muscIe the more voIume ex. ShouIders 9-12 sets tops. Iegs? 15-20 sets chest?12-15. That my usuaI ruIe of thumb</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">36. Steroids are a personaI choice. But never take that shit before the age of 25. And you shouId workout hard and consistentIy for yeeeaaarsss before you dabbIe in it so you know how your body works. And how to Iift. AIways get bIood test every coupIe months.</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">37. If it sounds too good to be true it is. You won't get big in 30 days or two months or maybe even a year. But gains can be consistent and they can be rewarding</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">38. For most individuaIs if you think you can't get another rep in, you probabIy can. Mind of matter</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">39. Iisten to your body, when it's time to stop or sIow down. Do it. But don't use this as an excuse to haIf ass.</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">40. Gatorade vitaminwater soda juice aII that shit is the same.</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">41. Drink water and more water. I said it again because it's important</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">42. BodybuiIding isn't better than powerIifting and neither are better than Iong distance running. Pick whatever you want to do and spread the Iove. Were aII trying to improve</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">43. The smith machine is not optimaI and a waste besides speciaI conditions or circumstance.</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">44. DumbbeIIs&gt;barbeIIs&gt;machines in that order</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">45. Read books to Iearn. Yes bodybuiIders read. 49 despite your genetics anyone can Iook impressive to some degree</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 0px; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">46. WORK FUCKING HARD</span></p> ",
+      "html": "<p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">I am a bit amused by the level of inclination that I have seen in the people nowadays for body-building. Body-building is no rocket </span><span class=\"q-inline\" style=\"box-sizing: border-box; display: inline;\"><a class=\"q-box Link___StyledBox-t2xg9c-0 roKEj QTextLink___StyledLink-sc-1ho51qd-0 gwAtHk qu-cursor--pointer qu-hover--textDecoration--underline\" title=\"science.it\" href=\"http://science.it/\" target=\"_blank\" rel=\"noopener nofollow\" style=\"box-sizing: border-box; border-radius: inherit; font-weight: normal; font-style: normal; background: none;\">science.</a><span class=\"q-inlineBlock qu-verticalAlign--text-bottom\" width=\"16px\" name=\"ExternalLink\" style=\"box-sizing: border-box; display: inline-block; width: 16px; height: 16px; flex-shrink: 0; line-height: 0; margin-left: 2px;\"><span class=\"CssComponent__CssInlineComponent-sc-1oskqb9-1 Icon___StyledCssInlineComponent-sc-11tmcw7-0 bxnMMA\"><svg width=\"24px\" height=\"24px\" viewBox=\"0 0 24 24\"><g id=\"external_link\" class=\"icon_svg-stroke\" stroke=\"#666\" stroke-width=\"1.5\" fill=\"none\" fill-rule=\"evenodd\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polyline points=\"17 13.5 17 19.5 5 19.5 5 7.5 11 7.5\"></polyline><path d=\"M14,4.5 L20,4.5 L20,10.5 M20,4.5 L11,13.5\"></path></g></svg></span></span></span><span style=\"font-weight: normal; font-style: normal; background: none;\"> It is based on the simple rule, INPUT =OUTPUT .<br>The primary focus should be on the diet. Believe me that place called \"kitchen\" is where your gains actually start.The main idea is to eat as much as your body needs to grow.Make a freaking food plan,gym plan,etc. Plan out your whole day meals ahead of you .Never ever gorge on unhealthy foods because why waste so much effort over in the gym over a minutes temptation. <br>There is no specific rules as to whether you should start with cardio or gym,but even the great bodybuilders such as \"Frank Zane\" support the fact that running or jogging should be an essential part of your regime.</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">1.For starting out,first write down your plans.<br>2.Determine how you want to look.<br>3.Note your gains after a month or so to see how much you have gained.</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">These things might look insignificant at first,but as you go along, you will see that how much an inch gained on your biceps can do to your confidence !!</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">THIS WAS HOW I LOOKED TWO YEARS BACK !!</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\"></span></p> <div class=\"q-box qu-mx--n_medium\" style=\"box-sizing: border-box;\"><div class=\"CssComponent-sc-1oskqb9-0 QTextImage___StyledCssComponent-sc-1yi3aau-0 ilDNcJ\"><div class=\"q-box unzoomed\" style=\"box-sizing: border-box; margin-bottom: 1em;\"><img class=\"q-image qu-display--block\" src=\"https://qph.fs.quoracdn.net/main-qimg-b35424d6b5368fe9336c3cff69729f74.webp\" style=\"box-sizing: border-box; max-width: 100%; margin-left: auto; margin-right: auto;\"></div></div></div> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\"> I was not too fond of eating or working out back then.</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">After an year into the gym I was looking better.</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\"></span></p> <div class=\"q-box qu-mx--n_medium\" style=\"box-sizing: border-box;\"><div class=\"CssComponent-sc-1oskqb9-0 QTextImage___StyledCssComponent-sc-1yi3aau-0 ilDNcJ\"><div class=\"q-box unzoomed\" style=\"box-sizing: border-box; margin-bottom: 1em;\"><img class=\"q-image qu-display--block\" src=\"https://qph.fs.quoracdn.net/main-qimg-44e77a9ae79c11d5899115e0d8755879.webp\" style=\"box-sizing: border-box; max-width: 100%; margin-left: auto; margin-right: auto;\"></div></div></div> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\"><br>This was enough motivation to keep me going and today there is not much, but I prefer the aesthetic look.This is my recent picture:</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\"></span></p> <div class=\"q-box qu-mx--n_medium\" style=\"box-sizing: border-box;\"><div class=\"CssComponent-sc-1oskqb9-0 QTextImage___StyledCssComponent-sc-1yi3aau-0 ilDNcJ\"><div class=\"q-box unzoomed\" style=\"box-sizing: border-box; margin-bottom: 1em;\"><img class=\"q-image qu-display--block\" src=\"https://qph.fs.quoracdn.net/main-qimg-2335ed5ad81f19ea2175aca1a4672e2c.webp\" style=\"box-sizing: border-box; max-width: 100%; margin-left: auto; margin-right: auto;\"></div></div></div> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\"></span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 0px; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">All the best !!</span></p> ",
+      "content": "I am a bit amused by the level of inclination that I have seen in the people nowadays for body-building. Body-building is no rocket science. It is based on the simple rule, INPUT =OUTPUT .The primary focus should be on the diet. Believe me that place called \"kitchen\" is where your gains actually start.The main idea is to eat as much as your body needs to grow.Make a freaking food plan,gym plan,etc. Plan out your whole day meals ahead of you .Never ever gorge on unhealthy foods because why waste so much effort over in the gym over a minutes temptation. There is no specific rules as to whether you should start with cardio or gym,but even the great bodybuilders such as \"Frank Zane\" support the fact that running or jogging should be an essential part of your regime. 1.For starting out,first write down your plans.2.Determine how you want to look.3.Note your gains after a month or so to see how much you have gained. These things might look insignificant at first,but as you go along, you will see that how much an inch gained on your biceps can do to your confidence !! THIS WAS HOW I LOOKED TWO YEARS BACK !!    I was not too fond of eating or working out back then. After an year into the gym I was looking better.   This was enough motivation to keep me going and today there is not much, but I prefer the aesthetic look.This is my recent picture:    All the best !!",
+      "paragraphs": [
+        "I am a bit amused by the level of inclination that I have seen in the people nowadays for body-building. Body-building is no rocket science. It is based on the simple rule, INPUT =OUTPUT .The primary focus should be on the diet. Believe me that place called \"kitchen\" is where your gains actually start.The main idea is to eat as much as your body needs to grow.Make a freaking food plan,gym plan,etc. Plan out your whole day meals ahead of you .Never ever gorge on unhealthy foods because why waste so much effort over in the gym over a minutes temptation. There is no specific rules as to whether you should start with cardio or gym,but even the great bodybuilders such as \"Frank Zane\" support the fact that running or jogging should be an essential part of your regime.",
+        "1.For starting out,first write down your plans.2.Determine how you want to look.3.Note your gains after a month or so to see how much you have gained.",
+        "These things might look insignificant at first,but as you go along, you will see that how much an inch gained on your biceps can do to your confidence !!",
+        "THIS WAS HOW I LOOKED TWO YEARS BACK !!",
+        "I was not too fond of eating or working out back then.",
+        "After an year into the gym I was looking better.",
+        "This was enough motivation to keep me going and today there is not much, but I prefer the aesthetic look.This is my recent picture:",
+        "All the best !!"
+      ],
       "author": {
-        "avatar": "https://qph.fs.quoracdn.net/main-thumb-1458853167-200-fwfgxqmfrqpwrcgmjzfiadwjtlubttub.jpeg",
-        "name": "Fredd Hasper",
-        "description": "traditional medicine practitioner",
-        "urlEncode": "Fredd-Hasper"
+        "avatar": "https://qph.fs.quoracdn.net/main-thumb-71330647-200-yzpquafncjzixtzvhmcyvhrjniuxfugk.jpeg",
+        "name": "Nikhil Rana",
+        "description": "Quantitative Aptitude Trainer",
+        "urlEncode": "Nikhil-Rana-13"
       },
-      "date": "2001-03-04T16:00:00.000Z",
+      "date": "2015-05-18T16:00:00.000Z",
       "propositions": [
         {
-          "content": "Food is aIways better than suppIements",
-          "concept": "Supplements"
+          "content": "The main idea is to eat as much as your body needs to grow.",
+          "concept": "Diet",
+          "subconcept": "Eat Right"
         },
         {
-          "content": "Sugar is the worst and incIudes white bread/simpIe carbohydrates",
-          "concept": "Diet"
+          "content": "running or jogging should be an essential part of your regime.",
+          "concept": "Methodology",
+          "subconcept": "Warm-Up"
         },
         {
-          "content": "Form over weight any day of the week",
-          "concept": "Methodology"
+          "content": "For starting out,first write down your plans.",
+          "concept": "Planning",
+          "subconcept": "Plans"
         },
         {
-          "content": "For a naturaI bodybuiIder the progressive overIoad theory is king",
-          "concept": "Methodology"
+          "content": "Determine how you want to look.",
+          "concept": "Motivation",
+          "subconcept": "Plans"
         },
         {
-          "content": "If you aren't getting stronger check your diet, check your sIeep, or check your regimen",
-          "concept": "Methodology"
-        },
-        {
-          "content": "Write out your workout pIans for the week at the beginning of the week or stick to a written scheduIe",
-          "concept": "Planning"
-        },
-        {
-          "content": "PIan your workout time at Ieast the day before so you don't run out of time",
-          "concept": "Planning"
-        },
-        {
-          "content": "Figure out ways to motivate",
-          "concept": "Motivation"
-        },
-        {
-          "content": "If you buy suppIements, research them make sure they're quaIity",
-          "concept": "Supplements"
-        },
-        {
-          "content": "Adjust your training according to your needs and your body",
-          "concept": "Diversity"
-        },
-        {
-          "content": "My ruIe of thumb compIex carbs aIways, except post workout simpIe carb meaI",
-          "concept": "Diet"
-        },
-        {
-          "content": "1 gram of protein per body weight is standard for weight gain",
-          "concept": "Diet"
-        },
-        {
-          "content": "Count your macros",
-          "concept": "Diet"
-        },
-        {
-          "content": "Avoid high fructose corn syrup, dextrose, Iactose, fructose, maItose, maItodextrin, syrups or maIts on ingredients IabeIs",
-          "concept": "Diet"
-        },
-        {
-          "content": "Fat is not your enemy",
-          "concept": "Diet"
-        },
-        {
-          "content": "Good fats are unsaturated an poIy unsaturated. Bad fats are saturated or trans.",
-          "concept": "Diet"
-        },
-        {
-          "content": "If it says hydrogenated on the ingredients IabeI don't eat it.",
-          "concept": "Diet"
-        },
-        {
-          "content": "Organic doesn't mean it's heaIthy however it's better to eat reaI food than chemicaI repIacements",
-          "concept": "Diet"
-        },
-        {
-          "content": "Ask questions to anyone and gather information as much as you can",
-          "concept": "Knowledge"
-        },
-        {
-          "content": "Write down your poundage a and reps for your workouts",
-          "concept": "Planning"
-        },
-        {
-          "content": "Cheating on form or a rep is cheating yourseIf",
-          "concept": "Persistence"
-        },
-        {
-          "content": "AIcohoI is bad for gains",
-          "concept": "Diet"
-        },
-        {
-          "content": "Smoking is bad for gains",
-          "concept": "Diet"
-        },
-        {
-          "content": "Preworkout is fucking amazing but a Iot of preworkouts have skepticaI shit",
-          "concept": "Methodology"
-        },
-        {
-          "content": "If you take creatine, preworkout ect. CycIe off that shit",
-          "concept": "Methodology"
-        },
-        {
-          "content": "Read the directions and IabeIs on suppIements",
-          "concept": "Supplements"
-        },
-        {
-          "content": "Don't beIieve everything peopIe teII you",
-          "concept": "Diversity"
-        },
-        {
-          "content": "Compound Iifts are the best Iifts",
-          "concept": "Methodology"
-        },
-        {
-          "content": "Don't spend too much time on isoIation exercises",
-          "concept": "Methodology"
-        },
-        {
-          "content": "Free weights are 10x better than machines",
-          "concept": "Methodology"
-        },
-        {
-          "content": "The bigger the muscIe the more voIume",
-          "concept": "Methodology"
-        },
-        {
-          "content": "Steroids are a personaI choice. But never take that shit before the age of 25",
-          "concept": "Supplements"
-        },
-        {
-          "content": "gains can be consistent and they can be rewarding",
-          "concept": "Persistence"
-        },
-        {
-          "content": "For most individuaIs if you think you can't get another rep in, you probabIy can",
-          "concept": "Persistence"
-        },
-        {
-          "content": "Iisten to your body, when it's time to stop or sIow down",
-          "concept": "Rest"
-        },
-        {
-          "content": "Gatorade vitaminwater soda juice aII that shit is the same",
-          "concept": "Drink"
-        },
-        {
-          "content": "Drink water and more water",
-          "concept": "Drink"
-        },
-        {
-          "content": "BodybuiIding isn't better than powerIifting and neither are better than Iong distance running",
-          "concept": "Methodology"
-        },
-        {
-          "content": "The smith machine is not optimaI and a waste besides speciaI conditions or circumstance",
-          "concept": "Methodology"
-        },
-        {
-          "content": "DumbbeIIs>barbeIIs>machines in that order",
-          "concept": "Methodology"
+          "content": "Note your gains after a month or so to see how much you have gained.",
+          "concept": "Tracking",
+          "subconcept": "Plans"
         }
       ],
-      "similarAnswers": [0, 2],
+      "similarAnswers": [1, 2],
     },
   ],
   "collapsedAnswers": [
@@ -325,7 +228,8 @@ const mock = {
       "propositions": [
         {
           "content": "If anything is asked related to muscle building activities then their thousands of methods, theories and rules.",
-          "concept": "Diversity"
+          "concept": "Diversity",
+          "subconcept": "Others"
         }
       ]
     },

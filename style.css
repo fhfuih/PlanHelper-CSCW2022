@@ -10,7 +10,7 @@
 }
 
 /* question */
-#question-container::after, .answer:not(:last-child):after {
+#question-container::after, .answer-outer:not(:last-child):after {
   content: '';
   display: block;
   border: 1px solid #f5f5f5;
@@ -47,6 +47,14 @@ mark, .mark {
 .proposition ~ input[type="checkbox"]:checked {
   visibility: visible;
 }
+.truncate .proposition ~ input[type="checkbox"] {
+  visibility: hidden !important;
+}
+
+.content.truncate mark {
+  background-color: unset !important;
+  cursor: auto;
+}
 
 /* similar answer & its propositions */
 .similar-answers .author-name {
@@ -65,10 +73,6 @@ mark, .mark {
 
 .similar-answers .content mark {
   padding: 0;
-  cursor: default;
-}
-.similar-answers .content.truncate mark {
-  background-color: unset !important;
 }
 
 .similar-answers .concept {
@@ -130,6 +134,13 @@ ul#note-container, #note-container ul {
   box-shadow: 0 0 0 1px hsl(0deg 0% 100% / 85%), 0 0 0 3px rgb(245 245 245 / 40%) !important;
 }
 
+/* Concept pane */
+#concept-list-container:empty::after {
+  content: 'Loading... (placeholder)';
+  color: rgb(185, 194, 204);
+  margin: 1rem 0;
+}
+
 /* common */
 body.ctrl-down mark.proposition, body.ctrl-down .note > .content {
   cursor: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="%23333" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1 11.5a.5.5 0 0 0 .5.5h11.793l-3.147 3.146a.5.5 0 0 0 .708.708l4-4a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 11H1.5a.5.5 0 0 0-.5.5zm14-7a.5.5 0 0 1-.5.5H2.707l3.147 3.146a.5.5 0 1 1-.708.708l-4-4a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H14.5a.5.5 0 0 1 .5.5z"/></svg>'), ew-resize;
@@ -145,6 +156,12 @@ body.ctrl-down mark.proposition, body.ctrl-down .note > .content {
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+.truncate.truncate-large {
+  -webkit-line-clamp: 8;
+}
+.truncate.truncate-small {
+  -webkit-line-clamp: 3;
 }
 
 .blink {
