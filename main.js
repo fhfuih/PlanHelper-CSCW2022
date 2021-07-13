@@ -180,9 +180,10 @@ function removeFromNote(data) {
   const conceptName = propositionContainer.getAttribute('data-concept')
   const conceptElement = noteContainer.querySelector(`[concept-name="${conceptName}"]`)
   propositionElement.remove()
-  // after removal, if there is no proposition under a concept, delete it
   
+  // after removal, if there is no proposition under a concept, delete it
   if (propositionContainer.childElementCount == 0){
+    clearConceptColor(conceptName)
     // Destroy d'n'd
     Sortable.get(propositionContainer).destroy()
     propositionContainer.remove()

@@ -53,7 +53,8 @@ mark, .mark {
 
 .content.truncate mark {
   background-color: unset !important;
-  cursor: auto;
+  color: black !important;
+  cursor: auto !important;
 }
 
 /* similar answer & its propositions */
