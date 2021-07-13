@@ -13,7 +13,6 @@ function getAnswers(question) {
 document.addEventListener('DOMContentLoaded', async () => {
   const res = await getAnswers();
   const {question, description, answers} = res;
-
   // 加载问题
   document.getElementById('question').textContent = question
   document.getElementById('question-description').textContent = description
