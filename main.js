@@ -253,7 +253,7 @@ function clearConceptColor(concept) {
   document.querySelectorAll(`mark.proposition.concept-${concept}`).forEach((el) => {
     el.removeAttribute('style')
   })
-  lastPopoverReference.closest('li').querySelector('.content').removeAttribute('style')
+  document.querySelector(`li[concept-name="${concept}"] .content`).removeAttribute('style')
 }
 
 function initNotePaneDoubleClickNote() {
