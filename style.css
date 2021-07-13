@@ -1,3 +1,4 @@
+/* layout */
 .outer {
   margin-top: 50px;
 }
@@ -8,26 +9,33 @@
   margin-bottom: 32px; /* margin top 被bootstrap设置了 */
 }
 
-#question-container::after, .answer::after {
+/* question */
+#question-container::after, .answer-outer:not(:last-child):after {
   content: '';
   display: block;
   border: 1px solid #f5f5f5;
   margin: 1rem 0.25rem 1.5rem;
 }
 
+/* profile */
 .avatar {
   max-width: 36px;
   max-height: 36px;
 }
 
 .profile-text {
-  font-style: 12px;
+  font-size: 14px;
 }
 
 .date {
   font-size: 10px;
 }
 
+/* answer & its propositions */
+mark, .mark {
+  padding-left: 0;
+  padding-right: 0;
+}
 .proposition {
   cursor: pointer;
 }
@@ -39,11 +47,40 @@
 .proposition ~ input[type="checkbox"]:checked {
   visibility: visible;
 }
-
-#note-container:blank {
-  background-color: black;
+.truncate .proposition ~ input[type="checkbox"] {
+  visibility: hidden !important;
 }
 
+.content.truncate mark {
+  background-color: unset !important;
+  color: black !important;
+  cursor: auto !important;
+}
+
+/* similar answer & its propositions */
+.similar-answers .author-name {
+  font-size: 12px;
+}
+
+.similar-answers .content {
+  font-size: 14px;
+  transition: all .5s;
+}
+
+.similar-answers .content p,ul {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.similar-answers .content mark {
+  padding: 0;
+}
+
+.similar-answers .concept {
+  font-size: 12px;
+}
+
+/* note */
 .edit-button {
   color: #0d6efd;
   cursor: pointer;
@@ -52,7 +89,87 @@
   color: #0a58ca;
 }
 
+ul#note-container:not(:empty) {
+  padding: 1rem 0 1rem 1rem !important;
+}
+
+ul#note-container, #note-container ul {
+  list-style: none;
+}
+
+#note-container .proposition-container {
+  padding-left: 1rem !important;
+}
+
+#note-container .drag-handle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translateX(-100%);
+  box-sizing: border-box;
+  cursor: move;
+  color: rgba(60, 60, 60, 0.75);
+}
+#note-container .drag-handle:hover::before { /* 悬浮半透明背景 */
+  content: '';
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  background-color: rgba(224, 224, 224, 0.5);
+  border-radius: 5px;
+  z-index: -1;
+}
+
+.popover-body { /* 这是bootstrap的类 */
+  padding: 5px 15px;
+}
+
+/* Color Picker */
+.pcr-clear {
+  background: whitesmoke !important;
+  color: black !important;
+}
+.pcr-clear:focus {
+  box-shadow: 0 0 0 1px hsl(0deg 0% 100% / 85%), 0 0 0 3px rgb(245 245 245 / 40%) !important;
+}
+
+/* Concept pane */
+#concept-list-container:empty::after {
+  content: 'Loading... (placeholder)';
+  color: rgb(185, 194, 204);
+  margin: 1rem 0;
+}
+
+/* common */
+body.ctrl-down mark.proposition, body.ctrl-down .note > .content {
+  cursor: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="%23333" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1 11.5a.5.5 0 0 0 .5.5h11.793l-3.147 3.146a.5.5 0 0 0 .708.708l4-4a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 11H1.5a.5.5 0 0 0-.5.5zm14-7a.5.5 0 0 1-.5.5H2.707l3.147 3.146a.5.5 0 1 1-.708.708l-4-4a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H14.5a.5.5 0 0 1 .5.5z"/></svg>'), ew-resize;
+}
+
 .placeholder {
   color: rgb(185, 194, 204);
   margin: 1rem 0;
+}
+
+.truncate {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.truncate.truncate-large {
+  -webkit-line-clamp: 8;
+}
+.truncate.truncate-small {
+  -webkit-line-clamp: 3;
+}
+
+.blink {
+  animation: anim-blink .5s linear 1s normal 2;
+}
+@keyframes anim-blink {
+  20%, 80% {
+    background-color: rgb(253, 232, 239);
+  }
 }

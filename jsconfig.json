@@ -1,9 +1,11 @@
 {
   "typeAcquisition": {
     "include": [
-      "jquery",
+      "bootstrap",
       "lodash",
-      "dayjs"
+      "dayjs",
+      "sortablejs",
+      "@simonwep/pickr"
     ]
   }
 }

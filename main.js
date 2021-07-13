@@ -1,18 +1,423 @@
-let answers; // 全局answers（应该不需要全局留着question把，就只留answers部分了）
+// Randomly generated using http://medialab.github.io/iwanthue/. Other tools to check out: http://vrl.cs.brown.edu/color https://carto.com/carto-colors/ https://colorbrewer2.org/ https://stackoverflow.com/questions/470690/how-to-automatically-generate-n-distinct-colors
+const COLORS = ["#c7ffdd", "#f5c8ff", "#86e4b8", "#f4ba9a", "#45e0e9", "#d9cc80", "#64d5ff", "#f3ffb6", "#abd7dd", "#ffe0c8"]
 
-function getAnswers(question) {
+// note pane dnd
+const sortableOptions = {
+  group: 'note',
+  animation: 150,
+  fallbackOnBody: true,
+  swapThreshold: 0.65,
+  handle: '.drag-handle'
+}
+// note pane popover button menu
+let lastPopoverReference;
+
+let answers; // 全局answers（应该不需要全局留着question吧）
+let collapsedAnswers;
+
+function fetchPageData(question) {
   return new Promise((resolve) => {
     setTimeout(() => {
       answers = mock.answers
+      collapsedAnswers = mock.collapsedAnswers
       resolve(mock)
     }, 1000)
   })
 }
 
+function scrollIntoView(el) {
+  if (typeof el === 'string' || el instanceof String) {
+    el = document.querySelectorAll(el)
+  }
+  if (el instanceof NodeList || Array.isArray(el)) {
+    if (!el.length) return
+    el[0].scrollIntoView({block: 'center'})
+    el.forEach((e, i) => {
+      if (e.classList.contains('blink')) return
+      e.classList.add('blink')
+      setTimeout(() => e.classList.remove('blink'), 2000)
+    })
+  } else {
+    if (!el) return
+    el.scrollIntoView({block: 'center'})
+    if (el.classList.contains('blink')) return
+    el.classList.add('blink')
+    setTimeout(() => el.classList.remove('blink'), 2000)
+  }
+}
+
+function setElData(el, data) {
+  const {ansIdx, colAnsIdx, simAnsIdx, propIdx} = data
+  el.setAttribute('data-proposition', propIdx)
+  if (ansIdx != undefined) {
+    el.setAttribute('data-answer', ansIdx)
+  }
+  if (simAnsIdx != undefined && colAnsIdx != undefined) {
+    el.setAttribute('data-similar-answer', simAnsIdx)
+    el.setAttribute('data-collapsed-answer', colAnsIdx)
+  }
+}
+
+function getElData(el) {
+  const propEl = el.closest('[data-proposition]')
+  const ansEl = el.closest('[data-answer]')
+  const simAnsEl = el.closest('[data-similar-answer]')
+  if (!propEl) return null
+  if (!ansEl && !simAnsEl) return null
+  else if (simAnsEl) {
+    return {
+      propIdx: propEl.dataset.proposition,
+      simAnsIdx: simAnsEl.dataset.similarAnswer,
+      colAnsIdx: simAnsEl.dataset.collapsedAnswer,
+    }
+  } else {
+    return {
+      propIdx: propEl.dataset.proposition,
+      ansIdx: ansEl.dataset.answer,
+    }
+  }
+}
+
+function getDataSelector(data) {
+  const {ansIdx, colAnsIdx, simAnsIdx, propIdx} = data
+  if (ansIdx != undefined) return `[data-answer="${ansIdx}"][data-proposition="${propIdx}"]`
+  else if (colAnsIdx != undefined && simAnsIdx != undefined) return `[data-similar-answer="${simAnsIdx}"][data-collapsed-answer="${colAnsIdx}"][data-proposition="${propIdx}"]`
+}
+
+function getAnswer(data) {
+  const {ansIdx, colAnsIdx} = data
+  if (ansIdx != undefined) return answers[ansIdx]
+  else if (colAnsIdx != undefined) return collapsedAnswers[colAnsIdx]
+}
+
+function getProposition(data) {
+  const ans = getAnswer(data)
+  return ans.propositions[data.propIdx]
+}
+
+/** 既然现在answer container 和note container都会标注data-*，不传入parent可能导致选择的元素并非是自己想要的 */ 
+function getPropositionEl(data, parent, all=false) {
+  parent = parent ?? document
+  const {ansIdx, colAnsIdx, simAnsIdx, propIdx} = data
+  const method = all ? 'querySelectorAll' : 'querySelector'
+  if (ansIdx != undefined) return parent[method](`[data-answer="${ansIdx}"][data-proposition="${propIdx}"]`)
+  else if (colAnsIdx != undefined) return parent[method](`[data-collapsed-answer="${colAnsIdx}"][data-proposition="${propIdx}"]`)
+  else if (simAnsIdx != undefined) return parent[method](`[data-similar-answer="${simAnsIdx}"][data-proposition="${propIdx}"]`)
+  return null
+}
+
+function getPropositionCheckboxEl(data) {
+  const elList = getPropositionEl(data, document.getElementById('answer-container'), true)
+  const lastEl = elList[elList.length - 1]
+  return lastEl.nextElementSibling
+}
+
+function markPropositions(contextElement, propositionList, dataWithoutPropIdx) {
+  const markContext = new Mark(contextElement)
+  propositionList.forEach((prop, propIdx) => {
+    // mark单个回答的单个proposition
+    markContext.mark(prop.content, {
+      className: `proposition proposition-${propIdx} concept-${prop.concept}`,
+      separateWordSearch: false,
+      acrossElements: true,
+      each(el) {
+        el.title = 'Click to add the proposition to the note pane.\nCtrl+click to locate the proposition in the note pane (if exists).'
+        el.setAttribute('data-proposition', propIdx)
+        setElData(el, {...dataWithoutPropIdx, propIdx})
+      }
+    })
+  })
+}
+
+function addToNote(data) {
+  const noteContainer = document.getElementById('note-container')
+  // check whether the concept name already exists or not
+  const conceptElements = noteContainer.querySelectorAll(".concept .content")
+  const prop = getProposition(data)
+
+  let conceptExist = false;
+  const conceptName = prop.concept
+  const propositionContent = prop.content
+  conceptElements.forEach(concept_el => {
+    if (concept_el.textContent == conceptName){
+      conceptExist = true;
+    }
+  })
+  
+  let propositionContainer;
+  // if not exists, just create a new <li> containing the concept, and a <ul> containing the corresponding <li>proposition under it.
+  if (!conceptExist){
+    const conceptElement = document.getElementById('template-single-concept').content.firstElementChild.cloneNode(true)
+    conceptElement.querySelector('.content').textContent = conceptName
+    conceptElement.setAttribute('concept-name', conceptName)
+    noteContainer.append(conceptElement)
+    noteContainer.nextElementSibling.classList.add('d-none')
+
+    propositionContainer = document.createElement('ul')
+    propositionContainer.classList.add('proposition-container')
+    propositionContainer.id = `proposition-${data.propIdx}-container`
+    propositionContainer.setAttribute('data-concept', conceptName)
+    conceptElement.append(propositionContainer)
+
+    // Initialize drag'n'drop
+    new Sortable(propositionContainer, sortableOptions)
+  }
+  // if exists, just find the target concept and add the <li>proposition in the <ul> proposition container
+  else{
+    propositionContainer = noteContainer.querySelector(`[data-concept="${conceptName}"]`)
+  }
+  const propositionElement = document.getElementById('single-note-template').content.firstElementChild.cloneNode(true)
+  propositionElement.querySelector('.content').textContent = propositionContent
+  setElData(propositionElement, data)
+  propositionContainer.append(propositionElement)
+}
+
+function removeFromNote(data) {
+  const noteContainer = document.getElementById('note-container')
+  // remove the proposition
+  const propositionElement = getPropositionEl(data, noteContainer)
+  const propositionContainer = propositionElement.parentElement
+  const conceptName = propositionContainer.getAttribute('data-concept')
+  const conceptElement = noteContainer.querySelector(`[concept-name="${conceptName}"]`)
+  propositionElement.remove()
+  
+  // after removal, if there is no proposition under a concept, delete it
+  if (propositionContainer.childElementCount == 0){
+    clearConceptColor(conceptName)
+    // Destroy d'n'd
+    Sortable.get(propositionContainer).destroy()
+    propositionContainer.remove()
+    conceptElement.remove()
+  }
+  if (!noteContainer.childElementCount) noteContainer.nextElementSibling.classList.remove('d-none')
+}
+
+function handlePropositionClicked(el, ctrlKey, isClickingCheckbox) {
+  const data = getElData(el)
+  // const propIdx = el.dataset.proposition
+  const checkbox = getPropositionCheckboxEl(data)
+  console.debug(data, 'clicked')
+  // 跳转到note
+  if (ctrlKey) {
+    scrollIntoView(`.note${getDataSelector(data)}`)
+    return
+  }
+  // toggle Checkbox (因为如果点击的是checkbox本身而不是文本，就不用程序toggle了)
+  if (!isClickingCheckbox) {
+    checkbox.checked = !checkbox.checked
+  }
+  // 添加note
+  if (checkbox.checked) {
+    addToNote(data)
+  } else { // uncheck并移除
+    removeFromNote(data)
+  }
+}
+
+function linkPropositionAndNote(contextElement, propositionList) {
+  propositionList.forEach((prop, propIdx) => {
+    // 给这个proposition（的最后一个<mark>之后）加checkbox
+    const markedElements = contextElement.querySelectorAll(`.proposition-${propIdx}`)
+    const markedLast = markedElements[markedElements.length - 1]
+    const checkbox = document.createElement('input')
+    checkbox.type = 'checkbox'
+    checkbox.classList.add('form-check-input')
+    markedLast.insertAdjacentElement('afterend', checkbox)
+    
+    // 点击proposition的时候自动check
+    markedElements.forEach(el => {
+      // 给proposition mark添加鼠标进入监听
+      el.addEventListener('mouseenter', () => {
+        if (el.closest('.content').classList.contains('truncate')) return
+        checkbox.style.visibility = 'visible'
+      })
+      el.addEventListener('mouseleave', () => {
+        if (el.closest('.content').classList.contains('truncate')) return
+        checkbox.style.removeProperty('visibility')
+      })
+    })
+  })
+}
+
+function changeConceptColor(concept, color, isDark) {
+  document.querySelectorAll(`mark.proposition.concept-${concept}`).forEach((el) => {
+    el.style.backgroundColor = color
+    el.style.color = isDark ? 'white' : 'black'
+  })
+  const el = lastPopoverReference.closest('li').querySelector('.content')
+  el.style.backgroundColor = color
+  el.style.color = isDark ? 'white' : 'black'
+}
+
+function clearConceptColor(concept) {
+  document.querySelectorAll(`mark.proposition.concept-${concept}`).forEach((el) => {
+    el.removeAttribute('style')
+  })
+  lastPopoverReference.closest('li').querySelector('.content').removeAttribute('style')
+}
+
+function initNotePaneDoubleClickNote() {
+  document.getElementById('note-container').addEventListener('click', (e) => {
+    if (e.target && e.target.matches('.note > .content') && e.ctrlKey) {
+      e.preventDefault()
+      const li = e.target.closest('li')
+      const ansIdx = li.getAttribute('data-answer')
+      const propIdx = li.getAttribute('data-proposition')
+      scrollIntoView(`.answer-${ansIdx} .proposition-${propIdx}`)
+    }
+  })
+}
+
+function initNotePaneButtonMenu() {
+  const options = {
+    trigger: 'focus',
+    container: 'body',
+    placement: 'bottom',
+    html: true, // the content is three HTML buttons. Inject them as-is
+    sanitize: false, // By default, button elements are sanitized and not allowed (https://getbootstrap.com/docs/5.0/getting-started/javascript/#sanitizer). Turn this off
+    popperConfig: { // remember which three-dot button is clicked. This cannot be traced on-the-fly because the popover element is appended to body, not the note element's child
+      onFirstUpdate: (state) => {
+        const {elements: {reference}} = state
+        lastPopoverReference = reference
+      }
+    }
+  }
+  const noteContainer = document.getElementById('note-container')
+  // Note menu
+  new bootstrap.Popover(noteContainer, {
+    ...options,
+    selector: '.popover-note-menu',
+    content: document.getElementById('template-note-popover').innerHTML.trim(),
+  })
+  // Concept menu
+  new bootstrap.Popover(noteContainer, {
+    ...options,
+    selector: '.popover-concept-menu',
+    content: document.getElementById('template-concept-popover').innerHTML.trim(),
+    popperConfig: {
+      onFirstUpdate: (state) => {
+        // console.log(state)
+        const {elements: {reference}} = state
+        lastPopoverReference = reference
+        const pickr = new Pickr({
+          el: '.color-picker',
+          theme: 'nano',
+          useAsButton: true,
+          swatches: COLORS,
+          default: '#000000',
+          lockOpacity: true,
+          components: {
+            preview: true,
+            hue: true,
+            interaction: {
+                hex: true,
+                rgba: true,
+                input: true,
+                clear: true,
+                save: true
+            }
+          }
+        })
+        pickr.on('save', (color, instance) => {
+          const li = lastPopoverReference.closest('li')
+          const concept = li.getAttribute('concept-name')
+          if (!color) return clearConceptColor(concept)
+          const isDark = color.toHSLA()[2] < 50
+          color = color.toHEXA().toString()
+          console.log('Saving color', color, 'to concept', concept);
+          changeConceptColor(concept, color, isDark)
+          instance.hide()
+        })
+        // 妈的这里不想处理了
+        // 总之就是，popover消失的时候是直接从DOM树删除了的，Pickr必须在构造的时候挂靠在当时popover（中的button）上。
+        // popover再点一遍的时候就是新的popover元素了，也要创建新的Pickr实例。
+        // 久而久之，老的Pickr实例也没有销毁，就有内存泄漏。
+        // naive的解决方法是在Pickr hide时自我销毁，因为打开Pickr的瞬间focus发生变化、popover已经没了，所以等这次Pickr隐藏时理论上可以销毁
+        // 但是这样做蜜汁在save时可以，在clear时报错。所以加了个1秒的延迟
+        pickr.on('hide', instance => {
+          if (!document.body.contains(instance.el)) setTimeout(() => instance.destroyAndRemove(), 1000)
+        })
+      }
+    }
+  })
+}
+
+function addSimilarAnswer(ansIdx) {
+  const ans = answers[ansIdx]
+  if (!ans.similarAnswers.length) return;
+  const allSimAnsContainer = document.querySelector(`.answer-${ansIdx} .similar-answers`)
+  const accordionButton = allSimAnsContainer.querySelector('.accordion-button')
+  const accordionCollapse = allSimAnsContainer.querySelector('.accordion-collapse.collapse')
+  allSimAnsContainer.classList.remove('d-none')
+  // 折叠容器配置，参见bootstrap文档
+  const accordionId = `similar-answer-accordion-${ansIdx}`
+  const collapseId = `similar-answer-collapse-${ansIdx}`
+  allSimAnsContainer.querySelector('.accordion').id = accordionId
+  accordionCollapse.id = collapseId
+  accordionCollapse.setAttribute('data-bs-parent', `#${accordionId}`)
+  accordionButton.append(`(${ans.similarAnswers.length})`)
+  accordionButton.setAttribute('data-bs-target', `#${collapseId}`)
+  accordionButton.setAttribute('aria-controls', collapseId)
+  // 创建每一个similar answer的组件
+  const simAnsNodes = ans.similarAnswers.map((colAnsIdx, simAnsIdx) => {
+    const simAns = collapsedAnswers[colAnsIdx]
+    const node = document.getElementById('template-similar-answer').content.firstElementChild.cloneNode(true)
+    const contentNode = node.querySelector('.content')
+    node.classList.add(`similar-answer-${simAnsIdx}`)
+    node.querySelector('.author-name').textContent = simAns.author?.name ?? 'Anonymous'
+    node.querySelector('.concept').append(...simAns.propositions.map(p => {
+      const el = document.createElement('span')
+      el.textContent = p.concept
+      el.classList.add('badge', 'bg-secondary', 'me-1')
+      return el
+    }))
+    contentNode.innerHTML = simAns.html
+    markPropositions(contentNode, simAns.propositions, {colAnsIdx, simAnsIdx})
+    linkPropositionAndNote(contentNode, simAns.propositions)
+    return node
+  })
+  allSimAnsContainer.querySelector('ul').append(...simAnsNodes)
+}
+
+function initConceptPane() {
+  const id = 'mindmap-container'
+  document.getElementById(id).style.setProperty('height', '500px')
+  const mind = {
+    "meta":{
+      "name": "CQA", // 这个参数居然是必须的？？
+      "author": "HCI Lab, HKUST",
+      "version": "1"
+    },
+    "format":"node_tree",
+    "data": {"id":"root","topic":"Diet","children":[
+        {"id":"diet1","topic":"Eat this"},
+        {"id":"diet2","topic":"Eat that"},
+        {"id":"diet3","topic":"Don't eat this"},
+        {"id":"diet4","topic":"Don't eat that"},
+    ]}
+  };
+  const options = {
+    container: id,
+    theme: 'orange',
+    view: {
+      hmargin: 0,        // 思维导图距容器外框的最小水平距离
+      vmargin: 0,         // 思维导图距容器外框的最小垂直距离
+    },
+  };
+  const jm = new jsMind(options)
+  jm.show(mind)
+}
+
 // 等价于jQuery的 $.ready(...) 即 $(...)
 document.addEventListener('DOMContentLoaded', async () => {
+<<<<<<< HEAD
   const res = await getAnswers();
   const {question, description, answers} = res;
+=======
+  const res = await fetchPageData();
+  const {question, description} = res; // answers 和 collapsedAnswers在await之后已经写入全局
+
+>>>>>>> 2e450799c2ef95e4a077bc2d53f49863e078e9f3
   // 加载问题
   document.getElementById('question').textContent = question
   document.getElementById('question-description').textContent = description
@@ -24,120 +429,85 @@ document.addEventListener('DOMContentLoaded', async () => {
     // 加载单个回答的内容
     const answerNode = answerTemplate.cloneNode(true)
     answerNode.classList.add(`answer-${ansIdx}`)
-    answerNode.querySelector('.answer-content').innerHTML = ans.html
+    answerNode.querySelector('.content').innerHTML = ans.html
     answerNode.querySelector('.date').textContent = dayjs(ans.date).format('MMM D, YYYY')
-    answerNode.querySelector('.author-name').textContent = ans.author.name
-    answerNode.querySelector('.author-description').textContent = ans.author.description
+    answerNode.querySelector('.author-name').textContent = ans.author?.name ?? 'Anonymous'
+    answerNode.querySelector('.author-description').textContent = ans.author?.description
     // answerNode.querySelector('.avatar').src = ans.author.avatar
     answerContainer.append(answerNode)
 
     // mark单个回答的所有proposition
-    const markContext = new Mark(answerNode)
-    ans.propositions.forEach(({content, concept}, propIdx) => {
-      // mark单个回答的单个proposition
-      markContext.mark(content, {
-        className: `proposition proposition-${propIdx}`,
-        separateWordSearch: false,
-        acrossElements: true,
-      })
+    markPropositions(answerNode, ans.propositions, {ansIdx})
+    linkPropositionAndNote(answerNode, ans.propositions)
 
-      // 给这个proposition加checkbox
-      const markedElements = document.querySelectorAll(`.answer-${ansIdx} .proposition-${propIdx}`)
-      const markedLast = markedElements[markedElements.length - 1]
-      const checkbox = document.createElement('input')
-      checkbox.type = 'checkbox'
-      checkbox.classList.add('form-check-input')
-      markedLast.insertAdjacentElement('afterend', checkbox)
-
-      
-      // 点击proposition的时候自动check
-      const noteContainer = document.getElementById('note-container')
-      markedElements.forEach(el => {
-        el.addEventListener('click', () => {
-          if (!checkbox.checked) { // 如果没有check，check并加入note
-            checkbox.checked = true
-            // check whether the concept name already exists or not
-            const conceptElements = noteContainer.querySelectorAll(".concept")
-
-            let conceptExist = false;
-            const conceptName = answers[ansIdx].propositions[propIdx].concept
-            const propositionContent = answers[ansIdx].propositions[propIdx].content
-            conceptElements.forEach(concept_el => {
-              if (concept_el.textContent == conceptName){
-                conceptExist = true;
-              }
-            })
-            
-            // if not exists, just create a new <li> containing the concept, and a <ul> containing the corresponding <li>proposition under it.
-            let propositionContainer;
-            if (!conceptExist){
-              const conceptElement = document.createElement('li')
-              conceptElement.textContent = conceptName
-              conceptElement.classList.add('concept')
-              conceptElement.setAttribute('concept-name', conceptName)
-              noteContainer.append(conceptElement)
-              noteContainer.nextElementSibling.classList.add('d-none')
-
-              propositionContainer = document.createElement('ul')
-              propositionContainer.classList.add('proposition-container')
-              propositionContainer.id = `proposition-${propIdx}-container`
-              propositionContainer.setAttribute('data-concept', conceptName)
-              noteContainer.append(propositionContainer)
-            }
-
-            // if exists, just find the target concept and add the <li>proposition in the <ul> proposition container
-            if (conceptExist){
-              propositionContainer = noteContainer.querySelector(`[data-concept="${conceptName}"]`)
-            }
-            const propositionElement = document.getElementById('single-note-template').content.firstElementChild.cloneNode(true)
-            propositionElement.firstElementChild.textContent = propositionContent
-              propositionElement.setAttribute('data-answer', ansIdx)
-              propositionElement.setAttribute('data-proposition', propIdx)
-              propositionContainer.append(propositionElement)
-            
-
-
-          } else { // uncheck并移除
-            checkbox.checked = false
-            // remove the proposition
-            const propositionElement = noteContainer.querySelector(`[data-answer="${ansIdx}"][data-proposition="${propIdx}"]`)
-            const propositionContainer = propositionElement.parentElement
-            const conceptName = propositionContainer.getAttribute('data-concept')
-            const conceptElement = noteContainer.querySelector(`[concept-name="${conceptName}"]`)
-            propositionElement.remove()
-            // after removal, if there is no proposition under a concept, delete it
-
-            if (propositionContainer.childElementCount == 0){
-              propositionContainer.remove()
-              conceptElement.remove()
-            }
-            
-
-            if (!noteContainer.childElementCount) noteContainer.nextElementSibling.classList.remove('d-none')
-          }
-        })
-        el.addEventListener('mouseenter', () => {
-          checkbox.style.visibility = 'visible'
-        })
-        el.addEventListener('mouseleave', () => {
-          checkbox.style.removeProperty('visibility')
-        })
-      })
-    })
-
+    // 增加单个回答的所有类似回答
+    addSimilarAnswer(ansIdx)
   })
 
+  // 初始化note pane外层的dnd
+  const noteContainer = document.getElementById('note-container')
+  new Sortable(noteContainer, {
+    ...sortableOptions,
+    group: 'concept',
+  })
+  // 初始化note pane的button menu
+  initNotePaneButtonMenu()
+  // 初始化note pane双击跳转
+  initNotePaneDoubleClickNote()
+
+  // 初始化concept pane
+  initConceptPane()
 })
 
-function editProposition(e) {
+// 监听所有(Expand)按钮的事件
+document.addEventListener('click', (e) => {
+  if (e.target && e.target.matches('.content-collapse-button')) {
+    const buttonEl = e.target
+    const contentEl = buttonEl.parentElement.querySelector('.content')
+    if (contentEl.classList.toggle('truncate')) { // returns true if now present
+      buttonEl.textContent = '(Expand)'
+    } else {
+      buttonEl.textContent = '(Collapse)'
+    }
+  } else if (e.target && e.target.matches('.content:not(.truncate) .proposition')) {
+    handlePropositionClicked(e.target, e.ctrlKey, false)
+  } else if (e.target && e.target.matches('.content:not(.truncate) .proposition~input[type="checkbox"]')) {
+    handlePropositionClicked(e.target.previousSibling, e.ctrlKey, true)
+  }
+})
+
+// 监听ctrl键有没有按下并调整style
+function ctrlHandler(e) {
+  document.body.className = e.ctrlKey ? 'ctrl-down' : ''
+}
+document.addEventListener('keydown', ctrlHandler)
+document.addEventListener('keyup', ctrlHandler)
+
+function onEditNoteClick() {
   const newProp = prompt('Please enter your proposition')
-  const {target} = e;
-  target.closest('li').firstElementChild.textContent = newProp
+  if (!newProp) return
+  lastPopoverReference.closest('li').querySelector('.content').textContent = newProp
 }
 
-function resetProposition(e) {
-  const li = e.target.closest('li')
-  const ansIdx = li.getAttribute('data-answer')
-  const propIdx = li.getAttribute('data-proposition')
-  li.firstElementChild.textContent = answers[ansIdx].propositions[propIdx].content
+function onResetNoteClick() {
+  const li = lastPopoverReference.closest('li')
+  const data = getElData(li)
+  li.querySelector('.content').textContent = getProposition(data).content
+}
+
+function onRemoveNoteClick() {
+  const li = lastPopoverReference.closest('li')
+  const data = getElData(li)
+  getPropositionEl(data, document.getElementById('answer-container')).click()
+}
+
+function onEditConceptClick() {
+  onEditNoteClick()
+}
+function onResetConceptClick() {
+  const li = lastPopoverReference.closest('li')
+  li.querySelector('.content').textContent = li.getAttribute('concept-name')
+}
+function onColorConceptClick() {
+
 }
