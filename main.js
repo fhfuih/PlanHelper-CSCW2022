@@ -379,45 +379,88 @@ function addSimilarAnswer(ansIdx) {
   allSimAnsContainer.querySelector('ul').append(...simAnsNodes)
 }
 
-function initConceptPane() {
+function initConceptPane(answers) {
   const id = 'mindmap-container'
   document.getElementById(id).style.setProperty('height', '500px')
-  const mind = {
-    "meta":{
-      "name": "CQA", // 这个参数居然是必须的？？
-      "author": "HCI Lab, HKUST",
-      "version": "1"
-    },
-    "format":"node_tree",
-    "data": {"id":"root","topic":"Diet","children":[
-        {"id":"diet1","topic":"Eat this"},
-        {"id":"diet2","topic":"Eat that"},
-        {"id":"diet3","topic":"Don't eat this"},
-        {"id":"diet4","topic":"Don't eat that"},
-    ]}
-  };
-  const options = {
-    container: id,
-    theme: 'orange',
-    view: {
-      hmargin: 0,        // 思维导图距容器外框的最小水平距离
-      vmargin: 0,         // 思维导图距容器外框的最小垂直距离
-    },
-  };
-  const jm = new jsMind(options)
-  jm.show(mind)
+  function constructMindMap(){
+    const mind = {
+      "meta":{
+        "name": "CQA", // 这个参数居然是必须的？？
+        "author": "HCI Lab, HKUST",
+        "version": "1"
+      },
+      "format":"node_tree",
+      "data": {"id":"root","topic":"Template concept","children":[
+          {"id":"subconcept1","topic":"Eat this"},
+          {"id":"subconcept2","topic":"Eat that"},
+          {"id":"subconcept3","topic":"Don't eat this"},
+          {"id":"subconcept4","topic":"Don't eat that"},
+      ]}
+    };
+    const options = {
+      container: id,
+      theme: 'orange',
+      view: {
+        hmargin: 0,        // 思维导图距容器外框的最小水平距离
+        vmargin: 0,         // 思维导图距容器外框的最小垂直距离
+      },
+    };
+    return [options, mind]
+  }
+  // add concepts to the concept-list-container
+  const conceptListContainer = document.getElementById('concept-list-container')
+  
+  const conceptSet = new Set(answers.map(p => {
+    const propositions = p['propositions']
+    let concepts = []
+    concepts.push(...propositions.map(el => {
+      return el['concept']
+    }))
+    return concepts
+  }).flat())
+
+  conceptSet.forEach(el =>{
+    const badge = document.createElement('span')
+    badge.textContent = el
+    badge.classList.add('badge', 'bg-secondary', 'me-1', 'concept-badge')
+    conceptListContainer.append(badge)
+  })
+
+  const conceptElements = conceptListContainer.querySelectorAll(`.concept-badge`)
+  conceptElements.forEach(el =>{
+    el.addEventListener('click', (e) =>{
+      if(el.classList.contains('bg-secondary')){
+        el.classList.remove('bg-secondary')
+        el.classList.add('bg-primary')
+        const optionsAndMind = constructMindMap()
+        
+        const jm = new jsMind(optionsAndMind[0])
+        jm.show(optionsAndMind[1])
+
+      }
+      else{
+        el.classList.remove('bg-primary')
+        el.classList.add('bg-secondary')
+        const mindMapEl = document.querySelector('.jsmind-inner')
+        mindMapEl.remove()
+      }
+    })
+    el.addEventListener('mouseenter', () => {
+      el.style.cursor = 'pointer'
+    })
+  })
+
+
+
 }
 
 // 等价于jQuery的 $.ready(...) 即 $(...)
 document.addEventListener('DOMContentLoaded', async () => {
-<<<<<<< HEAD
-  const res = await getAnswers();
-  const {question, description, answers} = res;
-=======
+
   const res = await fetchPageData();
   const {question, description} = res; // answers 和 collapsedAnswers在await之后已经写入全局
 
->>>>>>> 2e450799c2ef95e4a077bc2d53f49863e078e9f3
+
   // 加载问题
   document.getElementById('question').textContent = question
   document.getElementById('question-description').textContent = description
@@ -442,6 +485,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // 增加单个回答的所有类似回答
     addSimilarAnswer(ansIdx)
+
   })
 
   // 初始化note pane外层的dnd
@@ -456,7 +500,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   initNotePaneDoubleClickNote()
 
   // 初始化concept pane
-  initConceptPane()
+  initConceptPane(answers)
 })
 
 // 监听所有(Expand)按钮的事件
@@ -511,3 +555,5 @@ function onResetConceptClick() {
 function onColorConceptClick() {
 
 }
+
+
