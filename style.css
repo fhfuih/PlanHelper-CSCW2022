@@ -5,6 +5,8 @@
 
 .side {
   position: sticky;
+  /* overflow: auto;
+  height: 100vh; */
   top: 50px;
   margin-bottom: 32px; /* margin top 被bootstrap设置了 */
 }

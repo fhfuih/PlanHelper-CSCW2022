@@ -14,6 +14,7 @@ let lastPopoverReference;
 
 let answers; // 全局answers（应该不需要全局留着question吧）
 let collapsedAnswers;
+let notePaneData = [];
 
 function fetchPageData(question) {
   return new Promise((resolve) => {
@@ -134,15 +135,24 @@ function addToNote(data) {
   // check whether the concept name already exists or not
   const conceptElements = noteContainer.querySelectorAll(".concept .content")
   const prop = getProposition(data)
-
   let conceptExist = false;
   const conceptName = prop.concept
   const propositionContent = prop.content
+  const subconceptName = prop.subconcept
   conceptElements.forEach(concept_el => {
     if (concept_el.textContent == conceptName){
       conceptExist = true;
     }
   })
+  
+  // const conceptListContainer = document.getElementById('concept-list-container')
+  // const conceptBadge = conceptListContainer.querySelector(`[concept-name=${conceptName}]`)
+  // if (conceptBadge.classList.contains('bg-secondary')){
+  //   conceptBadge.classList.remove('bg-secondary')
+  //   conceptBadge.classList.add('bg-success')
+  // }
+  
+  // change the color of the concept badge in concept pane if the concept exists
   
   let propositionContainer;
   // if not exists, just create a new <li> containing the concept, and a <ul> containing the corresponding <li>proposition under it.
@@ -157,10 +167,12 @@ function addToNote(data) {
     propositionContainer.classList.add('proposition-container')
     propositionContainer.id = `proposition-${data.propIdx}-container`
     propositionContainer.setAttribute('data-concept', conceptName)
+    propositionContainer.setAttribute('data-subconcept', subconceptName)
     conceptElement.append(propositionContainer)
 
     // Initialize drag'n'drop
     new Sortable(propositionContainer, sortableOptions)
+
   }
   // if exists, just find the target concept and add the <li>proposition in the <ul> proposition container
   else{
@@ -170,6 +182,8 @@ function addToNote(data) {
   propositionElement.querySelector('.content').textContent = propositionContent
   setElData(propositionElement, data)
   propositionContainer.append(propositionElement)
+
+  updateConceptPaneData(data=prop, append=true)
 }
 
 function removeFromNote(data) {
@@ -177,6 +191,7 @@ function removeFromNote(data) {
   // remove the proposition
   const propositionElement = getPropositionEl(data, noteContainer)
   const propositionContainer = propositionElement.parentElement
+  const propData = {'content' : propositionElement.querySelector(`.content`).textContent}
   const conceptName = propositionContainer.getAttribute('data-concept')
   const conceptElement = noteContainer.querySelector(`[concept-name="${conceptName}"]`)
   propositionElement.remove()
@@ -189,7 +204,9 @@ function removeFromNote(data) {
     propositionContainer.remove()
     conceptElement.remove()
   }
-  if (!noteContainer.childElementCount) noteContainer.nextElementSibling.classList.remove('d-none')
+  if (!noteContainer.childElementCount) {noteContainer.nextElementSibling.classList.remove('d-none')}
+  
+  updateConceptPaneData(data=propData, append=false)
 }
 
 function handlePropositionClicked(el, ctrlKey, isClickingCheckbox) {
@@ -253,7 +270,7 @@ function clearConceptColor(concept) {
   document.querySelectorAll(`mark.proposition.concept-${concept}`).forEach((el) => {
     el.removeAttribute('style')
   })
-  lastPopoverReference.closest('li').querySelector('.content').removeAttribute('style')
+  document.querySelector(`li[concept-name="${concept}"] .content`).removeAttribute('style')
 }
 
 function initNotePaneDoubleClickNote() {
@@ -380,33 +397,6 @@ function addSimilarAnswer(ansIdx) {
 }
 
 function initConceptPane(answers) {
-  const id = 'mindmap-container'
-  document.getElementById(id).style.setProperty('height', '500px')
-  function constructMindMap(){
-    const mind = {
-      "meta":{
-        "name": "CQA", // 这个参数居然是必须的？？
-        "author": "HCI Lab, HKUST",
-        "version": "1"
-      },
-      "format":"node_tree",
-      "data": {"id":"root","topic":"Template concept","children":[
-          {"id":"subconcept1","topic":"Eat this"},
-          {"id":"subconcept2","topic":"Eat that"},
-          {"id":"subconcept3","topic":"Don't eat this"},
-          {"id":"subconcept4","topic":"Don't eat that"},
-      ]}
-    };
-    const options = {
-      container: id,
-      theme: 'orange',
-      view: {
-        hmargin: 0,        // 思维导图距容器外框的最小水平距离
-        vmargin: 0,         // 思维导图距容器外框的最小垂直距离
-      },
-    };
-    return [options, mind]
-  }
   // add concepts to the concept-list-container
   const conceptListContainer = document.getElementById('concept-list-container')
   
@@ -423,31 +413,17 @@ function initConceptPane(answers) {
     const badge = document.createElement('span')
     badge.textContent = el
     badge.classList.add('badge', 'bg-secondary', 'me-1', 'concept-badge')
+    badge.setAttribute('concept-name', `${el}`)
     conceptListContainer.append(badge)
   })
 
   const conceptElements = conceptListContainer.querySelectorAll(`.concept-badge`)
   conceptElements.forEach(el =>{
-    el.addEventListener('click', (e) =>{
-      if(el.classList.contains('bg-secondary')){
-        el.classList.remove('bg-secondary')
-        el.classList.add('bg-primary')
-        const optionsAndMind = constructMindMap()
-        
-        const jm = new jsMind(optionsAndMind[0])
-        jm.show(optionsAndMind[1])
-
-      }
-      else{
-        el.classList.remove('bg-primary')
-        el.classList.add('bg-secondary')
-        const mindMapEl = document.querySelector('.jsmind-inner')
-        mindMapEl.remove()
-      }
-    })
     el.addEventListener('mouseenter', () => {
       el.style.cursor = 'pointer'
     })
+    el.title = 'Add some marked propositions to generate the mind map.'
+    
   })
 
 
@@ -518,6 +494,9 @@ document.addEventListener('click', (e) => {
   } else if (e.target && e.target.matches('.content:not(.truncate) .proposition~input[type="checkbox"]')) {
     handlePropositionClicked(e.target.previousSibling, e.ctrlKey, true)
   }
+  else if (e.target && e.target.matches('.concept-badge')){
+    onConceptBadgeClick(e.target)
+  }
 })
 
 // 监听ctrl键有没有按下并调整style
@@ -552,8 +531,112 @@ function onResetConceptClick() {
   const li = lastPopoverReference.closest('li')
   li.querySelector('.content').textContent = li.getAttribute('concept-name')
 }
-function onColorConceptClick() {
 
+
+function onConceptBadgeClick(el) {
+  if (el.classList.contains('bg-primary')){
+    el.classList.remove('bg-primary')
+    el.classList.add('bg-success')
+    mindmapConfiguration(el.textContent, false)
+  }
+
+  else if (el.classList.contains('bg-secondary')){
+    el.classList.remove('bg-secondary')
+    el.classList.add('bg-primary')
+    optionsAndMind = mindmapConfiguration(el.textContent, true)
+    const jm = new jsMind(optionsAndMind[0])
+    jm.show(optionsAndMind[1])
+
+    const checkedChildrenNodes = optionsAndMind[3]
+    checkedChildrenNodes.forEach(item => {
+      jm.set_node_color(item['id'], '#FF0000', '0000FF')
+      console.log('here')
+    })
+    // hide other mind maps and generate and show the mind map
+  }
+  else if (el.classList.contains('bg-success')){
+    el.classList.remove('bg-success')
+    el.classList.add('bg-primary')
+    optionsAndMind = mindmapConfiguration(el.textContent, true)
+    const jm = new jsMind(optionsAndMind[0])
+    jm.show(optionsAndMind[1])
+  }
+  
 }
 
 
+function mindmapConfiguration(conceptName, construct){
+  if (document.querySelector('.jsmind-inner')){ 
+    const mindMapEl = document.querySelector('.jsmind-inner')
+    mindMapEl.remove()
+  }
+  if (construct){
+    const id = 'mindmap-container'
+    document.getElementById(id).style.setProperty('height', '500px')
+
+    let childrenNodes = []
+    let checkedChildrenNodes = []
+
+    const subconceptSet = new Set(answers.map(p => {
+      const propositions = p['propositions']
+      let subconcepts = []
+      subconcepts.push(...propositions.map(el => {
+        return el['subconcept']
+      }))
+      return subconcepts
+    }).flat())
+    const subconceptList = Array.from(subconceptSet)
+    subconceptList.forEach((el, idx) =>{
+      childrenNodes.push({"id": `subconcept${idx}`, "topic": el})
+      for (let i = 0; i < notePaneData.length; ++i){
+        if(el === notePaneData[i]['subconcept']){
+          checkedChildrenNodes.push({"id": `subconcept${idx}`, "topic": el})
+          break
+        }
+      }
+    })
+
+    let data = {"id":"root", "topic":conceptName,"children":childrenNodes}
+
+
+    const mind = {
+      "meta":{
+        "name": "CQA", // 这个参数居然是必须的？？
+        "author": "HCI Lab, HKUST",
+        "version": "1"
+      },
+      "format":"node_tree",
+      "data" : data
+      // "data": {"id":"root","topic":"Methdology","children":[
+      //     {"id":"subconcept1","topic":"Warm-up"},
+      //     {"id":"subconcept2","topic":"Cardio&Weight"},
+      //     {"id":"subconcept3","topic":"Calisthenics"},
+      //     {"id":"subconcept4","topic":"Isolation Techniques"}, // data need to be modified to adapt to specific concepts
+      // ]}
+    };
+
+    const options = {
+      container: id,
+      editable: true,
+      theme: 'orange',
+      view: {
+        hmargin: 0,        // 思维导图距容器外框的最小水平距离
+        vmargin: 0,         // 思维导图距容器外框的最小垂直距离
+      },
+    };
+    return [options, mind, childrenNodes, checkedChildrenNodes]
+
+  }
+}
+
+function updateConceptPaneData(data, append){
+  // update info in concept everytime when note pane has some changes
+  if (append){
+    notePaneData.push(data)
+  }
+  else{
+    notePaneData = notePaneData.filter((el) => {
+      return el['content'] !== data['content']
+    })
+  }
+}
