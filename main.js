@@ -14,7 +14,7 @@ let lastPopoverReference;
 
 let answers; // 全局answers（应该不需要全局留着question吧）
 let collapsedAnswers;
-let notePaneData = [];
+let notePaneData = []; // [{'content': ,'concept': ,'subconcept':}, {...}]
 
 function fetchPageData(question) {
   return new Promise((resolve) => {
@@ -145,12 +145,7 @@ function addToNote(data) {
     }
   })
   
-  // const conceptListContainer = document.getElementById('concept-list-container')
-  // const conceptBadge = conceptListContainer.querySelector(`[concept-name=${conceptName}]`)
-  // if (conceptBadge.classList.contains('bg-secondary')){
-  //   conceptBadge.classList.remove('bg-secondary')
-  //   conceptBadge.classList.add('bg-success')
-  // }
+
   
   // change the color of the concept badge in concept pane if the concept exists
   
@@ -423,6 +418,7 @@ function initConceptPane(answers) {
       el.style.cursor = 'pointer'
     })
     el.title = 'Add some marked propositions to generate the mind map.'
+    el.setAttribute('previous-color', 'bg-secondary')
     
   })
 
@@ -536,31 +532,37 @@ function onResetConceptClick() {
 function onConceptBadgeClick(el) {
   if (el.classList.contains('bg-primary')){
     el.classList.remove('bg-primary')
-    el.classList.add('bg-success')
+    el.classList.add(el.getAttribute('previous-color'))
     mindmapConfiguration(el.textContent, false)
+    return
   }
 
   else if (el.classList.contains('bg-secondary')){
-    el.classList.remove('bg-secondary')
-    el.classList.add('bg-primary')
-    optionsAndMind = mindmapConfiguration(el.textContent, true)
-    const jm = new jsMind(optionsAndMind[0])
-    jm.show(optionsAndMind[1])
-
-    const checkedChildrenNodes = optionsAndMind[3]
-    checkedChildrenNodes.forEach(item => {
-      jm.set_node_color(item['id'], '#FF0000', '0000FF')
-      console.log('here')
-    })
+    el.setAttribute('previous-color', 'bg-secondary')
     // hide other mind maps and generate and show the mind map
   }
   else if (el.classList.contains('bg-success')){
-    el.classList.remove('bg-success')
-    el.classList.add('bg-primary')
-    optionsAndMind = mindmapConfiguration(el.textContent, true)
-    const jm = new jsMind(optionsAndMind[0])
-    jm.show(optionsAndMind[1])
+    el.setAttribute('previous-color', 'bg-success')
   }
+  const conceptListContainer = document.getElementById('concept-list-container')
+  const conceptBadgeEls = conceptListContainer.querySelectorAll(`.concept-badge`)
+  conceptBadgeEls.forEach(p => {
+    if (p.classList.contains('bg-primary')){
+      p.classList.remove('bg-primary')
+      p.classList.add(p.getAttribute('previous-color'))
+    }
+  })
+
+  el.classList.remove(el.getAttribute('previous-color'))
+  el.classList.add('bg-primary')
+  optionsAndMind = mindmapConfiguration(el.textContent, true)
+  const jm = new jsMind(optionsAndMind[0])
+  jm.show(optionsAndMind[1])
+
+  const checkedChildrenNodes = optionsAndMind[3]
+  checkedChildrenNodes.forEach(item => {
+    jm.set_node_color(item['id'], '#FF0000', '0000FF')
+  })
   
 }
 
@@ -607,12 +609,6 @@ function mindmapConfiguration(conceptName, construct){
       },
       "format":"node_tree",
       "data" : data
-      // "data": {"id":"root","topic":"Methdology","children":[
-      //     {"id":"subconcept1","topic":"Warm-up"},
-      //     {"id":"subconcept2","topic":"Cardio&Weight"},
-      //     {"id":"subconcept3","topic":"Calisthenics"},
-      //     {"id":"subconcept4","topic":"Isolation Techniques"}, // data need to be modified to adapt to specific concepts
-      // ]}
     };
 
     const options = {
@@ -639,4 +635,32 @@ function updateConceptPaneData(data, append){
       return el['content'] !== data['content']
     })
   }
+
+  const conceptListContainer = document.getElementById('concept-list-container')
+  const conceptBadgeEls = conceptListContainer.querySelectorAll(`.concept-badge`)
+
+  let checkedConcepts= []
+  conceptBadgeEls.forEach(el => {
+    for (let i =0; i < notePaneData.length; ++i){
+      if (el.textContent === notePaneData[i]['concept']){
+        checkedConcepts.push(el)
+        break
+      }
+    }
+  })
+
+  conceptBadgeEls.forEach(el => {
+    if (checkedConcepts.indexOf(el) != -1){
+      if(el.classList.contains('bg-secondary')){
+        el.classList.remove('bg-secondary');
+        el.classList.add('bg-success');
+      }
+    }
+    else {
+      if(el.classList.contains('bg-success')){
+        el.classList.remove('bg-success');
+        el.classList.add('bg-secondary');
+      }
+    }
+  })
 }
