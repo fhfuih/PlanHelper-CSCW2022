@@ -4,7 +4,7 @@
 }
 
 .side {
-  position: sticky;
+  position: static;
   /* overflow: auto;
   height: 100vh; */
   top: 50px;

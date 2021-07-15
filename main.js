@@ -388,12 +388,19 @@ function addSimilarAnswer(ansIdx) {
     const contentNode = node.querySelector('.content')
     node.classList.add(`similar-answer-${simAnsIdx}`)
     node.querySelector('.author-name').textContent = simAns.author?.name ?? 'Anonymous'
-    node.querySelector('.concept').append(...simAns.propositions.map(p => {
+    
+    const conceptList = Array.from(new Set(simAns['propositions'].map((item) => {
+      return item['concept']
+    })))
+
+    node.querySelector('.concept').append(...conceptList.map((item) => {
       const el = document.createElement('span')
-      el.textContent = p.concept
+      el.textContent = item
       el.classList.add('badge', 'bg-secondary', 'me-1')
+      
       return el
     }))
+    
     contentNode.innerHTML = simAns.html
     markPropositions(contentNode, simAns.propositions, {colAnsIdx, simAnsIdx})
     linkPropositionAndNote(contentNode, simAns.propositions)
@@ -459,6 +466,26 @@ document.addEventListener('DOMContentLoaded', async () => {
     answerNode.querySelector('.date').textContent = dayjs(ans.date).format('MMM D, YYYY')
     answerNode.querySelector('.author-name').textContent = ans.author?.name ?? 'Anonymous'
     answerNode.querySelector('.author-description').textContent = ans.author?.description
+    const conceptList = Array.from(new Set(ans['propositions'].map((item) => {
+      return item['concept']
+    })))
+
+    answerNode.querySelector('.concept').append(...conceptList.map((item) => {
+      const el = document.createElement('span')
+      el.textContent = item
+      el.classList.add('badge', 'bg-secondary', 'me-1')
+      
+      return el
+    }))
+
+
+    // const conceptEls = Array.from(new Set(ans['propositions'].map((item) => {
+    //   const el = document.createElement('span')
+    //   el.textContent = item.concept
+    //   el.classList.add('badge', 'bg-secondary', 'me-1')
+    //   return el
+    // })))
+
     // answerNode.querySelector('.avatar').src = ans.author.avatar
     answerContainer.append(answerNode)
 
