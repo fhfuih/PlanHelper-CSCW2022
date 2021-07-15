@@ -7,7 +7,17 @@ const sortableOptions = {
   animation: 150,
   fallbackOnBody: true,
   swapThreshold: 0.65,
-  handle: '.drag-handle'
+  handle: '.drag-handle',
+  onEnd: function(evt){
+    const draggedItem = evt.item
+    if (draggedItem.classList.contains(`concept`)){}
+    else if(draggedItem.classList.contains(`note`)){
+      const propContent = draggedItem.querySelector(`.content`).textContent
+      const currentConcept = evt.to.getAttribute('data-concept')
+      updateConceptPaneData([propContent, currentConcept], 'drag-proposition')
+    }
+
+  }
 }
 // note pane popover button menu
 let lastPopoverReference;
@@ -178,7 +188,7 @@ function addToNote(data) {
   setElData(propositionElement, data)
   propositionContainer.append(propositionElement)
 
-  updateConceptPaneData(data=prop, append=true)
+  updateConceptPaneData(data=prop, operation='add')
 }
 
 function removeFromNote(data) {
@@ -201,7 +211,7 @@ function removeFromNote(data) {
   }
   if (!noteContainer.childElementCount) {noteContainer.nextElementSibling.classList.remove('d-none')}
   
-  updateConceptPaneData(data=propData, append=false)
+  updateConceptPaneData(data=propData, operation='delete')
 }
 
 function handlePropositionClicked(el, ctrlKey, isClickingCheckbox) {
@@ -521,11 +531,21 @@ function onRemoveNoteClick() {
 }
 
 function onEditConceptClick() {
-  onEditNoteClick()
+  const newConcept = prompt('Please enter your concept')
+  if (!newConcept) return
+  const originalConcept = lastPopoverReference.closest('li').querySelector('.content').textContent
+  lastPopoverReference.closest('li').querySelector('.content').textContent = newConcept
+
+  updateConceptPaneData([originalConcept, newConcept], 'edit-concept')
+  
 }
+
 function onResetConceptClick() {
   const li = lastPopoverReference.closest('li')
+  const originalConcept = li.querySelector('.content').textContent
   li.querySelector('.content').textContent = li.getAttribute('concept-name')
+  const newConcept = li.getAttribute('concept-name')
+  updateConceptPaneData([originalConcept, newConcept], 'reset-concept')
 }
 
 
@@ -582,9 +602,13 @@ function mindmapConfiguration(conceptName, construct){
     const subconceptSet = new Set(answers.map(p => {
       const propositions = p['propositions']
       let subconcepts = []
-      subconcepts.push(...propositions.map(el => {
-        return el['subconcept']
-      }))
+
+      propositions.forEach(el => {
+        if (el['concept'] === conceptName){
+          subconcepts.push(el['subconcept'])
+        }
+      })
+
       return subconcepts
     }).flat())
     const subconceptList = Array.from(subconceptSet)
@@ -625,16 +649,36 @@ function mindmapConfiguration(conceptName, construct){
   }
 }
 
-function updateConceptPaneData(data, append){
+function updateConceptPaneData(data, operation){
   // update info in concept everytime when note pane has some changes
-  if (append){
+  if (operation == 'add'){
     notePaneData.push(data)
   }
-  else{
+  else if(operation == 'delete'){
     notePaneData = notePaneData.filter((el) => {
       return el['content'] !== data['content']
     })
   }
+  else if(operation === 'edit-concept' || operation === 'reset-concept'){
+    const originalConcept = data[0]
+    const newConcept = data[1]
+    notePaneData.forEach(el => {
+      if (el['concept'] === originalConcept){
+        el['concept'] = newConcept
+      }
+    })
+  }
+  else if(operation === 'drag-proposition'){
+    const propContent = data[0]
+    const targetConcept = data[1]
+    for (let i = 0; i < notePaneData.length; ++i){
+      if(notePaneData[i]['content'] === propContent){
+        notePaneData[i]['concept'] = targetConcept
+        break;
+      }
+    }
+  }
+
 
   const conceptListContainer = document.getElementById('concept-list-container')
   const conceptBadgeEls = conceptListContainer.querySelectorAll(`.concept-badge`)
