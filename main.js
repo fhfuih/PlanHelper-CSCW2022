@@ -9,6 +9,7 @@ const sortableOptions = {
   swapThreshold: 0.65,
   handle: '.drag-handle',
   onEnd: function(evt){
+    // update concept pane data after drag and drop
     const draggedItem = evt.item
     if (draggedItem.classList.contains(`concept`)){}
     else if(draggedItem.classList.contains(`note`)){
@@ -402,7 +403,7 @@ function addSimilarAnswer(ansIdx) {
 }
 
 function initConceptPane(answers) {
-  // add concepts to the concept-list-container
+  // add concept badges to the concept-list-container
   const conceptListContainer = document.getElementById('concept-list-container')
   
   const conceptSet = new Set(answers.map(p => {
@@ -550,6 +551,8 @@ function onResetConceptClick() {
 
 
 function onConceptBadgeClick(el) {
+  // construct or delete the mind map when the concept badges are clicked
+
   if (el.classList.contains('bg-primary')){
     el.classList.remove('bg-primary')
     el.classList.add(el.getAttribute('previous-color'))
@@ -579,6 +582,7 @@ function onConceptBadgeClick(el) {
   const jm = new jsMind(optionsAndMind[0])
   jm.show(optionsAndMind[1])
 
+  // change the color of the "subconcept" nodes if the corresponding proposition is checked by user
   const checkedChildrenNodes = optionsAndMind[3]
   checkedChildrenNodes.forEach(item => {
     jm.set_node_color(item['id'], '#FF0000', '0000FF')
@@ -588,6 +592,8 @@ function onConceptBadgeClick(el) {
 
 
 function mindmapConfiguration(conceptName, construct){
+
+  // configuration about the mind map based on the note pane data
   if (document.querySelector('.jsmind-inner')){ 
     const mindMapEl = document.querySelector('.jsmind-inner')
     mindMapEl.remove()
@@ -651,6 +657,8 @@ function mindmapConfiguration(conceptName, construct){
 
 function updateConceptPaneData(data, operation){
   // update info in concept everytime when note pane has some changes
+  // The global variable is called note pane data because it keeps synchronized with the note pane.
+  // But actually it is for the concept pane's outlook and mind map generation, that's why this function is called "updateConceptData"
   if (operation == 'add'){
     notePaneData.push(data)
   }
@@ -679,6 +687,7 @@ function updateConceptPaneData(data, operation){
     }
   }
 
+  // change the badges' color after updating the record note pane data 
 
   const conceptListContainer = document.getElementById('concept-list-container')
   const conceptBadgeEls = conceptListContainer.querySelectorAll(`.concept-badge`)
