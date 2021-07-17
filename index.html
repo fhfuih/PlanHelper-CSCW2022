@@ -85,6 +85,15 @@
         <div class="mb-4 card">
           <div class="card-header">
             Note Pane
+            <button type = "button" class = "btn btn-light p-1" onclick="onUndoClicked()" title="Undo">
+              <i class="bi bi-arrow-90deg-left"></i>
+            </button>
+            <button type="button" class="btn btn-light p-1" onclick="onSaveClicked()" title="Save">
+              <i class = "bi bi-download"></i>
+            </button>
+            <button type="button" class="btn btn-light p-1" onclick="onClearClicked()" title="Clear">
+              <i class = "bi bi-trash"></i>
+            </button>
           </div>
           <div class="card-body">
             <template id="template-single-concept">

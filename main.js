@@ -16,8 +16,10 @@ const sortableOptions = {
       const propContent = draggedItem.querySelector(`.content`).textContent
       const currentConcept = evt.to.getAttribute('data-concept')
       updateConceptPaneData([propContent, currentConcept], 'drag-proposition')
-    }
 
+    }
+    const operationData = {'name': 'drag-and-drop', 'data':[draggedItem, evt.from, evt.to]}
+    updateOperationHistory(operationData)
   }
 }
 // note pane popover button menu
@@ -188,8 +190,12 @@ function addToNote(data) {
   propositionElement.querySelector('.content').textContent = propositionContent
   setElData(propositionElement, data)
   propositionContainer.append(propositionElement)
-
-  updateConceptPaneData(data=prop, operation='add')
+  
+  updateConceptPaneData(prop, operation='add')
+  prop['propIdx'] = data['propIdx']
+  prop['ansIdx'] = data['ansIdx']
+  const operationData = {'name': 'add-note', 'data': prop}
+  updateOperationHistory(operationData)
 }
 
 function removeFromNote(data) {
@@ -197,9 +203,13 @@ function removeFromNote(data) {
   // remove the proposition
   const propositionElement = getPropositionEl(data, noteContainer)
   const propositionContainer = propositionElement.parentElement
-  const propData = {'content' : propositionElement.querySelector(`.content`).textContent}
+  let propData = {'content' : propositionElement.querySelector(`.content`).textContent}
   const conceptName = propositionContainer.getAttribute('data-concept')
   const conceptElement = noteContainer.querySelector(`[concept-name="${conceptName}"]`)
+
+  propData['propIdx'] = propositionElement.getAttribute('data-proposition')
+  propData['ansIdx'] = propositionElement.getAttribute('data-answer')
+
   propositionElement.remove()
   
   // after removal, if there is no proposition under a concept, delete it
@@ -213,6 +223,10 @@ function removeFromNote(data) {
   if (!noteContainer.childElementCount) {noteContainer.nextElementSibling.classList.remove('d-none')}
   
   updateConceptPaneData(data=propData, operation='delete')
+
+  
+  const operationData = {'name': 'remove-note', 'data': propData}
+  updateOperationHistory(operationData)
 }
 
 function handlePropositionClicked(el, ctrlKey, isClickingCheckbox) {
@@ -747,4 +761,60 @@ function updateConceptPaneData(data, operation){
       }
     }
   })
+}
+
+function updateOperationHistory(operationData){
+  operationHistory.push(operationData)
+}
+
+function onUndoClicked(){
+
+  if(operationHistory.length === 0) return
+  const previousOperation = operationHistory.pop()
+  if(previousOperation['name'] === 'add-note' || previousOperation['name'] === 'remove-note'){
+    const idxData = {'propIdx': previousOperation['data']['propIdx'], 'ansIdx': previousOperation['data']['ansIdx']}
+    getPropositionEl(idxData, document.getElementById('answer-container')).click()
+    operationHistory.pop()
+  }
+  else if(previousOperation['name'] === 'clear'){
+
+  }
+}
+
+
+function onSaveClicked(){
+  if(notePaneData.length === 0) return
+  let dataDownload = []
+  const noteContainer = document.getElementById('note-container')
+  const conceptEls = noteContainer.querySelectorAll('.concept')
+
+  conceptEls.forEach(el => {
+    let propData = []
+    const propEls = el.querySelectorAll('.note')
+    propEls.forEach(p => {
+      propData.push(p.querySelector('.content').textContent)
+    })
+    dataDownload.push({'concept-name': el.getAttribute('concept-name'), 'propositions': propData})
+  })
+  const filename = window.location.href.split('/').slice(-1)[0].trim() + '.json';
+  const jsonStr = JSON.stringify(dataDownload, null, 2);
+  let element = document.createElement('a');
+  element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(jsonStr));
+  element.setAttribute('download', filename);
+  element.style.display = 'none';
+  document.body.appendChild(element);
+  element.click();
+  document.body.removeChild(element);
+}
+
+function onClearClicked(){
+  const operationHistoryCopy = [...operationHistory]
+  operationHistory = []
+
+  while(operationHistory.length !== 0){
+    onUndoClicked()
+  }
+  operationHistory = operationHistoryCopy
+  const operationData = {'name': 'clear'}
+  // updateOperationHistory(operationData)
 }
