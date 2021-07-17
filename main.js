@@ -26,7 +26,7 @@ let lastPopoverReference;
 let answers; // 全局answers（应该不需要全局留着question吧）
 let collapsedAnswers;
 let notePaneData = []; // [{'content': ,'concept': ,'subconcept':}, {...}]
-
+let operationHistory = []; // [{'name': 'add-proposition', 'data': prop}, {'name': 'drag-and-drop', 'data':[prop/concept, from, to]}, {'name': 'edit-note', 'data':prop/concept}]
 function fetchPageData(question) {
   return new Promise((resolve) => {
     setTimeout(() => {
@@ -697,6 +697,10 @@ function updateConceptPaneData(data, operation){
   else if(operation === 'edit-concept' || operation === 'reset-concept'){
     const originalConcept = data[0]
     const newConcept = data[1]
+    const conceptListContainer = document.getElementById('concept-list-container')
+    const originalConceptBadge = conceptListContainer.querySelector(`[concept-name = "${originalConcept}"]`)
+    originalConceptBadge.textContent = newConcept
+    originalConceptBadge.setAttribute('concept-name', newConcept)
     notePaneData.forEach(el => {
       if (el['concept'] === originalConcept){
         el['concept'] = newConcept
