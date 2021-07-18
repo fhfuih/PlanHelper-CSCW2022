@@ -1,6 +1,6 @@
 // Randomly generated using http://medialab.github.io/iwanthue/. Other tools to check out: http://vrl.cs.brown.edu/color https://carto.com/carto-colors/ https://colorbrewer2.org/ https://stackoverflow.com/questions/470690/how-to-automatically-generate-n-distinct-colors
 const COLORS = ["#c7ffdd", "#f5c8ff", "#86e4b8", "#f4ba9a", "#45e0e9", "#d9cc80", "#64d5ff", "#f3ffb6", "#abd7dd", "#ffe0c8"]
-let calledByUndo = false;
+let calledByUndoRedo = false;
 // note pane dnd
 const sortableOptions = {
   group: 'note',
@@ -262,7 +262,7 @@ function handlePropositionClicked(el, ctrlKey, isClickingCheckbox) {
   } else { // uncheck并移除
     removeFromNote(data)
   }
-  if(!calledByUndo){
+  if(!calledByUndoRedo){
     redoList = []
   }
 }
@@ -573,15 +573,23 @@ document.addEventListener('keyup', ctrlHandler)
 function onEditNoteClick() {
   const newProp = prompt('Please enter your proposition')
   if (!newProp) return
-  lastPopoverReference.closest('li').querySelector('.content').textContent = newProp
-  consecutiveUndo = false;
+  const changedEl = lastPopoverReference.closest('li').querySelector('.content')
+
+  const operationData = {'name': 'edit-note', 'data':[changedEl, changedEl.textContent]}
+  changedEl.textContent = newProp
+
+  updateOperationHistory(operationData)
+
+  
 }
 
 function onResetNoteClick() {
   const li = lastPopoverReference.closest('li')
   const data = getElData(li)
-  li.querySelector('.content').textContent = getProposition(data).content
-  consecutiveUndo = false;
+  const changedEl = li.querySelector('.content')
+  const operationData = {'name': 'reset-note', 'data':[changedEl, changedEl.textContent]}
+  changedEl.textContent = getProposition(data).content
+  updateOperationHistory(operationData)
 }
 
 function onRemoveNoteClick() {
@@ -593,21 +601,25 @@ function onRemoveNoteClick() {
 function onEditConceptClick() {
   const newConcept = prompt('Please enter your concept')
   if (!newConcept) return
-  const originalConcept = lastPopoverReference.closest('li').querySelector('.content').textContent
-  lastPopoverReference.closest('li').querySelector('.content').textContent = newConcept
+  const changedEl = lastPopoverReference.closest('li').querySelector('.content')
+  const originalConcept = changedEl.textContent
+  changedEl.textContent = newConcept
 
+  const operationData = {'name': 'edit-concept', 'data': [changedEl, originalConcept]}
+  updateOperationHistory(operationData)
   updateConceptPaneData([originalConcept, newConcept], 'edit-concept')
-  consecutiveUndo = false;
   
 }
 
 function onResetConceptClick() {
   const li = lastPopoverReference.closest('li')
-  const originalConcept = li.querySelector('.content').textContent
-  li.querySelector('.content').textContent = li.getAttribute('concept-name')
+  const changedEl = li.querySelector('.content')
+  const originalConcept = changedEl.textContent
+  changedEl.textContent = li.getAttribute('concept-name')
   const newConcept = li.getAttribute('concept-name')
+  const operationData = {'name': 'reset-concept', 'data': [changedEl, originalConcept]}
+  updateOperationHistory(operationData)
   updateConceptPaneData([originalConcept, newConcept], 'reset-concept')
-  consecutiveUndo = false;
 }
 
 
@@ -743,6 +755,7 @@ function updateConceptPaneData(data, operation){
     const newConcept = data[1]
     const conceptListContainer = document.getElementById('concept-list-container')
     const originalConceptBadge = conceptListContainer.querySelector(`[concept-name = "${originalConcept}"]`)
+    if(!originalConceptBadge) return
     originalConceptBadge.textContent = newConcept
     originalConceptBadge.setAttribute('concept-name', newConcept)
     notePaneData.forEach(el => {
@@ -798,7 +811,7 @@ function updateOperationHistory(operationData){
 }
 
 function onUndoClicked(){
-  calledByUndo = true;
+  calledByUndoRedo = true;
   if(operationHistory.length === 0) return
   const previousOperation = operationHistory.pop()
   if(previousOperation['name'] === 'add-note' || previousOperation['name'] === 'remove-note'){
@@ -838,6 +851,10 @@ function onUndoClicked(){
     previousOperation['data'][2] = fromContainer
     previousOperation['data'][3] = newIndex
     previousOperation['data'][4] = oldIndex
+
+    const propContent = draggedNode.querySelector('.content').textContent
+    const currentConcept = fromContainer.getAttribute('data-concept')
+    updateConceptPaneData([propContent, currentConcept], 'drag-proposition')
   }
   else if(previousOperation['name'] === 'drag-and-drop-update'){
     const operationData = previousOperation['data']
@@ -860,8 +877,17 @@ function onUndoClicked(){
     previousOperation['data'][3] = newIndex
     previousOperation['data'][4] = oldIndex
   }
+  else if(previousOperation['name'] === 'edit-note' || previousOperation['name'] === 'edit-concept' || previousOperation['name'] === 'reset-note' || previousOperation['name'] === 'reset-concept'){
+    const changedEl = previousOperation['data'][0]
+    const originalText = changedEl.textContent
+    const newText = previousOperation['data'][1]
+    changedEl.textContent = newText
+    previousOperation['data'][1] = originalText
+    updateConceptPaneData([originalText, newText], 'edit-concept')
+  }
+
   updateRedoList(previousOperation)
-  calledByUndo = false
+  calledByUndoRedo = false
 }
 
 
@@ -904,7 +930,7 @@ function updateRedoList(data){
   redoList.push(data)
 }
 function onRedoClicked(){
-
+  calledByUndoRedo = true
   if(redoList.length === 0) return
   const previousOperation = redoList.pop()
   if(previousOperation['name'] === 'add-note' || previousOperation['name'] === 'remove-note'){
@@ -937,6 +963,9 @@ function onRedoClicked(){
     previousOperation['data'][4] = oldIndex
 
     updateOperationHistory(previousOperation)
+    const propContent = draggedNode.querySelector('.content').textContent
+    const currentConcept = fromContainer.getAttribute('data-concept')
+    updateConceptPaneData([propContent, currentConcept], 'drag-proposition')
   }
   else if(previousOperation['name'] === 'drag-and-drop-update'){
     const operationData = previousOperation['data']
@@ -960,4 +989,14 @@ function onRedoClicked(){
     previousOperation['data'][4] = oldIndex
     updateOperationHistory(previousOperation)
   }
+  else if(previousOperation['name'] === 'edit-note' || previousOperation['name'] === 'edit-concept' || previousOperation['name'] === 'reset-note' || previousOperation['name'] === 'reset-concept'){
+    const changedEl = previousOperation['data'][0]
+    const originalText = changedEl.textContent
+    const newText = previousOperation['data'][1]
+    changedEl.textContent = newText
+    previousOperation['data'][1] = originalText
+    updateOperationHistory(previousOperation)
+    updateConceptPaneData([originalText, newText], 'edit-concept')
+  }
+  calledByUndoRedo = false
 }

@@ -173,6 +173,6 @@ body.ctrl-down mark.proposition, body.ctrl-down .note > .content {
 }
 @keyframes anim-blink {
   20%, 80% {
-    background-color: rgb(253, 232, 239);
+    background-color: rgb(250, 206, 220);
   }
 }
