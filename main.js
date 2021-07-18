@@ -1,6 +1,6 @@
 // Randomly generated using http://medialab.github.io/iwanthue/. Other tools to check out: http://vrl.cs.brown.edu/color https://carto.com/carto-colors/ https://colorbrewer2.org/ https://stackoverflow.com/questions/470690/how-to-automatically-generate-n-distinct-colors
 const COLORS = ["#c7ffdd", "#f5c8ff", "#86e4b8", "#f4ba9a", "#45e0e9", "#d9cc80", "#64d5ff", "#f3ffb6", "#abd7dd", "#ffe0c8"]
-
+let calledByUndo = false;
 // note pane dnd
 const sortableOptions = {
   group: 'note',
@@ -16,9 +16,18 @@ const sortableOptions = {
       const propContent = draggedItem.querySelector(`.content`).textContent
       const currentConcept = evt.to.getAttribute('data-concept')
       updateConceptPaneData([propContent, currentConcept], 'drag-proposition')
-
     }
-    const operationData = {'name': 'drag-and-drop', 'data':[draggedItem, evt.from, evt.to]}
+    redoList = []
+  },
+  // only update operation history data when the dragged item's position is changed
+  onUpdate: function(evt){
+    const draggedItem = evt.item
+    const operationData = {'name': 'drag-and-drop-update', 'data':[draggedItem, evt.from, evt.to, evt.oldIndex, evt.newIndex]}
+    updateOperationHistory(operationData)
+  },
+  onRemove: function(evt){
+    const draggedItem = evt.item
+    const operationData = {'name': 'drag-and-drop-remove', 'data':[draggedItem, evt.from, evt.to, evt.oldIndex, evt.newIndex]}
     updateOperationHistory(operationData)
   }
 }
@@ -29,6 +38,9 @@ let answers; // 全局answers（应该不需要全局留着question吧）
 let collapsedAnswers;
 let notePaneData = []; // [{'content': ,'concept': ,'subconcept':}, {...}]
 let operationHistory = []; // [{'name': 'add-proposition', 'data': prop}, {'name': 'drag-and-drop', 'data':[prop/concept, from, to]}, {'name': 'edit-note', 'data':prop/concept}]
+let redoList = [];
+
+
 function fetchPageData(question) {
   return new Promise((resolve) => {
     setTimeout(() => {
@@ -230,6 +242,7 @@ function removeFromNote(data) {
 }
 
 function handlePropositionClicked(el, ctrlKey, isClickingCheckbox) {
+  
   const data = getElData(el)
   // const propIdx = el.dataset.proposition
   const checkbox = getPropositionCheckboxEl(data)
@@ -248,6 +261,9 @@ function handlePropositionClicked(el, ctrlKey, isClickingCheckbox) {
     addToNote(data)
   } else { // uncheck并移除
     removeFromNote(data)
+  }
+  if(!calledByUndo){
+    redoList = []
   }
 }
 
@@ -558,12 +574,14 @@ function onEditNoteClick() {
   const newProp = prompt('Please enter your proposition')
   if (!newProp) return
   lastPopoverReference.closest('li').querySelector('.content').textContent = newProp
+  consecutiveUndo = false;
 }
 
 function onResetNoteClick() {
   const li = lastPopoverReference.closest('li')
   const data = getElData(li)
   li.querySelector('.content').textContent = getProposition(data).content
+  consecutiveUndo = false;
 }
 
 function onRemoveNoteClick() {
@@ -579,6 +597,7 @@ function onEditConceptClick() {
   lastPopoverReference.closest('li').querySelector('.content').textContent = newConcept
 
   updateConceptPaneData([originalConcept, newConcept], 'edit-concept')
+  consecutiveUndo = false;
   
 }
 
@@ -588,6 +607,7 @@ function onResetConceptClick() {
   li.querySelector('.content').textContent = li.getAttribute('concept-name')
   const newConcept = li.getAttribute('concept-name')
   updateConceptPaneData([originalConcept, newConcept], 'reset-concept')
+  consecutiveUndo = false;
 }
 
 
@@ -596,7 +616,16 @@ function onConceptBadgeClick(el) {
 
   if (el.classList.contains('bg-primary')){
     el.classList.remove('bg-primary')
-    el.classList.add(el.getAttribute('previous-color'))
+
+    let changeToColor = 'bg-secondary'
+    for(let i=0; i<notePaneData.length;++i){
+      if(notePaneData[i]['concept'] === el.textContent){
+        changeToColor = 'bg-success'
+        break;
+      }
+    }
+
+    el.classList.add(changeToColor)
     mindmapConfiguration(el.textContent, false)
     return
   }
@@ -625,8 +654,9 @@ function onConceptBadgeClick(el) {
 
   // change the color of the "subconcept" nodes if the corresponding proposition is checked by user
   const checkedChildrenNodes = optionsAndMind[3]
+  jm.set_node_color('root', '#0d6efd', '#fff')
   checkedChildrenNodes.forEach(item => {
-    jm.set_node_color(item['id'], '#FF0000', '0000FF')
+    jm.set_node_color(item['id'], '#198754', '#fff')
   })
   
 }
@@ -685,7 +715,7 @@ function mindmapConfiguration(conceptName, construct){
     const options = {
       container: id,
       editable: true,
-      theme: 'orange',
+      theme: 'asbestos',
       view: {
         hmargin: 0,        // 思维导图距容器外框的最小水平距离
         vmargin: 0,         // 思维导图距容器外框的最小垂直距离
@@ -768,7 +798,7 @@ function updateOperationHistory(operationData){
 }
 
 function onUndoClicked(){
-
+  calledByUndo = true;
   if(operationHistory.length === 0) return
   const previousOperation = operationHistory.pop()
   if(previousOperation['name'] === 'add-note' || previousOperation['name'] === 'remove-note'){
@@ -777,8 +807,61 @@ function onUndoClicked(){
     operationHistory.pop()
   }
   else if(previousOperation['name'] === 'clear'){
+    const operationHistoryCopy = [...operationHistory]
+    const redoListCopy = [...redoList]
+    redoList = [...operationHistory]
+    while(redoList.length !== 0){
+      onRedoClicked()
+    }
+    operationHistory = [...operationHistoryCopy]
+    redoList = [...redoListCopy]
 
   }
+  else if(previousOperation['name'] === 'drag-and-drop-remove'){
+    const operationData = previousOperation['data']
+    
+    //operationData = [item, from, to, old index, new index]
+    const fromContainer = operationData[1]
+    const toContainer = operationData[2]
+    const oldIndex = operationData[3]
+    const newIndex = operationData[4]
+    const draggedNode = toContainer.childNodes[newIndex]
+    if(oldIndex === fromContainer.childNodes.length && fromContainer.childNodes.length !== 0){
+      const toEl = fromContainer.childNodes[oldIndex - 1]
+      fromContainer.insertBefore(draggedNode, toEl.nextSibling)
+    }
+    else{
+      const toEl = fromContainer.childNodes[oldIndex]
+      fromContainer.insertBefore(draggedNode ,toEl)
+    }
+    previousOperation['data'][1] = toContainer
+    previousOperation['data'][2] = fromContainer
+    previousOperation['data'][3] = newIndex
+    previousOperation['data'][4] = oldIndex
+  }
+  else if(previousOperation['name'] === 'drag-and-drop-update'){
+    const operationData = previousOperation['data']
+    const fromContainer = operationData[1]
+    const toContainer = operationData[2]
+    const oldIndex = operationData[3]
+    const newIndex = operationData[4]
+    const draggedNode = toContainer.childNodes[newIndex]
+    if(oldIndex > newIndex){
+      // move forward
+      const toEl = toContainer.childNodes[oldIndex]
+      toContainer.insertBefore(draggedNode, toEl.nextSibling)
+    }
+    else if(oldIndex < newIndex) {
+      const toEl = toContainer.childNodes[oldIndex]
+      toContainer.insertBefore(draggedNode, toEl)
+    }
+    previousOperation['data'][1] = toContainer
+    previousOperation['data'][2] = fromContainer
+    previousOperation['data'][3] = newIndex
+    previousOperation['data'][4] = oldIndex
+  }
+  updateRedoList(previousOperation)
+  calledByUndo = false
 }
 
 
@@ -809,12 +892,72 @@ function onSaveClicked(){
 
 function onClearClicked(){
   const operationHistoryCopy = [...operationHistory]
-  operationHistory = []
-
   while(operationHistory.length !== 0){
     onUndoClicked()
   }
   operationHistory = operationHistoryCopy
-  const operationData = {'name': 'clear'}
-  // updateOperationHistory(operationData)
+  updateOperationHistory({'name': 'clear'})
+  redoList = []
+}
+
+function updateRedoList(data){
+  redoList.push(data)
+}
+function onRedoClicked(){
+
+  if(redoList.length === 0) return
+  const previousOperation = redoList.pop()
+  if(previousOperation['name'] === 'add-note' || previousOperation['name'] === 'remove-note'){
+    const idxData = {'propIdx': previousOperation['data']['propIdx'], 'ansIdx': previousOperation['data']['ansIdx']}
+    getPropositionEl(idxData, document.getElementById('answer-container')).click()
+  }
+  else if(previousOperation['name'] === 'clear'){
+    onClearClicked()
+  }
+  else if(previousOperation['name'] === 'drag-and-drop-remove'){
+    const operationData = previousOperation['data']
+    
+    //operationData = [item, from, to, old index, new index]
+    const fromContainer = operationData[1]
+    const toContainer = operationData[2]
+    const oldIndex = operationData[3]
+    const newIndex = operationData[4]
+    const draggedNode = toContainer.childNodes[newIndex]
+    if(oldIndex === fromContainer.childNodes.length && fromContainer.childNodes.length !== 0){
+      const toEl = fromContainer.childNodes[oldIndex - 1]
+      fromContainer.insertBefore(draggedNode, toEl.nextSibling)
+    }
+    else{
+      const toEl = fromContainer.childNodes[oldIndex]
+      fromContainer.insertBefore(draggedNode ,toEl)
+    }
+    previousOperation['data'][1] = toContainer
+    previousOperation['data'][2] = fromContainer
+    previousOperation['data'][3] = newIndex
+    previousOperation['data'][4] = oldIndex
+
+    updateOperationHistory(previousOperation)
+  }
+  else if(previousOperation['name'] === 'drag-and-drop-update'){
+    const operationData = previousOperation['data']
+    const fromContainer = operationData[1]
+    const toContainer = operationData[2]
+    const oldIndex = operationData[3]
+    const newIndex = operationData[4]
+    const draggedNode = toContainer.childNodes[newIndex]
+    if(oldIndex > newIndex){
+      // move forward
+      const toEl = toContainer.childNodes[oldIndex]
+      toContainer.insertBefore(draggedNode, toEl.nextSibling)
+    }
+    else if(oldIndex < newIndex) {
+      const toEl = toContainer.childNodes[oldIndex]
+      toContainer.insertBefore(draggedNode, toEl)
+    }
+    previousOperation['data'][1] = toContainer
+    previousOperation['data'][2] = fromContainer
+    previousOperation['data'][3] = newIndex
+    previousOperation['data'][4] = oldIndex
+    updateOperationHistory(previousOperation)
+  }
 }
