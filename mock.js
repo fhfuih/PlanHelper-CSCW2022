@@ -273,6 +273,7 @@
 // }
 const mock = {
   "question": "What are some tips for starting bodybuilding?",  
+  
     "answers": [
         {
             "html": "<p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">Easy tips for the beginning bodybuiIder and weightIifter in no particuIar order</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">1. Food is aIways better than suppIements</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">2. Sugar is the worst and incIudes white bread/simpIe carbohydrates</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">3. Form over weight any day of the week.</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">4. For a naturaI bodybuiIder the progressive overIoad theory is king Which basicaIIy means more weight or more voIume on a consistent basis= gains</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">5. If you aren't getting stronger check your diet, check your sIeep, or check your regimen. 6.sIow and steady wins the race and persistence is king</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">6. Write out your workout pIans for the week at the beginning of the week or stick to a written scheduIe. Your voIume or chosen Iifts may change but you are committing yourseIf to that workout when you write it down.</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">7. PIan your workout time at Ieast the day before so you don't run out of time</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">8. Figure out ways to motivate</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">9. If you buy suppIements, research them make sure they're quaIity</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">10. What works for me won't aIways work for you. Adjust your training according to your needs and your body</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">11. My ruIe of thumb compIex carbs aIways, except post workout simpIe carb meaI.</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">12. 1 gram of protein per body weight is standard for weight gain. This is not one size fits aII it's a ruIe of thumb.</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">13. Macros are fat, protein, carbs</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">14. Count your macros, at Ieast have a generaI idea depending on your goaIs.</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">15. Avoid high fructose corn syrup, dextrose, Iactose, fructose, maItose, maItodextrin, syrups or maIts on ingredients IabeIs. There are others but that's a good start gain muscIe it's best to be taking in more caIories than than your burning.</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">16. Fat is not your enemy.... Sugar is</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">17. Good fats are unsaturated an poIy unsaturated. Bad fats are saturated or trans.</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">18. If it says hydrogenated on the ingredients IabeI don't eat it.</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">19. Organic doesn't mean it's heaIthy however it's better to eat reaI food than chemicaI repIacements</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">20. Go fucking hard in the gym. But keep form. ControIIed chaos is key</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">21. Ask questions to anyone and gather information as much as you can.</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">22. Write down your poundage a and reps for your workouts. Be honest</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">23. Cheating on form or a rep is cheating yourseIf. It doesn't effect anyone eIse but you 26.drink tons of water. TONS</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">24. AIcohoI is bad for gains. Period.</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">25. Smoking is bad for gains. Period.</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">26. If you want to do either. That's fine but Iimit yourseIf if you want to improve</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">27. Preworkout is fucking amazing but a Iot of preworkouts have skepticaI shit.</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">28. If you take creatine, preworkout ect. CycIe off that shit. Don't stay on for more than a month at a time</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">29. Read the directions and IabeIs on suppIements.</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">30. Don't beIieve everything peopIe teII you. I'm sure some of my shit isn't even true. Question everything and decide for yourseIf what you want to beIieve.</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">31. Compound Iifts are the best Iifts ExampIe: squats,bench,deadIift</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">32. Don't spend too much time on isoIation exercises.</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">33. Free weights are 10x better than machines. But Iearn proper technique on how to use free weights.</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">34. If you ever have a question about form just ask someone around you. Most gym guys are ridicuIousIy friendIy and respectfuI</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">35. The bigger the muscIe the more voIume ex. ShouIders 9-12 sets tops. Iegs? 15-20 sets chest?12-15. That my usuaI ruIe of thumb</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">36. Steroids are a personaI choice. But never take that shit before the age of 25. And you shouId workout hard and consistentIy for yeeeaaarsss before you dabbIe in it so you know how your body works. And how to Iift. AIways get bIood test every coupIe months.</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">37. If it sounds too good to be true it is. You won't get big in 30 days or two months or maybe even a year. But gains can be consistent and they can be rewarding</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">38. For most individuaIs if you think you can't get another rep in, you probabIy can. Mind of matter</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">39. Iisten to your body, when it's time to stop or sIow down. Do it. But don't use this as an excuse to haIf ass.</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">40. Gatorade vitaminwater soda juice aII that shit is the same.</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">41. Drink water and more water. I said it again because it's important</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">42. BodybuiIding isn't better than powerIifting and neither are better than Iong distance running. Pick whatever you want to do and spread the Iove. Were aII trying to improve</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">43. The smith machine is not optimaI and a waste besides speciaI conditions or circumstance.</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">44. DumbbeIIs&gt;barbeIIs&gt;machines in that order</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">45. Read books to Iearn. Yes bodybuiIders read. 49 despite your genetics anyone can Iook impressive to some degree</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 0px; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">46. WORK FUCKING HARD</span></p> ",
@@ -287,202 +288,242 @@ const mock = {
                 {
                     "content": "Food is aIways better than suppIements",
                     "concept": "Supplements",
-                    "subconcept": "sub1"
+                    "subconcept": "diet",
+                    "content_typofree": "food is always better than supplements"
                 },
                 {
                     "content": "Sugar is the worst and incIudes white bread/simpIe carbohydrates",
                     "concept": "Diet",
-                    "subconcept": "sub2"
+                    "subconcept": "diet",
+                    "content_typofree": "sugar is the worst and includes white bread simple carbohydrates"
                 },
                 {
                     "content": "Form over weight any day of the week",
                     "concept": "Methodology",
-                    "subconcept": "sub3"
+                    "subconcept": "diet",
+                    "content_typofree": "form over weight any day of the week"
                 },
                 {
                     "content": "For a naturaI bodybuiIder the progressive overIoad theory is king",
                     "concept": "Methodology",
-                    "subconcept": "sub4"
+                    "subconcept": "diet",
+                    "content_typofree": "for a natural bodybuilder the progressive overload theory is king"
                 },
                 {
                     "content": "If you aren't getting stronger check your diet, check your sIeep, or check your regimen",
                     "concept": "Methodology",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "if you are not getting stronger check your diet check your sleep or check your regimen"
                 },
                 {
                     "content": "Write out your workout pIans for the week at the beginning of the week or stick to a written scheduIe",
                     "concept": "Planning",
-                    "subconcept": ""
+                    "subconcept": "workout",
+                    "content_typofree": "write out your workout plans for the week at the beginning of the week or stick to a written schedule"
                 },
                 {
                     "content": "PIan your workout time at Ieast the day before so you don't run out of time",
                     "concept": "Planning",
-                    "subconcept": ""
+                    "subconcept": "workout",
+                    "content_typofree": "plan your workout time at east the day before so you don't run out of time"
                 },
                 {
                     "content": "Figure out ways to motivate",
                     "concept": "Motivation",
-                    "subconcept": ""
+                    "subconcept": "motivate",
+                    "content_typofree": "figure out ways to motivate"
                 },
                 {
                     "content": "If you buy suppIements, research them make sure they're quaIity",
                     "concept": "Supplements",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "if you buy supplements research them make sure they re quality"
                 },
                 {
                     "content": "Adjust your training according to your needs and your body",
                     "concept": "Diversity",
-                    "subconcept": ""
+                    "subconcept": "training",
+                    "content_typofree": "adjust your training according to your needs and your body"
                 },
                 {
                     "content": "My ruIe of thumb compIex carbs aIways, except post workout simpIe carb meaI",
                     "concept": "Diet",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "my rule of thumb complex carbs always except post workout simple car mean"
                 },
                 {
                     "content": "1 gram of protein per body weight is standard for weight gain",
                     "concept": "Diet",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "1 gram of protein per body weight is standard for weight gain"
                 },
                 {
                     "content": "Count your macros",
                     "concept": "Diet",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "count your macros"
                 },
                 {
                     "content": "Avoid high fructose corn syrup, dextrose, Iactose, fructose, maItose, maItodextrin, syrups or maIts on ingredients IabeIs",
                     "concept": "Diet",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "avoid high fructose corn syrup dextrose lactose fructose maltose mail dextrin syrups or mats on ingredients babes"
                 },
                 {
                     "content": "Fat is not your enemy",
                     "concept": "Diet",
-                    "subconcept": ""
+                    "subconcept": "fats",
+                    "content_typofree": "fat is not your enemy"
                 },
                 {
                     "content": "Good fats are unsaturated an poIy unsaturated. Bad fats are saturated or trans.",
                     "concept": "Diet",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "good fats are unsaturated an poly unsaturated bad fats are saturated or trans"
                 },
                 {
                     "content": "If it says hydrogenated on the ingredients IabeI don't eat it.",
                     "concept": "Diet",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "if it says hydrogenated on the ingredients label don't eat it"
                 },
                 {
                     "content": "Organic doesn't mean it's heaIthy however it's better to eat reaI food than chemicaI repIacements",
                     "concept": "Diet",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "organic does not mean its healthy however its better to eat read food than chemical replacements"
                 },
                 {
                     "content": "Ask questions to anyone and gather information as much as you can",
                     "concept": "Knowledge",
-                    "subconcept": ""
+                    "subconcept": "knowledge",
+                    "content_typofree": "ask questions to anyone and gather information as much as you can"
                 },
                 {
                     "content": "Write down your poundage a and reps for your workouts",
                     "concept": "Planning",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "write down your poundage a and reps for your workouts"
                 },
                 {
                     "content": "Cheating on form or a rep is cheating yourseIf",
                     "concept": "Persistence",
-                    "subconcept": ""
+                    "subconcept": "rep",
+                    "content_typofree": "cheating on form or a rep is cheating yourself"
                 },
                 {
                     "content": "AIcohoI is bad for gains",
                     "concept": "Diet",
-                    "subconcept": ""
+                    "subconcept": "alcohol",
+                    "content_typofree": "alcohol is bad for gains"
                 },
                 {
                     "content": "Smoking is bad for gains",
                     "concept": "Diet",
-                    "subconcept": ""
+                    "subconcept": "alcohol",
+                    "content_typofree": "smoking is bad for gains"
                 },
                 {
                     "content": "Preworkout is fucking amazing but a Iot of preworkouts have skepticaI shit",
                     "concept": "Methodology",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "or workout is fucking amazing but a it of or workouts have sceptical shit"
                 },
                 {
                     "content": "If you take creatine, preworkout ect. CycIe off that shit",
                     "concept": "Methodology",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "if you take creatine or workout act cycle off that shit"
                 },
                 {
                     "content": "Read the directions and IabeIs on suppIements",
                     "concept": "Supplements",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "read the directions and babes on supplements"
                 },
                 {
                     "content": "Don't beIieve everything peopIe teII you",
                     "concept": "Diversity",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "don't believe everything people teri you"
                 },
                 {
                     "content": "Compound Iifts are the best Iifts",
                     "concept": "Methodology",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "compound gifts are the best gifts"
                 },
                 {
                     "content": "Don't spend too much time on isoIation exercises",
                     "concept": "Methodology",
-                    "subconcept": ""
+                    "subconcept": "workouts",
+                    "content_typofree": "don't spend too much time on isolation exercises"
                 },
                 {
                     "content": "Free weights are 10x better than machines",
                     "concept": "Methodology",
-                    "subconcept": ""
+                    "subconcept": "weights",
+                    "content_typofree": "free weights are 10x better than machines"
                 },
                 {
                     "content": "The bigger the muscIe the more voIume",
                     "concept": "Methodology",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "the bigger the muscle the more volume"
                 },
                 {
                     "content": "Steroids are a personaI choice. But never take that shit before the age of 25",
                     "concept": "Supplements",
-                    "subconcept": ""
+                    "subconcept": "steroids",
+                    "content_typofree": "steroids are a personal choice but never take that shit before the age of 25"
                 },
                 {
                     "content": "gains can be consistent and they can be rewarding",
                     "concept": "Persistence",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "gains can be consistent and they can be rewarding"
                 },
                 {
                     "content": "For most individuaIs if you think you can't get another rep in, you probabIy can",
                     "concept": "Persistence",
-                    "subconcept": ""
+                    "subconcept": "rep",
+                    "content_typofree": "for most individuals if you think you can't get another rep in you probably can"
                 },
                 {
                     "content": "Iisten to your body, when it's time to stop or sIow down",
                     "concept": "Rest",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "listen to your body when its time to stop or show down"
                 },
                 {
                     "content": "Gatorade vitaminwater soda juice aII that shit is the same",
                     "concept": "Drink",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "gatorade vitamin water soda juice air that shit is the same"
                 },
                 {
                     "content": "Drink water and more water",
                     "concept": "Drink",
-                    "subconcept": ""
+                    "subconcept": "drink",
+                    "content_typofree": "drink water and more water"
                 },
                 {
                     "content": "BodybuiIding isn't better than powerIifting and neither are better than Iong distance running",
                     "concept": "Methodology",
-                    "subconcept": ""
+                    "subconcept": "bodybuilding",
+                    "content_typofree": "bodybuilding is not better than power lifting and neither are better than long distance running"
                 },
                 {
                     "content": "The smith machine is not optimaI and a waste besides speciaI conditions or circumstance",
                     "concept": "Methodology",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "the smith machine is not optimal and a waste besides special conditions or circumstance"
                 },
                 {
                     "content": "DumbbeIIs>barbeIIs>machines in that order",
                     "concept": "Methodology",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "dumbbells barbers machines in that order"
                 }
             ],
             "collapsed": "false",
@@ -538,62 +579,74 @@ const mock = {
                 {
                     "content": "You need to ask yourself “why” you want to start bodybuilding.",
                     "concept": "Motivation",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "you need to ask yourself why you want to start bodybuilding"
                 },
                 {
                     "content": "Learn from the pro ( I’d recommend Arnold Schwarzenegger ) and find your motivation with those who has done it forever.",
                     "concept": "Coaching",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "learn from the pro id recommend arnold schwarzenegger and find your motivation with those who has done it forever"
                 },
                 {
                     "content": "Find a good gym.",
                     "concept": "Gym",
-                    "subconcept": ""
+                    "subconcept": "gym",
+                    "content_typofree": "find a good gym"
                 },
                 {
                     "content": "When you work out, you “work out”.",
                     "concept": "Concentration",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "when you work out you work out"
                 },
                 {
                     "content": "Ask a spot from someone who “knows” how to spot.",
                     "concept": "Spot",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "ask a spot from someone who knows how to spot"
                 },
                 {
                     "content": "I’d recommend to use your own music and make a favorist list of all your best work out music.",
                     "concept": "Music",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "id recommend to use your own music and make a favor st list of all your best work out music"
                 },
                 {
                     "content": "Eat properly.",
                     "concept": "Diet",
-                    "subconcept": ""
+                    "subconcept": "eat",
+                    "content_typofree": "eat properly"
                 },
                 {
                     "content": "Sleep is as important as working out and eating properly.",
                     "concept": "Rest",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "sleep is as important as working out and eating properly"
                 },
                 {
                     "content": "Supplements is “good” ONLY if you need it for a specific reason.",
                     "concept": "Supplements",
-                    "subconcept": ""
+                    "subconcept": "supplements",
+                    "content_typofree": "supplements is good only if you need it for a specific reason"
                 },
                 {
                     "content": "Steroids is subject where some bodybuilders will have divided opinions on it. I’ll tell you what I think. DON’T TAKE ANY.",
                     "concept": "Supplements",
-                    "subconcept": ""
+                    "subconcept": "steroids",
+                    "content_typofree": "steroids is subject where some bodybuilders will have divided opinions on it ill tell you what i think don't take any"
                 },
                 {
                     "content": "The best trainers are the one that will teach you the “basics” properly.",
                     "concept": "Coaching",
-                    "subconcept": ""
+                    "subconcept": "trainers",
+                    "content_typofree": "the best trainers are the one that will teach you the basics properly"
                 },
                 {
                     "content": "If you’re not persistent, everything above, is obsolete.",
                     "concept": "Persistence",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "if you re not persistent everything above is obsolete"
                 }
             ],
             "collapsed": "false",
@@ -619,22 +672,26 @@ const mock = {
                 {
                     "content": "It will take time to get used to the weights and knowing much you can lift and what routine fits you best.",
                     "concept": "Patience",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "it will take time to get used to the weights and knowing much you can lift and what routine fits you best"
                 },
                 {
                     "content": "To know about what to eat and what you eat",
                     "concept": "Diet",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "to know about what to eat and what you eat"
                 },
                 {
                     "content": "It is okay if you friends dislike that you give more priority than you should.",
                     "concept": "Lifestyle",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "it is okay if you friends dislike that you give more priority than you should"
                 },
                 {
                     "content": "Do not skip leg days.",
                     "concept": "Persistence",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "do not skip leg days"
                 }
             ],
             "collapsed": "false",
@@ -655,17 +712,20 @@ const mock = {
                 {
                     "content": "try and get in three days a week and split them every other day",
                     "concept": "Rountine",
-                    "subconcept": ""
+                    "subconcept": "sessions",
+                    "content_typofree": "try and get in three days a week and split them every other day"
                 },
                 {
                     "content": "Start with basic exercises for each body part and do two exercises—3 sets of 8-12 reps for each part.",
                     "concept": "Methodology",
-                    "subconcept": ""
+                    "subconcept": "exercises",
+                    "content_typofree": "start with basic exercises for each body part and do two exercises 3 sets of 8 12 reps for each part"
                 },
                 {
                     "content": "Meaning your workout needs just five exercises, one from each of these categories: push (pressing away from you), pull (tugging toward you), hip-hinge (bending from the middle), squat (flexing at the knee), and plank",
                     "concept": "Methodology",
-                    "subconcept": ""
+                    "subconcept": "exercises",
+                    "content_typofree": "meaning your workout needs just five exercises one from each of these categories push pressing away from you pull tugging toward you hip hinge bending from the middle squat flexing at the knee and plank"
                 }
             ],
             "collapsed": "false",
@@ -684,22 +744,26 @@ const mock = {
                 {
                     "content": "Do basic, compound strength exercises for 6-12 months.",
                     "concept": "Methodology",
-                    "subconcept": ""
+                    "subconcept": "exercises",
+                    "content_typofree": "do basic compound strength exercises for 6 12 months"
                 },
                 {
                     "content": "Download a sleep tracking app and get at least 8 hours every night no matter what.",
                     "concept": "Rest",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "download a sleep tracking app and get at least 8 hours every night no matter what"
                 },
                 {
                     "content": "Get a water bottle, carry it everywhere, and drink enough to pee clear several times each day.",
                     "concept": "Drink",
-                    "subconcept": ""
+                    "subconcept": "drink",
+                    "content_typofree": "get a water bottle carry it everywhere and drink enough to pee clear several times each day"
                 },
                 {
                     "content": "Download a calorie counter app like My Fitness Pal and start learning how much of which foods you should be eating.",
                     "concept": "Tracking",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "download a calorie counter app like my fitness pal and start learning how much of which foods you should be eating"
                 }
             ],
             "collapsed": "false",
@@ -718,17 +782,20 @@ const mock = {
                 {
                     "content": "Stop counting calories",
                     "concept": "Diet",
-                    "subconcept": ""
+                    "subconcept": "calorie",
+                    "content_typofree": "stop counting calories"
                 },
                 {
                     "content": "Everyone is different.",
                     "concept": "Diversity",
-                    "subconcept": ""
+                    "subconcept": "knowledge",
+                    "content_typofree": "everyone is different"
                 },
                 {
                     "content": "Too much exercise can be bad for you so is too little.",
                     "concept": "Amount",
-                    "subconcept": ""
+                    "subconcept": "exercise",
+                    "content_typofree": "too much exercise can be bad for you so is too little"
                 }
             ],
             "collapsed": "false",
@@ -747,62 +814,74 @@ const mock = {
                 {
                     "content": "When you start, make sure to keep going",
                     "concept": "Persistence",
-                    "subconcept": ""
+                    "subconcept": "motivate",
+                    "content_typofree": "when you start make sure to keep going"
                 },
                 {
                     "content": "have a target",
                     "concept": "Motivation",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "have a target"
                 },
                 {
                     "content": "do not read bodybuilding magazines",
                     "concept": "Knowledge",
-                    "subconcept": ""
+                    "subconcept": "steroids",
+                    "content_typofree": "do not read bodybuilding magazines"
                 },
                 {
                     "content": "Nutrition is really important but go easy at first",
                     "concept": "Diet",
-                    "subconcept": ""
+                    "subconcept": "nutrition",
+                    "content_typofree": "nutrition is really important but go easy at first"
                 },
                 {
                     "content": "Find a mentor and a program",
                     "concept": "Coaching",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "find a mentor and a program"
                 },
                 {
                     "content": "do not do try to invent things or change your workout every day",
                     "concept": "Methodology",
-                    "subconcept": ""
+                    "subconcept": "workout",
+                    "content_typofree": "do not do try to invent things or change your workout every day"
                 },
                 {
                     "content": "keep tracks",
                     "concept": "Tracking",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "keep tracks"
                 },
                 {
                     "content": "learn the proper forms",
                     "concept": "Knowledge",
-                    "subconcept": ""
+                    "subconcept": "form",
+                    "content_typofree": "learn the proper forms"
                 },
                 {
                     "content": "When you enter the gym you focus on the work out",
                     "concept": "Concentration",
-                    "subconcept": ""
+                    "subconcept": "gym",
+                    "content_typofree": "when you enter the gym you focus on the work out"
                 },
                 {
                     "content": "get to know your strength, weakness",
                     "concept": "Diversity",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "get to know your strength weakness"
                 },
                 {
                     "content": "do not hurt yourself",
                     "concept": "Methodology",
-                    "subconcept": ""
+                    "subconcept": "training",
+                    "content_typofree": "do not hurt yourself"
                 },
                 {
                     "content": "You may progress fast at first, it will slow down, it is normal, just go steady",
                     "concept": "Methodology",
-                    "subconcept": ""
+                    "subconcept": "slow",
+                    "content_typofree": "you may progress fast at first it will slow down it is normal just go steady"
                 }
             ],
             "collapsed": "false",
@@ -851,7 +930,8 @@ const mock = {
                 {
                     "content": "If anything is asked related to muscle building activities then their thousands of methods, theories and rules.",
                     "concept": "Diversity",
-                    "subconcept": ""
+                    "subconcept": "muscle",
+                    "content_typofree": "if anything is asked related to muscle building activities then their thousands of methods theories and rules"
                 }
             ],
             "collapsed": "true"
@@ -885,47 +965,56 @@ const mock = {
                 {
                     "content": "Believe that it is going to make you feel better, because it will.",
                     "concept": "Motivation",
-                    "subconcept": ""
+                    "subconcept": "rep",
+                    "content_typofree": "believe that it is going to make you feel better because it will"
                 },
                 {
                     "content": "Don't think that your muscles are going to rip out and you'll suddenly transform yourself to somebody else.",
                     "concept": "Patience",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "don't think that your muscles are going to rip out and you all suddenly transform yourself to somebody else"
                 },
                 {
                     "content": "Identify the different exercises that you can do for each muscle",
                     "concept": "Knowledge",
-                    "subconcept": ""
+                    "subconcept": "exercises",
+                    "content_typofree": "identify the different exercises that you can do for each muscle"
                 },
                 {
                     "content": "Go to the gym at least 5 days a week.",
                     "concept": "Persistence",
-                    "subconcept": ""
+                    "subconcept": "workout",
+                    "content_typofree": "go to the gym at least 5 days a week"
                 },
                 {
                     "content": "Separate cardio and weights as far as possible.",
                     "concept": "Methodology",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "separate cardio and weights as far as possible"
                 },
                 {
                     "content": "Eat right",
                     "concept": "Diet",
-                    "subconcept": ""
+                    "subconcept": "eat",
+                    "content_typofree": "eat right"
                 },
                 {
                     "content": "Do not over do it.",
                     "concept": "Methodology",
-                    "subconcept": ""
+                    "subconcept": "training",
+                    "content_typofree": "do not over do it"
                 },
                 {
                     "content": "Make absolutely sure that you're breathing well.",
                     "concept": "Methodology",
-                    "subconcept": ""
+                    "subconcept": "drink",
+                    "content_typofree": "make absolutely sure that you re breathing well"
                 },
                 {
                     "content": "You should never be done with working out",
                     "concept": "Persistence",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "you should never be done with working out"
                 }
             ],
             "collapsed": "true"
@@ -961,92 +1050,110 @@ const mock = {
                 {
                     "content": "You need to rest your body.",
                     "concept": "Rest",
-                    "subconcept": ""
+                    "subconcept": "rest",
+                    "content_typofree": "you need to rest your body"
                 },
                 {
                     "content": "I believe, for a beginner or an intermediate lifter, isolation techniques likes bicep curls and tricep pull downs are totally unnecessary.",
                     "concept": "Methodology",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "i believe for a beginner or an intermediate lifter isolation techniques likes bicep curls and trice pull downs are totally unnecessary"
                 },
                 {
                     "content": "Always get a good warm-up session when you get to the gym.",
                     "concept": "Methodology",
-                    "subconcept": ""
+                    "subconcept": "gym",
+                    "content_typofree": "always get a good warm up session when you get to the gym"
                 },
                 {
                     "content": "If it is possible for you, then get a good coach. It helps a lot.",
                     "concept": "Coaching",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "if it is possible for you then get a good coach it helps a lot"
                 },
                 {
                     "content": "When you do cardio take up HIIT cardio most of the time.",
                     "concept": "Methodology",
-                    "subconcept": ""
+                    "subconcept": "cardio",
+                    "content_typofree": "when you do cardio take up hit cardio most of the time"
                 },
                 {
                     "content": "Use traditional cardio once in a while.",
                     "concept": "Methodology",
-                    "subconcept": ""
+                    "subconcept": "cardio",
+                    "content_typofree": "use traditional cardio once in a while"
                 },
                 {
                     "content": "Don't completely ignore pushups even if you get to advanced weight training.",
                     "concept": "Methodology",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "don't completely ignore pushups even if you get to advanced weight training"
                 },
                 {
                     "content": "calisthenics have their own place no matter what.",
                     "concept": "Methodology",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "calisthenic have their own place no matter what"
                 },
                 {
                     "content": "Pay attention to your diet.",
                     "concept": "Diet",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "pay attention to your diet"
                 },
                 {
                     "content": "You might feel like am a bit inclined away from isolation workouts, which are an essential part of any body building routine.",
                     "concept": "Methodology",
-                    "subconcept": ""
+                    "subconcept": "workouts",
+                    "content_typofree": "you might feel like am a bit inclined away from isolation workouts which are an essential part of any body building routine"
                 },
                 {
                     "content": "Advanced body builder will use tricks like partial reps to build up more pump in their muscles.",
                     "concept": "Methodology",
-                    "subconcept": ""
+                    "subconcept": "muscles",
+                    "content_typofree": "advanced body builder will use tricks like partial reps to build up more pump in their muscles"
                 },
                 {
                     "content": "Exercise Through a Full Range of Motion",
                     "concept": "Methodology",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "exercise through a full range of motion"
                 },
                 {
                     "content": "Maintain Constant Tension",
                     "concept": "Methodology",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "maintain constant tension"
                 },
                 {
                     "content": "Focus on the Negative (Eccentric Contraction)",
                     "concept": "Methodology",
-                    "subconcept": ""
+                    "subconcept": "contraction",
+                    "content_typofree": "focus on the negative eccentric contraction"
                 },
                 {
                     "content": "Slow Down Rep Speed",
                     "concept": "Methodology",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "slow down rep speed"
                 },
                 {
                     "content": "Achieve Peak Contraction",
                     "concept": "Methodology",
-                    "subconcept": ""
+                    "subconcept": "contraction",
+                    "content_typofree": "achieve peak contraction"
                 },
                 {
                     "content": "Deadlifts are the best exersice you can include in your routine.",
                     "concept": "Methodology",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "dead lifts are the best exercise you can include in your routine"
                 },
                 {
                     "content": "Also, make sure to bring about sufficient variety in your routine once every 2 months or so.",
                     "concept": "Methodology",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "also make sure to bring about sufficient variety in your routine once every 2 months or so"
                 }
             ],
             "collapsed": "true"
@@ -1075,27 +1182,32 @@ const mock = {
                 {
                     "content": "The main idea is to eat as much as your body needs to grow.",
                     "concept": "Diet",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "the main idea is to eat as much as your body needs to grow"
                 },
                 {
                     "content": "running or jogging should be an essential part of your regime.",
                     "concept": "Methodology",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "running or jogging should be an essential part of your regime"
                 },
                 {
                     "content": "For starting out,first write down your plans.",
                     "concept": "Planning",
-                    "subconcept": ""
+                    "subconcept": "start",
+                    "content_typofree": "for starting out first write down your plans"
                 },
                 {
                     "content": "Determine how you want to look.",
                     "concept": "Motivation",
-                    "subconcept": ""
+                    "subconcept": "aesthetics",
+                    "content_typofree": "determine how you want to look"
                 },
                 {
                     "content": "Note your gains after a month or so to see how much you have gained.",
                     "concept": "Tracking",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "note your gains after a month or so to see how much you have gained"
                 }
             ],
             "collapsed": "true"
@@ -1135,42 +1247,50 @@ const mock = {
                 {
                     "content": "Stick to Free Weights.",
                     "concept": "Methodology",
-                    "subconcept": ""
+                    "subconcept": "weights",
+                    "content_typofree": "stick to free weights"
                 },
                 {
                     "content": "Train Each Muscle Group Every Week.",
                     "concept": "Methodology",
-                    "subconcept": ""
+                    "subconcept": "workout",
+                    "content_typofree": "train each muscle group every week"
                 },
                 {
                     "content": "Learn the Correct Form of Each Exercise.",
                     "concept": "Knowledge",
-                    "subconcept": ""
+                    "subconcept": "exercises",
+                    "content_typofree": "learn the correct form of each exercise"
                 },
                 {
                     "content": "Gradually Increase the Weights.",
                     "concept": "Methodology",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "gradually increase the weights"
                 },
                 {
                     "content": "Eat a Lot of Protein.",
                     "concept": "Diet",
-                    "subconcept": ""
+                    "subconcept": "muscle",
+                    "content_typofree": "eat a lot of protein"
                 },
                 {
                     "content": "Avoid Junk Food.",
                     "concept": "Diet",
-                    "subconcept": ""
+                    "subconcept": "junk",
+                    "content_typofree": "avoid junk food"
                 },
                 {
                     "content": "Rest and Recover.",
                     "concept": "Rest",
-                    "subconcept": ""
+                    "subconcept": "rest",
+                    "content_typofree": "rest and recover"
                 },
                 {
                     "content": "Act Like an Athlete.",
                     "concept": "Methodology",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "act like an athlete"
                 }
             ],
             "collapsed": "true"
@@ -1203,27 +1323,32 @@ const mock = {
                 {
                     "content": "Set your goals and expectations",
                     "concept": "Motivation",
-                    "subconcept": ""
+                    "subconcept": "goals",
+                    "content_typofree": "set your goals and expectations"
                 },
                 {
                     "content": "Ensure that you get sufficient rest",
                     "concept": "Rest",
-                    "subconcept": ""
+                    "subconcept": "rest",
+                    "content_typofree": "ensure that you get sufficient rest"
                 },
                 {
                     "content": "Eat and eat right",
                     "concept": "Diet",
-                    "subconcept": ""
+                    "subconcept": "eat",
+                    "content_typofree": "eat and eat right"
                 },
                 {
                     "content": "look for an authentic source that will provide you with a workout regime that will suit your requirements.",
                     "concept": "Knowledge",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "look for an authentic source that will provide you with a workout regime that will suit your requirements"
                 },
                 {
                     "content": "bodybuilding tips recommend opting for a decent strength coach",
                     "concept": "Coaching",
-                    "subconcept": ""
+                    "subconcept": "bodybuilding",
+                    "content_typofree": "bodybuilding tips recommend opting for a decent strength coach"
                 }
             ],
             "collapsed": "true"
@@ -1245,22 +1370,26 @@ const mock = {
                 {
                     "content": "Success in fitness hinges on education",
                     "concept": "Knowledge",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "success in fitness hinges on education"
                 },
                 {
                     "content": "The Internet is full of videos, articles, and blogs for your fitness edification. Why not use them to your advantage?",
                     "concept": "Knowledge",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "the internet is full of videos articles and blogs for your fitness edification why not use them to your advantage"
                 },
                 {
                     "content": "When you begin training, keep Pareto's Principle in mind: 80 percent of your results come from 20 percent of the causes.",
                     "concept": "Knowledge",
-                    "subconcept": ""
+                    "subconcept": "exercise",
+                    "content_typofree": "when you begin training keep pareto principle in mind 80 percent of your results come from 20 percent of the causes"
                 },
                 {
                     "content": "To make the most out of your 20 percent, use compound movements.",
                     "concept": "Methodology",
-                    "subconcept": ""
+                    "subconcept": "movements",
+                    "content_typofree": "to make the most out of your 20 percent use compound movements"
                 }
             ],
             "collapsed": "true"
@@ -1285,17 +1414,20 @@ const mock = {
                 {
                     "content": "To build up your muscles you need to do a workout on a daily basis",
                     "concept": "Persistence",
-                    "subconcept": ""
+                    "subconcept": "workout",
+                    "content_typofree": "to build up your muscles you need to do a workout on a daily basis"
                 },
                 {
                     "content": "Same time you should also maintain your food that is diet food, heavy food and the most important one is supplements",
                     "concept": "Diet",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "same time you should also maintain your food that is diet food heavy food and the most important one is supplements"
                 },
                 {
                     "content": "taking supplements is good for your muscles",
                     "concept": "Supplements",
-                    "subconcept": ""
+                    "subconcept": "supplements",
+                    "content_typofree": "taking supplements is good for your muscles"
                 }
             ],
             "collapsed": "true"
@@ -1324,12 +1456,14 @@ const mock = {
                 {
                     "content": "It's up to you if you want to hire a personal trainer, but that's not needed.",
                     "concept": "Coaching",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "its up to you if you want to hire a personal trainer but that is not needed"
                 },
                 {
                     "content": "sticking to a diet",
                     "concept": "Diet",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "sticking to a diet"
                 }
             ],
             "collapsed": "true"
@@ -1366,62 +1500,74 @@ const mock = {
                 {
                     "content": "The first and most important tip is to have a success mindset.",
                     "concept": "Persistence",
-                    "subconcept": ""
+                    "subconcept": "goals",
+                    "content_typofree": "the first and most important tip is to have a success mindset"
                 },
                 {
                     "content": "The second most important point is to set a specific and clear goal.",
                     "concept": "Motivation",
-                    "subconcept": ""
+                    "subconcept": "goals",
+                    "content_typofree": "the second most important point is to set a specific and clear goal"
                 },
                 {
                     "content": "Look out for an instructor with proven record of training people.",
                     "concept": "Coaching",
-                    "subconcept": ""
+                    "subconcept": "trainers",
+                    "content_typofree": "look out for an instructor with proven record of training people"
                 },
                 {
                     "content": "Once you have set out a goal, next step is to plan the steps to achieve that result.",
                     "concept": "Planning",
-                    "subconcept": ""
+                    "subconcept": "goals",
+                    "content_typofree": "once you have set out a goal next step is to plan the steps to achieve that result"
                 },
                 {
                     "content": "You can ask your trainer in the Gym to guide you to the best workouts for beginners.",
                     "concept": "Coaching",
-                    "subconcept": ""
+                    "subconcept": "trainer",
+                    "content_typofree": "you can ask your trainer in the gym to guide you to the best workouts for beginners"
                 },
                 {
                     "content": "Every bodybuilder will tell you that a proper diet is the core of bodybuilding and this is true.",
                     "concept": "Diet",
-                    "subconcept": ""
+                    "subconcept": "bodybuilding",
+                    "content_typofree": "every bodybuilder will tell you that a proper diet is the core of bodybuilding and this is true"
                 },
                 {
                     "content": "Do not try to become a hero on the very first day of your workout by lifting heavy weights.",
                     "concept": "Patience",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "do not try to become a hero on the very first day of your workout by lifting heavy weights"
                 },
                 {
                     "content": "Write down a note and paste it on a wall where you can see it daily (note should mention whatever motivated you for bodybuilding in the first place).",
                     "concept": "Motivation",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "write down a note and paste it on a wall where you can see it daily note should mention whatever motivated you for bodybuilding in the first place"
                 },
                 {
                     "content": "Ask for feedback from coach",
                     "concept": "Coaching",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "ask for feedback from coach"
                 },
                 {
                     "content": "Focus on the correct form of exercise and get feedback from your coach/instructor.",
                     "concept": "Knowledge",
-                    "subconcept": ""
+                    "subconcept": "trainer",
+                    "content_typofree": "focus on the correct form of exercise and get feedback from your coach instructor"
                 },
                 {
                     "content": "Take sufficient rest and let your body recover.",
                     "concept": "Rest",
-                    "subconcept": ""
+                    "subconcept": "rest",
+                    "content_typofree": "take sufficient rest and let your body recover"
                 },
                 {
                     "content": "Do not take steroids for bodybuilding.",
                     "concept": "Supplements",
-                    "subconcept": ""
+                    "subconcept": "steroids",
+                    "content_typofree": "do not take steroids for bodybuilding"
                 }
             ],
             "collapsed": "true"
@@ -1468,27 +1614,32 @@ const mock = {
                 {
                     "content": "out of your whole exercise application, only 20 percent of the actions will produce outcomes.",
                     "concept": "Knowledge",
-                    "subconcept": ""
+                    "subconcept": "exercise",
+                    "content_typofree": "out of your whole exercise application only 20 percent of the actions will produce outcomes"
                 },
                 {
                     "content": "To to make the maximum out of your 20 percentage, use compound actions.",
                     "concept": "Methodology",
-                    "subconcept": ""
+                    "subconcept": "movements",
+                    "content_typofree": "to to make the maximum out of your 20 percentage use compound actions"
                 },
                 {
                     "content": "Stick to complete foods—natural each time feasible—that provide a balanced blend of complicated carbohydrates, entire proteins, and fats.",
                     "concept": "Diet",
-                    "subconcept": ""
+                    "subconcept": "foods",
+                    "content_typofree": "stick to complete foods natural each time feasible that provide a balanced blend of complicated carbohydrates entire proteins and fats"
                 },
                 {
                     "content": "Supplement your diet wherein vital, however, keep away from processed and packaged foods without multiple nutrients.",
                     "concept": "Supplements",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "supplement your diet wherein vital however keep away from processed and packaged foods without multiple nutrients"
                 },
                 {
                     "content": "Plan out what days you may be hitting the fitness center so that you can begin getting into a recurring.",
                     "concept": "Planning",
-                    "subconcept": ""
+                    "subconcept": "workout",
+                    "content_typofree": "plan out what days you may be hitting the fitness center so that you can begin getting into a recurring"
                 }
             ],
             "collapsed": "true"
@@ -1520,7 +1671,8 @@ const mock = {
                 {
                     "content": "The first step is to figure out how many days per week you will be going to the gym.",
                     "concept": "Planning",
-                    "subconcept": ""
+                    "subconcept": "workout",
+                    "content_typofree": "the first step is to figure out how many days per week you will be going to the gym"
                 }
             ],
             "collapsed": "true"
@@ -1542,22 +1694,26 @@ const mock = {
                 {
                     "content": "if you don't have enough motivation of your own, go to a gym and let them do it for you.",
                     "concept": "Motivation",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "if you don't have enough motivation of your own go to a gym and let them do it for you"
                 },
                 {
                     "content": "Nothing anyone tells you will work perfectly for you",
                     "concept": "Diversity",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "nothing anyone tells you will work perfectly for you"
                 },
                 {
                     "content": "I might add, don't diet. Eat right.",
                     "concept": "Diet",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "i might add don't diet eat right"
                 },
                 {
                     "content": "If you can, take supplements.",
                     "concept": "Supplements",
-                    "subconcept": ""
+                    "subconcept": "supplements",
+                    "content_typofree": "if you can take supplements"
                 }
             ],
             "collapsed": "true"
@@ -1605,32 +1761,38 @@ const mock = {
                 {
                     "content": "read as much as you can to increase your knowledge base",
                     "concept": "Knowledge",
-                    "subconcept": ""
+                    "subconcept": "knowledge",
+                    "content_typofree": "read as much as you can to increase your knowledge base"
                 },
                 {
                     "content": "get a personal trainer who has experience of body building",
                     "concept": "Coaching",
-                    "subconcept": ""
+                    "subconcept": "bodybuilding",
+                    "content_typofree": "get a personal trainer who has experience of body building"
                 },
                 {
                     "content": "start with 4 basic compound moves and practice them until you have perfect technique",
                     "concept": "Methodology",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "start with 4 basic compound moves and practice them until you have perfect technique"
                 },
                 {
                     "content": "Choose a weight that is challenging and do as many reps you can (until failure).",
                     "concept": "Methodology",
-                    "subconcept": ""
+                    "subconcept": "weight",
+                    "content_typofree": "choose a weight that is challenging and do as many reps you can until failure"
                 },
                 {
                     "content": "You should be doing a minimum of 8 reps and if you manage more than 20 increase the weight.",
                     "concept": "Methodology",
-                    "subconcept": ""
+                    "subconcept": "weight",
+                    "content_typofree": "you should be doing a minimum of 8 reps and if you manage more than 20 increase the weight"
                 },
                 {
                     "content": "Use a slow and controlled movement throughout each rep on each exercise.",
                     "concept": "Methodology",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "use a slow and controlled movement throughout each rep on each exercise"
                 }
             ],
             "collapsed": "true"
@@ -1655,37 +1817,44 @@ const mock = {
                 {
                     "content": "Nutrition is a bigger component of bodybuilding than just working out.",
                     "concept": "Diet",
-                    "subconcept": ""
+                    "subconcept": "bodybuilding",
+                    "content_typofree": "nutrition is a bigger component of bodybuilding than just working out"
                 },
                 {
                     "content": "ensure that your form is good",
                     "concept": "Methodology",
-                    "subconcept": ""
+                    "subconcept": "form",
+                    "content_typofree": "ensure that your form is good"
                 },
                 {
                     "content": "You have to will yourself to use the right muscles.",
                     "concept": "Methodology",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "you have to will yourself to use the right muscles"
                 },
                 {
                     "content": "Make sure you are tracking your nutrition, your workouts, your weights - everything.",
                     "concept": "Tracking",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "make sure you are tracking your nutrition your workouts your weights everything"
                 },
                 {
                     "content": "Use a tried and tested program.",
                     "concept": "Coaching",
-                    "subconcept": ""
+                    "subconcept": "program",
+                    "content_typofree": "use a tried and tested program"
                 },
                 {
                     "content": "Get plenty of rest.",
                     "concept": "Rest",
-                    "subconcept": ""
+                    "subconcept": "rest",
+                    "content_typofree": "get plenty of rest"
                 },
                 {
                     "content": "be patient",
                     "concept": "Patience",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "be patient"
                 }
             ],
             "collapsed": "true"
@@ -1709,52 +1878,62 @@ const mock = {
                 {
                     "content": "Focus on Aesthetics",
                     "concept": "Motivation",
-                    "subconcept": ""
+                    "subconcept": "aesthetics",
+                    "content_typofree": "focus on aesthetics"
                 },
                 {
                     "content": "Follow The 3/3/3/ Rule - 33% of your bodybuilding results will come from lifting, another 33% from eating right, and another 33% from recovering properly",
                     "concept": "Knowledge",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "follow the 3 3 3 rule 33 of your bodybuilding results will come from lifting another 33 from eating right and another 33 from recovering properly"
                 },
                 {
                     "content": "Apple Cider Vinegar - Just one tablespoon taken daily has been shown to help with fat loss",
                     "concept": "Diet",
-                    "subconcept": ""
+                    "subconcept": "calorie",
+                    "content_typofree": "apple cider vinegar just one tablespoon taken daily has been shown to help with fat loss"
                 },
                 {
                     "content": "Do Cardio",
                     "concept": "Methodology",
-                    "subconcept": ""
+                    "subconcept": "cardio",
+                    "content_typofree": "do cardio"
                 },
                 {
                     "content": "Taking cold showers has been shown to increase bodybuilding recovery and decrease soreness from lifting weights.",
                     "concept": "Methodology",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "taking cold showers has been shown to increase bodybuilding recovery and decrease soreness from lifting weights"
                 },
                 {
                     "content": "using free weights and compound lifts is the way to go",
                     "concept": "Methodology",
-                    "subconcept": ""
+                    "subconcept": "weights",
+                    "content_typofree": "using free weights and compound lifts is the way to go"
                 },
                 {
                     "content": "Stay Hydrated",
                     "concept": "Drink",
-                    "subconcept": ""
+                    "subconcept": "drink",
+                    "content_typofree": "stay hydrated"
                 },
                 {
                     "content": "Avoid Alcohol",
                     "concept": "Diet",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "avoid alcohol"
                 },
                 {
                     "content": "Learn to enjoy yourself and don’t let bodybuilding take over your entire lifestyle.",
                     "concept": "Lifestyle",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "learn to enjoy yourself and don't let bodybuilding take over your entire lifestyle"
                 },
                 {
                     "content": "Don’t Overtrain",
                     "concept": "Rest",
-                    "subconcept": ""
+                    "subconcept": "training",
+                    "content_typofree": "don't over train"
                 }
             ],
             "collapsed": "true"
@@ -1789,27 +1968,32 @@ const mock = {
                 {
                     "content": "After you input the fitness center, you ought to really have a comprehensive mindset about that which you would like to go attained.",
                     "concept": "Planning",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "after you input the fitness center you ought to really have a comprehensive mindset about that which you would like to go attained"
                 },
                 {
                     "content": "Be concentrated",
                     "concept": "Concentration",
-                    "subconcept": ""
+                    "subconcept": "concentrated",
+                    "content_typofree": "be concentrated"
                 },
                 {
                     "content": "Maintain Diet Regime",
                     "concept": "Diet",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "maintain diet regime"
                 },
                 {
                     "content": "Consistently ask pros or coaches about direction while in the fitness center.",
                     "concept": "Coaching",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "consistently ask pros or coaches about direction while in the fitness center"
                 },
                 {
                     "content": "Avoid Over-training",
                     "concept": "Rest",
-                    "subconcept": ""
+                    "subconcept": "training",
+                    "content_typofree": "avoid over training"
                 }
             ],
             "collapsed": "true"
@@ -1847,42 +2031,50 @@ const mock = {
                 {
                     "content": "Calculate your calorie requirement",
                     "concept": "Diet",
-                    "subconcept": ""
+                    "subconcept": "caloric",
+                    "content_typofree": "calculate your calorie requirement"
                 },
                 {
                     "content": "Eat enough vegetables with every meal",
                     "concept": "Diet",
-                    "subconcept": ""
+                    "subconcept": "vegetables",
+                    "content_typofree": "eat enough vegetables with every meal"
                 },
                 {
                     "content": "Don't be afraid of fats",
                     "concept": "Diet",
-                    "subconcept": ""
+                    "subconcept": "fats",
+                    "content_typofree": "don't be afraid of fats"
                 },
                 {
                     "content": "Enough protein for optimal muscle building",
                     "concept": "Diet",
-                    "subconcept": ""
+                    "subconcept": "muscle",
+                    "content_typofree": "enough protein for optimal muscle building"
                 },
                 {
                     "content": "Drink enough water",
                     "concept": "Drink",
-                    "subconcept": ""
+                    "subconcept": "drink",
+                    "content_typofree": "drink enough water"
                 },
                 {
                     "content": "Eat fiber-rich foods",
                     "concept": "Diet",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "eat fiber rich foods"
                 },
                 {
                     "content": "Variety in the kitchen",
                     "concept": "Diet",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "variety in the kitchen"
                 },
                 {
                     "content": "Supplements you don't want to miss",
                     "concept": "Supplements",
-                    "subconcept": ""
+                    "subconcept": "supplements",
+                    "content_typofree": "supplements you don't want to miss"
                 }
             ],
             "collapsed": "true"
@@ -1907,12 +2099,14 @@ const mock = {
                 {
                     "content": "Progress can be actually a slow issue",
                     "concept": "Patience",
-                    "subconcept": ""
+                    "subconcept": "slow",
+                    "content_typofree": "progress can be actually a slow issue"
                 },
                 {
                     "content": "get a really good simple program",
                     "concept": "Coaching",
-                    "subconcept": ""
+                    "subconcept": "program",
+                    "content_typofree": "get a really good simple program"
                 }
             ],
             "collapsed": "true"
@@ -1939,7 +2133,8 @@ const mock = {
                 {
                     "content": "Progressing on strength on the following 5 basic movement patterns will create the foundation upon which the house that your future Mr. Olympia titles will be built",
                     "concept": "Methodology",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "progressing on strength on the following 5 basic movement patterns will create the foundation upon which the house that your future or olympia titles will be built"
                 }
             ],
             "collapsed": "true"
@@ -1973,32 +2168,38 @@ const mock = {
                 {
                     "content": "Get a good trainer",
                     "concept": "Coaching",
-                    "subconcept": ""
+                    "subconcept": "bodybuilding",
+                    "content_typofree": "get a good trainer"
                 },
                 {
                     "content": "Focus On Major Lifts First",
                     "concept": "Methodology",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "focus on major lifts first"
                 },
                 {
                     "content": "Don't Forget To Stretch",
                     "concept": "Methodology",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "don't forget to stretch"
                 },
                 {
                     "content": "Eat a balanced diet",
                     "concept": "Diet",
-                    "subconcept": ""
+                    "subconcept": "eat",
+                    "content_typofree": "eat a balanced diet"
                 },
                 {
                     "content": "Set achievable goals",
                     "concept": "Motivation",
-                    "subconcept": ""
+                    "subconcept": "goals",
+                    "content_typofree": "set achievable goals"
                 },
                 {
                     "content": "Posture is important",
                     "concept": "Methodology",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "posture is important"
                 }
             ],
             "collapsed": "true"
@@ -2022,17 +2223,20 @@ const mock = {
                 {
                     "content": "Diet takes a while to nail.",
                     "concept": "Diet",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "diet takes a while to nail"
                 },
                 {
                     "content": "your program should predominately focus on squatting, bench pressing, overhead pressing, deadlifting, and rowing/chins",
                     "concept": "Methodology",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "your program should predominately focus on squatting bench pressing overhead pressing dead lifting and rowing chins"
                 },
                 {
                     "content": "Start basic with a solid foundation and build from there.",
                     "concept": "Methodology",
-                    "subconcept": ""
+                    "subconcept": "start",
+                    "content_typofree": "start basic with a solid foundation and build from there"
                 }
             ],
             "collapsed": "true"
@@ -2167,22 +2371,26 @@ const mock = {
                 {
                     "content": "keep a food diary that should accurately record your daily meals",
                     "concept": "Tracking",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "keep a food diary that should accurately record your daily meals"
                 },
                 {
                     "content": "lowering and maintaining a calorie deficit is a good step toward a fat burning cycle",
                     "concept": "Diet",
-                    "subconcept": ""
+                    "subconcept": "calorie",
+                    "content_typofree": "lowering and maintaining a calorie deficit is a good step toward a fat burning cycle"
                 },
                 {
                     "content": "you should not change your workout at the gym too much",
                     "concept": "Methodology",
-                    "subconcept": ""
+                    "subconcept": "workout",
+                    "content_typofree": "you should not change your workout at the gym too much"
                 },
                 {
                     "content": "Due to the high protein target (at least 2 g / kg), it is recommended to divide the amount into a few different meals to maximize the anabolic effect.",
                     "concept": "Diet",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "due to the high protein target at least 2 gig it is recommended to divide the amount into a few different meals to maximize the anabolic effect"
                 }
             ],
             "collapsed": "true"
@@ -2209,32 +2417,38 @@ const mock = {
                 {
                     "content": "Eat plenty of whole foods.",
                     "concept": "Diet",
-                    "subconcept": ""
+                    "subconcept": "foods",
+                    "content_typofree": "eat plenty of whole foods"
                 },
                 {
                     "content": "you need to get deep sleep starting early at around 10:00 to 11:00 pm latest.",
                     "concept": "Rest",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "you need to get deep sleep starting early at around 10 00 to 11 00 pm latest"
                 },
                 {
                     "content": "Workouts. High Volume.",
                     "concept": "Methodology",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "workouts high volume"
                 },
                 {
                     "content": "Take a day off after working out two days in a row.",
                     "concept": "Rest",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "take a day off after working out two days in a row"
                 },
                 {
                     "content": "Eating as frequently as you possibly can.",
                     "concept": "Diet",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "eating as frequently as you possibly can"
                 },
                 {
                     "content": "Make nutmilks at home using a nutmilk bag.",
                     "concept": "Diet",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "make nut milks at home using a nut milk bag"
                 }
             ],
             "collapsed": "true"
@@ -2284,37 +2498,44 @@ const mock = {
                 {
                     "content": "Do cardio every other day",
                     "concept": "Methodology",
-                    "subconcept": ""
+                    "subconcept": "cardio",
+                    "content_typofree": "do cardio every other day"
                 },
                 {
                     "content": "Have a consistent routine that you stick with",
                     "concept": "Rountine",
-                    "subconcept": ""
+                    "subconcept": "routine",
+                    "content_typofree": "have a consistent routine that you stick with"
                 },
                 {
                     "content": "Take rest days and don’t damage your joints, but also don’t make too many excuses",
                     "concept": "Rest",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "take rest days and don't damage your joints but also don't make too many excuses"
                 },
                 {
                     "content": "Sometimes when you’re tired you won’t sant to exercise. Do it anyways.",
                     "concept": "Persistence",
-                    "subconcept": ""
+                    "subconcept": "exercise",
+                    "content_typofree": "sometimes when you re tired you wont want to exercise do it anyways"
                 },
                 {
                     "content": "Mix compound movements (bench press, pullups, shoulder press) with isolation movements (tricep extensions, bicep curls)",
                     "concept": "Methodology",
-                    "subconcept": ""
+                    "subconcept": "exercises",
+                    "content_typofree": "mix compound movements bench press pull ups shoulder press with isolation movements trice extensions bicep curls"
                 },
                 {
                     "content": "Eat/drink a protein supplement",
                     "concept": "Supplements",
-                    "subconcept": ""
+                    "subconcept": "protein",
+                    "content_typofree": "eat drink a protein supplement"
                 },
                 {
                     "content": "Eat clean, Whole Foods.",
                     "concept": "Diet",
-                    "subconcept": ""
+                    "subconcept": "foods",
+                    "content_typofree": "eat clean whole foods"
                 }
             ],
             "collapsed": "true"
@@ -2342,37 +2563,44 @@ const mock = {
                 {
                     "content": "jot down your lifestyle",
                     "concept": "Lifestyle",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "jot down your lifestyle"
                 },
                 {
                     "content": "Now define your question, set your goal note down that goal and steps like milestones in your path.",
                     "concept": "Motivation",
-                    "subconcept": ""
+                    "subconcept": "goals",
+                    "content_typofree": "now define your question set your goal note down that goal and steps like milestones in your path"
                 },
                 {
                     "content": "design your diet accordingly",
                     "concept": "Diet",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "design your diet accordingly"
                 },
                 {
                     "content": "find a good equipped gym with nice people who has knowledge in bodybuilding. and join it.",
                     "concept": "Gym",
-                    "subconcept": ""
+                    "subconcept": "gym",
+                    "content_typofree": "find a good equipped gym with nice people who has knowledge in bodybuilding and join it"
                 },
                 {
                     "content": "do workout for 5 days a week, and stay focused and determinant",
                     "concept": "Concentration",
-                    "subconcept": ""
+                    "subconcept": "workout",
+                    "content_typofree": "do workout for 5 days a week and stay focused and determinant"
                 },
                 {
                     "content": "do basic study of muscle anatomy on net and check pro builders workout form",
                     "concept": "Knowledge",
-                    "subconcept": ""
+                    "subconcept": "muscle",
+                    "content_typofree": "do basic study of muscle anatomy on net and check pro builders workout form"
                 },
                 {
                     "content": "stick to your diet",
                     "concept": "Diet",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "stick to your diet"
                 }
             ],
             "collapsed": "true"
@@ -2396,22 +2624,26 @@ const mock = {
                 {
                     "content": "Be regular in Gym",
                     "concept": "Persistence",
-                    "subconcept": ""
+                    "subconcept": "workout",
+                    "content_typofree": "be regular in gym"
                 },
                 {
                     "content": "Ask experts or anyone of your gym colleague to teach you exercises in right way",
                     "concept": "Coaching",
-                    "subconcept": ""
+                    "subconcept": "trainer",
+                    "content_typofree": "ask experts or anyone of your gym colleague to teach you exercises in right way"
                 },
                 {
                     "content": "Training hard is important but if your Mind-Muscle Connection is not fully developed you will never reach your full potential",
                     "concept": "Methodology",
-                    "subconcept": ""
+                    "subconcept": "muscle",
+                    "content_typofree": "training hard is important but if your mind muscle connection is not fully developed you will never reach your full potential"
                 },
                 {
                     "content": "Include more fruits ,vegetables, protein and healthy fats",
                     "concept": "Diet",
-                    "subconcept": ""
+                    "subconcept": "foods",
+                    "content_typofree": "include more fruits vegetables protein and healthy fats"
                 }
             ],
             "collapsed": "true"
@@ -2433,32 +2665,38 @@ const mock = {
                 {
                     "content": "Master basic compound movements like squats, bench presses, shoulder presses, chin ups/ pull ups, barbell rows, etc.",
                     "concept": "Methodology",
-                    "subconcept": ""
+                    "subconcept": "exercises",
+                    "content_typofree": "master basic compound movements like squats bench presses shoulder presses chin ups pull ups barbell rows etc"
                 },
                 {
                     "content": "Learn about nutrition.",
                     "concept": "Knowledge",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "learn about nutrition"
                 },
                 {
                     "content": "Learn to eat the right real foods and about macronutrients and what role they play.",
                     "concept": "Diet",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "learn to eat the right real foods and about macro nutrients and what role they play"
                 },
                 {
                     "content": "Learn the proper form for any exercise before adding on weight",
                     "concept": "Methodology",
-                    "subconcept": ""
+                    "subconcept": "exercises",
+                    "content_typofree": "learn the proper form for any exercise before adding on weight"
                 },
                 {
                     "content": "Focus on using free weights versus machines",
                     "concept": "Methodology",
-                    "subconcept": ""
+                    "subconcept": "weights",
+                    "content_typofree": "focus on using free weights versus machines"
                 },
                 {
                     "content": "Anything you need to know about weightlifting is online",
                     "concept": "Knowledge",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "anything you need to know about weightlifting is online"
                 }
             ],
             "collapsed": "true"
@@ -2481,42 +2719,50 @@ const mock = {
                 {
                     "content": "Times per day: this is not limited by a number if you mean to the number of sessions, but, 1 session per day would be the best.",
                     "concept": "Rountine",
-                    "subconcept": ""
+                    "subconcept": "sessions",
+                    "content_typofree": "times per day this is not limited by a number if you mean to the number of sessions but 1 session per day would be the best"
                 },
                 {
                     "content": "Sets per exercise: 1, only one is enough to develop real strengh.",
                     "concept": "Rountine",
-                    "subconcept": ""
+                    "subconcept": "exercises",
+                    "content_typofree": "sets per exercise 1 only one is enough to develop real strength"
                 },
                 {
                     "content": "Repetiions per set: 70 times, but 30 is good to begin.",
                     "concept": "Rountine",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "repetitions per set 70 times but 30 is good to begin"
                 },
                 {
                     "content": "The weight at the beggining: no weight if you want, or the lightest you have (simple and no stress, right?).",
                     "concept": "Methodology",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "the weight at the beginning no weight if you want or the lightest you have simple and no stress right"
                 },
                 {
                     "content": "When you must use more weight: every time you have completed the same exercise or other exercise to the same muscle with the same range of movement.",
                     "concept": "Methodology",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "when you must use more weight every time you have completed the same exercise or other exercise to the same muscle with the same range of movement"
                 },
                 {
                     "content": "How many days per week: you can train everyday.",
                     "concept": "Rountine",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "how many days per week you can train everyday"
                 },
                 {
                     "content": "How many minutes per exercise: 4 minutes is enough to develop fibers and increase cardiovascular activity.",
                     "concept": "Rountine",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "how many minutes per exercise 4 minutes is enough to develop fiber and increase cardiovascular activity"
                 },
                 {
                     "content": "How many days to rest: the most you train, the most you can rest, but if you want watch results rapidly, don't take a single day to rest.",
                     "concept": "Rest",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "how many days to rest the most you train the most you can rest but if you want watch results rapidly don't take a single day to rest"
                 }
             ],
             "collapsed": "true"
@@ -2557,7 +2803,8 @@ const mock = {
                 {
                     "content": "Don't try to hard you'll push yourself away from it.",
                     "concept": "Methodology",
-                    "subconcept": ""
+                    "subconcept": "training",
+                    "content_typofree": "don't try to hard you all push yourself away from it"
                 }
             ],
             "collapsed": "true"
@@ -2580,22 +2827,26 @@ const mock = {
                 {
                     "content": "Do at least 2-3 power exercises a week.",
                     "concept": "Methodology",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "do at least 2 3 power exercises a week"
                 },
                 {
                     "content": "Be sure you have a fitness schedule that fills your muscles slowly.",
                     "concept": "Planning",
-                    "subconcept": ""
+                    "subconcept": "workout",
+                    "content_typofree": "be sure you have a fitness schedule that fills your muscles slowly"
                 },
                 {
                     "content": "Feed the muscles with a sufficiently protein-rich diet.",
                     "concept": "Diet",
-                    "subconcept": ""
+                    "subconcept": "muscle",
+                    "content_typofree": "feed the muscles with a sufficiently protein rich diet"
                 },
                 {
                     "content": "Be diligent and plan to do this for 8 weeks.",
                     "concept": "Persistence",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "be diligent and plan to do this for 8 weeks"
                 }
             ],
             "collapsed": "true"
@@ -2619,12 +2870,14 @@ const mock = {
                 {
                     "content": "You also have to decide if aesthetics is your goal, or an acceptable side effect",
                     "concept": "Motivation",
-                    "subconcept": ""
+                    "subconcept": "aesthetics",
+                    "content_typofree": "you also have to decide if aesthetics is your goal or an acceptable side effect"
                 },
                 {
                     "content": "If you just want to look good naked, seriously consider just doing athletic training like sprinting and cross training with weights.",
                     "concept": "Motivation",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "if you just want to look good naked seriously consider just doing athletic training like sprinting and cross training with weights"
                 }
             ],
             "collapsed": "true"
@@ -2647,22 +2900,26 @@ const mock = {
                 {
                     "content": "Start light and move up very gradually.",
                     "concept": "Methodology",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "start light and move up very gradually"
                 },
                 {
                     "content": "Focus on maintaining good form and technique.",
                     "concept": "Methodology",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "focus on maintaining good form and technique"
                 },
                 {
                     "content": "Focus on multi-joint and structural movements (e.g. bench, squat, deadlift).",
                     "concept": "Methodology",
-                    "subconcept": ""
+                    "subconcept": "exercises",
+                    "content_typofree": "focus on multi joint and structural movements a a bench squat dead lift"
                 },
                 {
                     "content": "Make sure that your total calorie load is big enough to support muscle growth.",
                     "concept": "Diet",
-                    "subconcept": ""
+                    "subconcept": "muscle",
+                    "content_typofree": "make sure that your total calorie load is big enough to support muscle growth"
                 }
             ],
             "collapsed": "true"
@@ -2684,22 +2941,26 @@ const mock = {
                 {
                     "content": "You need to have a strict routine and follow it closely.",
                     "concept": "Rountine",
-                    "subconcept": ""
+                    "subconcept": "routine",
+                    "content_typofree": "you need to have a strict routine and follow it closely"
                 },
                 {
                     "content": "Ask a personal trainer or an advanced bodybuilder to provide you with a program that includes the exact exercises you need to do, the number of sets and the number of reps per set.",
                     "concept": "Coaching",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "ask a personal trainer or an advanced bodybuilder to provide you with a program that includes the exact exercises you need to do the number of sets and the number of reps per set"
                 },
                 {
                     "content": "When you set foot in the gym you need to know exactly what you will do in that training session.",
                     "concept": "Planning",
-                    "subconcept": ""
+                    "subconcept": "gym",
+                    "content_typofree": "when you set foot in the gym you need to know exactly what you will do in that training session"
                 },
                 {
                     "content": "With that you need to take proper diet and best bodybuilding supplement.",
                     "concept": "Diet",
-                    "subconcept": ""
+                    "subconcept": "bodybuilding",
+                    "content_typofree": "with that you need to take proper diet and best bodybuilding supplement"
                 }
             ],
             "collapsed": "true"
@@ -2722,37 +2983,44 @@ const mock = {
                 {
                     "content": "compound movements (squat, bench, deadlift, shoulder press) should be primary",
                     "concept": "Methodology",
-                    "subconcept": ""
+                    "subconcept": "exercises",
+                    "content_typofree": "compound movements squat bench dead lift shoulder press should be primary"
                 },
                 {
                     "content": "Increase intensity/weight as the main metric of progress using sets of 5 reps",
                     "concept": "Methodology",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "increase intensity weight as the main metric of progress using sets of 5 reps"
                 },
                 {
                     "content": "Become obsessed with finding the right form for your body for those 4 movements above.",
                     "concept": "Methodology",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "become obsessed with finding the right form for your body for those 4 movements above"
                 },
                 {
                     "content": "Eat right.",
                     "concept": "Diet",
-                    "subconcept": ""
+                    "subconcept": "eat",
+                    "content_typofree": "eat right"
                 },
                 {
                     "content": "Get enough sleep and relaxation.",
                     "concept": "Rest",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "get enough sleep and relaxation"
                 },
                 {
                     "content": "Learn to love the grind.",
                     "concept": "Motivation",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "learn to love the grind"
                 },
                 {
                     "content": "If a joint starts hurting after a day of lifting and doesnt go away after a week figure out what is wrong by asking a sports therapist or researching it in some way.",
                     "concept": "Coaching",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "if a joint starts hurting after a day of lifting and does it go away after a week figure out what is wrong by asking a sports therapist or researching it in some way"
                 }
             ],
             "collapsed": "true"
@@ -2774,17 +3042,20 @@ const mock = {
                 {
                     "content": "Show up to the gym and get to work!",
                     "concept": "Persistence",
-                    "subconcept": ""
+                    "subconcept": "gym",
+                    "content_typofree": "show up to the gym and get to work"
                 },
                 {
                     "content": "Watch videos of workouts online or ask a big meathead at the gym for advice.",
                     "concept": "Knowledge",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "watch videos of workouts online or ask a big meathead at the gym for advice"
                 },
                 {
                     "content": "Look around and copy what the big dudes are doing.",
                     "concept": "Methodology",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "look around and copy what the big dudes are doing"
                 }
             ],
             "collapsed": "true"
@@ -2825,12 +3096,14 @@ const mock = {
                 {
                     "content": "getting good sleep and rest between workouts is essential for muscle growth",
                     "concept": "Rest",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "getting good sleep and rest between workouts is essential for muscle growth"
                 },
                 {
                     "content": "good nutrition is very important",
                     "concept": "Diet",
-                    "subconcept": ""
+                    "subconcept": "nutrition",
+                    "content_typofree": "good nutrition is very important"
                 }
             ],
             "collapsed": "true"
@@ -2852,22 +3125,26 @@ const mock = {
                 {
                     "content": "Start with circuit training so that you can familiarize yourself with different exercises.",
                     "concept": "Methodology",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "start with circuit training so that you can familiarize yourself with different exercises"
                 },
                 {
                     "content": "Train your upper body and lower body on different days",
                     "concept": "Methodology",
-                    "subconcept": ""
+                    "subconcept": "training",
+                    "content_typofree": "train your upper body and lower body on different days"
                 },
                 {
                     "content": "Once you develop proper strength and become familiar with different exercises then switch to weight training",
                     "concept": "Methodology",
-                    "subconcept": ""
+                    "subconcept": "exercises",
+                    "content_typofree": "once you develop proper strength and become familiar with different exercises then switch to weight training"
                 },
                 {
                     "content": "Follow some bodybuilding program",
                     "concept": "Coaching",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "follow some bodybuilding program"
                 }
             ],
             "collapsed": "true"
@@ -2890,7 +3167,8 @@ const mock = {
                 {
                     "content": "Keep yourself motivated everyday.",
                     "concept": "Motivation",
-                    "subconcept": ""
+                    "subconcept": "motivate",
+                    "content_typofree": "keep yourself motivated everyday"
                 }
             ],
             "collapsed": "true"
@@ -2915,17 +3193,20 @@ const mock = {
                 {
                     "content": "First you get stronger using the big movements such as squats, deadlifts and presses.",
                     "concept": "Methodology",
-                    "subconcept": ""
+                    "subconcept": "muscles",
+                    "content_typofree": "first you get stronger using the big movements such as squats dead lifts and presses"
                 },
                 {
                     "content": "As you progress you learn/self teach the mind muscle connection and therefore how to properly isolate each muscle.",
                     "concept": "Knowledge",
-                    "subconcept": ""
+                    "subconcept": "muscle",
+                    "content_typofree": "as you progress you learn self teach the mind muscle connection and therefore how to properly isolate each muscle"
                 },
                 {
                     "content": "Furthermore, you learn about proper nutrition from people such as Lane Norton.",
                     "concept": "Knowledge",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "furthermore you learn about proper nutrition from people such as lane norton"
                 }
             ],
             "collapsed": "true"
@@ -2947,12 +3228,14 @@ const mock = {
                 {
                     "content": "First of all increase ur stamina with cardio exercises then start with stretching exercises like push ups,pull ups,etc.",
                     "concept": "Methodology",
-                    "subconcept": ""
+                    "subconcept": "workout",
+                    "content_typofree": "first of all increase or stamina with cardio exercises then start with stretching exercises like push ups pull ups etc"
                 },
                 {
                     "content": "Then start ur weight training with lower weights but make sure that ur stamina should be increased enough that u can workout for atleast 1.5 hours regularly",
                     "concept": "Methodology",
-                    "subconcept": ""
+                    "subconcept": "workout",
+                    "content_typofree": "then start or weight training with lower weights but make sure that or stamina should be increased enough that a can workout for at least 1 5 hours regularly"
                 }
             ],
             "collapsed": "true"
@@ -2993,12 +3276,14 @@ const mock = {
                 {
                     "content": "Use proper form.",
                     "concept": "Methodology",
-                    "subconcept": ""
+                    "subconcept": "form",
+                    "content_typofree": "use proper form"
                 },
                 {
                     "content": "Master the lift before increasing your weight.",
                     "concept": "Methodology",
-                    "subconcept": ""
+                    "subconcept": "exercises",
+                    "content_typofree": "master the lift before increasing your weight"
                 }
             ],
             "collapsed": "true"
@@ -3020,7 +3305,8 @@ const mock = {
                 {
                     "content": "Be regular and stick to ground exercises",
                     "concept": "Methodology",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "be regular and stick to ground exercises"
                 }
             ],
             "collapsed": "true"
@@ -3061,17 +3347,20 @@ const mock = {
                 {
                     "content": "The best advice I can give you is to find a professional trainer and nutritionist.",
                     "concept": "Coaching",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "the best advice i can give you is to find a professional trainer and nutritionist"
                 },
                 {
                     "content": "If you can't get any of those, then search for a bodybuilder that can lead you better.",
                     "concept": "Knowledge",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "if you can't get any of those then search for a bodybuilder that can lead you better"
                 },
                 {
                     "content": "Everybody is different, and you'll need all the personal help you can get.",
                     "concept": "Diversity",
-                    "subconcept": ""
+                    "subconcept": "knowledge",
+                    "content_typofree": "everybody is different and you all need all the personal help you can get"
                 }
             ],
             "collapsed": "true"
@@ -3093,17 +3382,20 @@ const mock = {
                 {
                     "content": "As a beginner, pick a weight you can do 10-12 reps with",
                     "concept": "Methodology",
-                    "subconcept": ""
+                    "subconcept": "weight",
+                    "content_typofree": "as a beginner pick a weight you can do 10 12 reps with"
                 },
                 {
                     "content": "you must have Starches,Protein, Tropical fruits, Vegetables.",
                     "concept": "Diet",
-                    "subconcept": ""
+                    "subconcept": "foods",
+                    "content_typofree": "you must have starches protein tropical fruits vegetables"
                 },
                 {
                     "content": "Gradually, you'll get the right feel and try to lift as heavy as possible.",
                     "concept": "Methodology",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "gradually you all get the right feel and try to lift as heavy as possible"
                 }
             ],
             "collapsed": "true"
@@ -3126,7 +3418,8 @@ const mock = {
                 {
                     "content": "U don’t get those things immediately, stay focused, it’s a marathon not a sprint.",
                     "concept": "Patience",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "a don't get those things immediately stay focused its a marathon not a sprint"
                 }
             ],
             "collapsed": "true"
@@ -3157,47 +3450,56 @@ const mock = {
                 {
                     "content": "Take protein",
                     "concept": "Supplements",
-                    "subconcept": ""
+                    "subconcept": "protein",
+                    "content_typofree": "take protein"
                 },
                 {
                     "content": "Be in a Caloric Surplus",
                     "concept": "Diet",
-                    "subconcept": ""
+                    "subconcept": "caloric",
+                    "content_typofree": "be in a caloric surplus"
                 },
                 {
                     "content": "Avoid Junk Food",
                     "concept": "Diet",
-                    "subconcept": ""
+                    "subconcept": "junk",
+                    "content_typofree": "avoid junk food"
                 },
                 {
                     "content": "Make a plan for daily routine",
                     "concept": "Planning",
-                    "subconcept": ""
+                    "subconcept": "routine",
+                    "content_typofree": "make a plan for daily routine"
                 },
                 {
                     "content": "Consume Fruits and Vegetables.",
                     "concept": "Diet",
-                    "subconcept": ""
+                    "subconcept": "vegetables",
+                    "content_typofree": "consume fruits and vegetables"
                 },
                 {
                     "content": "Rest and Recover",
                     "concept": "Rest",
-                    "subconcept": ""
+                    "subconcept": "rest",
+                    "content_typofree": "rest and recover"
                 },
                 {
                     "content": "Don’t Train Every Day.",
                     "concept": "Rest",
-                    "subconcept": ""
+                    "subconcept": "diet",
+                    "content_typofree": "don't train every day"
                 },
                 {
                     "content": "Do Compound Movements",
                     "concept": "Methodology",
-                    "subconcept": ""
+                    "subconcept": "movements",
+                    "content_typofree": "do compound movements"
                 },
                 {
                     "content": "Stick to Free Weights",
                     "concept": "Methodology",
-                    "subconcept": ""
+                    "subconcept": "weights",
+                    "content_typofree": "stick to free weights"
                 }
             ],
             "collapsed": "true"
@@ -3235,7 +3537,8 @@ const mock = {
                 {
                     "content": "If you are a newbie then don't worry join a gym and start working out.",
                     "concept": "Motivation",
-                    "subconcept": ""
+                    "subconcept": "gym",
+                    "content_typofree": "if you are a newbie then don't worry join a gym and start working out"
                 }
             ],
             "collapsed": "true"
@@ -3257,12 +3560,14 @@ const mock = {
                 {
                     "content": "Be very vary focused.",
                     "concept": "Concentration",
-                    "subconcept": ""
+                    "subconcept": "concentrated",
+                    "content_typofree": "be very vary focused"
                 },
                 {
                     "content": "Set short term realistic goals.",
                     "concept": "Motivation",
-                    "subconcept": ""
+                    "subconcept": "goals",
+                    "content_typofree": "set short term realistic goals"
                 }
             ],
             "collapsed": "true"
@@ -3300,7 +3605,8 @@ const mock = {
                 {
                     "content": "The best way will be to join a gym and have the instructors there show you the proper way to use their equipment.",
                     "concept": "Coaching",
-                    "subconcept": ""
+                    "subconcept": "trainer",
+                    "content_typofree": "the best way will be to join a gym and have the instructors there show you the proper way to use their equipment"
                 }
             ],
             "collapsed": "true"
@@ -3338,5 +3644,5 @@ const mock = {
             "collapsed": "true"
         }
     ]
-
 }
+

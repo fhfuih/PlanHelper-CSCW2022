@@ -509,12 +509,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     }))
 
 
-    // const conceptEls = Array.from(new Set(ans['propositions'].map((item) => {
-    //   const el = document.createElement('span')
-    //   el.textContent = item.concept
-    //   el.classList.add('badge', 'bg-secondary', 'me-1')
-    //   return el
-    // })))
 
     // answerNode.querySelector('.avatar').src = ans.author.avatar
     answerContainer.append(answerNode)
@@ -683,12 +677,14 @@ function mindmapConfiguration(conceptName, construct){
   }
   if (construct){
     const id = 'mindmap-container'
-    document.getElementById(id).style.setProperty('height', '500px')
+    document.getElementById(id).style.setProperty('height', '700px')
 
     let childrenNodes = []
     let checkedChildrenNodes = []
-
-    const subconceptSet = new Set(answers.map(p => {
+    let allAns = []
+    allAns.push(...answers)
+    allAns.push(...collapsedAnswers)
+    const subconceptSet = new Set(allAns.map(p => {
       const propositions = p['propositions']
       let subconcepts = []
 
@@ -822,7 +818,7 @@ function onUndoClicked(){
   else if(previousOperation['name'] === 'clear'){
     const operationHistoryCopy = [...operationHistory]
     const redoListCopy = [...redoList]
-    redoList = [...operationHistory]
+    redoList = [...operationHistory].reverse()
     while(redoList.length !== 0){
       onRedoClicked()
     }
