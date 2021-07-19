@@ -205,7 +205,14 @@ function addToNote(data) {
   
   updateConceptPaneData(prop, operation='add')
   prop['propIdx'] = data['propIdx']
-  prop['ansIdx'] = data['ansIdx']
+  if(data.hasOwnProperty('ansIdx')){
+    prop['ansIdx'] = data['ansIdx']
+  }
+  else {
+    prop['simAnsIdx'] = data['simAnsIdx']
+    prop['colAnsIdx'] = data['colAnsIdx']
+  }
+
   const operationData = {'name': 'add-note', 'data': prop}
   updateOperationHistory(operationData)
 }
@@ -811,7 +818,14 @@ function onUndoClicked(){
   if(operationHistory.length === 0) return
   const previousOperation = operationHistory.pop()
   if(previousOperation['name'] === 'add-note' || previousOperation['name'] === 'remove-note'){
-    const idxData = {'propIdx': previousOperation['data']['propIdx'], 'ansIdx': previousOperation['data']['ansIdx']}
+    let idxData;
+    if(previousOperation['data'].hasOwnProperty('ansIdx')){
+      idxData = {'propIdx': previousOperation['data']['propIdx'], 'ansIdx': previousOperation['data']['ansIdx']}
+    }
+    else{
+      idxData = {'propIdx': previousOperation['data']['propIdx'], 'simAnsIdx': previousOperation['data']['simAnsIdx'], 'colAnsIdx': previousOperation['data']['colAnsIdx']}
+    }
+
     getPropositionEl(idxData, document.getElementById('answer-container')).click()
     operationHistory.pop()
   }
@@ -930,7 +944,14 @@ function onRedoClicked(){
   if(redoList.length === 0) return
   const previousOperation = redoList.pop()
   if(previousOperation['name'] === 'add-note' || previousOperation['name'] === 'remove-note'){
-    const idxData = {'propIdx': previousOperation['data']['propIdx'], 'ansIdx': previousOperation['data']['ansIdx']}
+    let idxData;
+    if(previousOperation['data'].hasOwnProperty('ansIdx')){
+      idxData = {'propIdx': previousOperation['data']['propIdx'], 'ansIdx': previousOperation['data']['ansIdx']}
+    }
+    else{
+      idxData = {'propIdx': previousOperation['data']['propIdx'], 'simAnsIdx': previousOperation['data']['simAnsIdx'], 'colAnsIdx': previousOperation['data']['colAnsIdx']}
+    }
+
     getPropositionEl(idxData, document.getElementById('answer-container')).click()
   }
   else if(previousOperation['name'] === 'clear'){
