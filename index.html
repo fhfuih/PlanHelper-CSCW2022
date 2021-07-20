@@ -11,15 +11,14 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jsmind@0.4.6/style/jsmind.css" integrity="sha256-bRaebMjWC2LwqX1p18fo00K/1Up8ltIu787l8MrlT/k=" crossorigin="anonymous">
   <link rel="stylesheet" href="style.css">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous" defer></script>
-  <!-- <script src="https://cdn.jsdelivr.net/npm/mark.js@8.11.1/dist/mark.es6.js" defer></script> -->
   <script src="https://cdn.jsdelivr.net/npm/mark.js@8.11.1/dist/mark.es6.min.js" integrity="sha256-51i9DIUkhl5gZzZ5xKiWbJ2qXewVR6W0MUZYPVwmyJ4=" crossorigin="anonymous" defer></script>
-  <!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous" defer></script> -->
   <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js" integrity="sha256-qXBd/EfAdjOA2FGrGAG+b3YBn2tn5A6bhz+LSgYD96k=" crossorigin="anonymous" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/dayjs@1.10.5/dayjs.min.js" integrity="sha256-v+HEJfGs5a3wK8/uqXs31dH/xcyJDf21m0AuZUWP3PA=" crossorigin="anonymous" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/pickr.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/lodash@4/lodash.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/jsmind@0.4.6/js/jsmind.js" integrity="sha256-R+mzTkztiO+RQCSXTWATMB3H5nOI7rvDYMmlAawMdXY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/split.js@1.6.4/dist/split.min.js" integrity="sha256-3dj5QuMIOFU/bn4buiCQsVULDPjncXio3emedCODG+I=" crossorigin="anonymous"></script>
   <script type="text/javascript" src="mock.js" defer></script>
   <script type="text/javascript" src="main.js" defer></script>
   <title>CQA</title>
@@ -82,7 +81,7 @@
         </div>
       </div>
       <div class="col col-4 side">
-        <div class="mb-4 card">
+        <div class="card" id="note-pane-card">
           <div class="card-header">
             Note Pane
             <button type = "button" class = "btn btn-light p-1" onclick="onUndoClicked()" title="Undo">
@@ -98,7 +97,7 @@
               <i class = "bi bi-trash"></i>
             </button>
           </div>
-          <div class="card-body">
+          <div class="card-body" id="note-pane-card-body">
             <template id="template-single-concept">
               <li class="concept position-relative">
                 <span class="drag-handle"><i class="bi bi-grip-vertical"></i></span>
@@ -140,18 +139,17 @@
               </button>
             </template>
             <ul id="note-container"></ul>
-            <div class="placeholder">
-              Click on highlighted propositions to add them here
-            </div>
           </div>
         </div>
-        <div class="card">
+        <div class="card" id="concept-pane-card">
           <div class="card-header">
             Concept Pane
           </div>
-          <div id="concept-container" class="card-body">
-            <div id="concept-list-container"></div>
-            <div id="mindmap-container"></div>
+          <div id="concept-pane-card-body" class="card-body">
+            <div id="concept-container">
+              <div id="concept-list-container"></div>
+              <div id="mindmap-container"></div>
+            </div>
           </div>
         </div>
       </div>

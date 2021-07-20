@@ -4,11 +4,10 @@
 }
 
 .side {
-  position: static;
-  /* overflow: auto;
-  height: 100vh; */
-  top: 50px;
-  margin-bottom: 32px; /* margin top 被bootstrap设置了 */
+  height: calc(100vh - 50px); /* 50是整个顶部的margin */
+  position: sticky;
+  top: 34px; /* 50 - 16，16是默认col都会加上的margin-top。不知道为什么sticky top 50的时候，即便这个col的margin-top强制设置成0了，还是会把这16的空留出来 */
+  margin: 0 0 16px;
 }
 
 /* question */
@@ -92,7 +91,15 @@ mark, .mark {
 }
 
 ul#note-container:not(:empty) {
-  padding: 1rem 0 1rem 1rem !important;
+  padding: 0 0 0 1rem !important;
+}
+ul#note-container:empty::after {
+  content: 'Click on highlighted propositions to add them here';
+  color: rgb(185, 194, 204);
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  top: 50%;
 }
 
 ul#note-container, #note-container ul {
@@ -139,9 +146,48 @@ ul#note-container, #note-container ul {
 
 /* Concept pane */
 #concept-list-container:empty::after {
-  content: 'Loading... (placeholder)';
+  content: 'Loading...';
   color: rgb(185, 194, 204);
-  margin: 1rem 0;
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  top: 50%;
+  text-align: center;
+}
+
+/* note pane + concept pane layout */
+#note-pane-card > .card-body, #concept-pane-card > .card-body {
+  overflow: auto;
+}
+#note-pane-card > .card-body::-webkit-scrollbar,
+#concept-pane-card > .card-body::-webkit-scrollbar {
+  width: 12px;
+}
+#note-pane-card > .card-body::-webkit-scrollbar-thumb,
+#concept-pane-card > .card-body::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: rgb(223, 223, 223);
+}
+.gutter.gutter-vertical { /* Created by Split.js */
+  cursor: row-resize;
+  text-align: center;
+  position: relative;
+}
+.gutter.gutter-vertical::after {
+  content: '···';
+}
+.gutter.gutter-vertical::before {
+  content: '';
+  position: absolute;
+  top: 5px;
+  bottom: 5px;
+  left: 0;
+  right: 0;
+  border-radius: .25rem;
+  transition: background-color .3s;
+}
+.gutter.gutter-vertical:hover::before {
+  background-color: rgba(216, 216, 216, 0.25);
 }
 
 

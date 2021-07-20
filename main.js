@@ -181,7 +181,6 @@ function addToNote(data) {
     conceptElement.querySelector('.content').textContent = conceptName
     conceptElement.setAttribute('concept-name', conceptName)
     noteContainer.append(conceptElement)
-    noteContainer.nextElementSibling.classList.add('d-none')
 
     propositionContainer = document.createElement('ul')
     propositionContainer.classList.add('proposition-container')
@@ -239,7 +238,6 @@ function removeFromNote(data) {
     propositionContainer.remove()
     conceptElement.remove()
   }
-  if (!noteContainer.childElementCount) {noteContainer.nextElementSibling.classList.remove('d-none')}
   
   updateConceptPaneData(data=propData, operation='delete')
 
@@ -325,6 +323,15 @@ function initNotePaneDoubleClickNote() {
       const propIdx = li.getAttribute('data-proposition')
       scrollIntoView(`.answer-${ansIdx} .proposition-${propIdx}`)
     }
+  })
+}
+
+function initNoteConceptPaneSplit() {
+  window.Split(['#note-pane-card', '#concept-pane-card'], {
+    sizes: [60, 40],
+    gutterSize: 24,
+    direction: 'vertical',
+    cursor: 'row-resize',
   })
 }
 
@@ -476,13 +483,12 @@ function initConceptPane(answers) {
     el.setAttribute('previous-color', 'bg-secondary')
     
   })
-
-
-
 }
 
 // 等价于jQuery的 $.ready(...) 即 $(...)
 document.addEventListener('DOMContentLoaded', async () => {
+    // 初始化note/concept两个pane的resize
+    initNoteConceptPaneSplit()
 
   const res = await fetchPageData();
   const {question, description} = res; // answers 和 collapsedAnswers在await之后已经写入全局
