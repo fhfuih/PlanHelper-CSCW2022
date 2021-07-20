@@ -691,6 +691,7 @@ function mindmapConfiguration(conceptName, construct){
   if (construct){
     const id = 'mindmap-container'
     document.getElementById(id).style.setProperty('height', '700px')
+    // document.getElementById(id).style.setProperty()
 
     let childrenNodes = []
     let checkedChildrenNodes = []
@@ -711,10 +712,11 @@ function mindmapConfiguration(conceptName, construct){
     }).flat())
     const subconceptList = Array.from(subconceptSet)
     subconceptList.forEach((el, idx) =>{
-      childrenNodes.push({"id": `subconcept${idx}`, "topic": el})
+      let direction = idx % 2 === 0 ? 'right' : 'left'
+      childrenNodes.push({"id": `subconcept${idx}`, 'direction': direction, "topic": el})
       for (let i = 0; i < notePaneData.length; ++i){
         if(el === notePaneData[i]['subconcept']){
-          checkedChildrenNodes.push({"id": `subconcept${idx}`, "topic": el})
+          checkedChildrenNodes.push({"id": `subconcept${idx}`,'direction': direction, "topic": el})
           break
         }
       }
@@ -730,6 +732,7 @@ function mindmapConfiguration(conceptName, construct){
         "version": "1"
       },
       "format":"node_tree",
+      "mode": "full",
       "data" : data
     };
 
