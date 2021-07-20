@@ -18,6 +18,7 @@
   <script src="https://cdn.jsdelivr.net/npm/dayjs@1.10.5/dayjs.min.js" integrity="sha256-v+HEJfGs5a3wK8/uqXs31dH/xcyJDf21m0AuZUWP3PA=" crossorigin="anonymous" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/pickr.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lodash@4/lodash.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/jsmind@0.4.6/js/jsmind.js" integrity="sha256-R+mzTkztiO+RQCSXTWATMB3H5nOI7rvDYMmlAawMdXY=" crossorigin="anonymous"></script>
   <script type="text/javascript" src="mock.js" defer></script>
   <script type="text/javascript" src="main.js" defer></script>
@@ -48,6 +49,7 @@
               <div class="answer">
                 <div class="content my-2 truncate truncate-large"></div>
                 <button class="content-collapse-button d-block btn btn-link ms-auto p-0">(Expand)</button>
+                <div class="concept mt-1"></div>
               </div>
               <div class="similar-answers w-75 ms-auto my-2 d-none">
                 <div id="" class="accordion">
@@ -83,6 +85,18 @@
         <div class="mb-4 card">
           <div class="card-header">
             Note Pane
+            <button type = "button" class = "btn btn-light p-1" onclick="onUndoClicked()" title="Undo">
+              <i class="bi bi-arrow-90deg-left"></i>
+            </button>
+            <button type="button" class="btn btn-light p-1" onclick = "onRedoClicked()" title = "Redo">
+              <i class="bi bi-arrow-90deg-right"></i>
+            </button>
+            <button type="button" class="btn btn-light p-1" onclick="onSaveClicked()" title="Save">
+              <i class = "bi bi-download"></i>
+            </button>
+            <button type="button" class="btn btn-light p-1" onclick="onClearClicked()" title="Clear">
+              <i class = "bi bi-trash"></i>
+            </button>
           </div>
           <div class="card-body">
             <template id="template-single-concept">

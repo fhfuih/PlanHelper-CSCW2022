@@ -1,19 +1,45 @@
 // Randomly generated using http://medialab.github.io/iwanthue/. Other tools to check out: http://vrl.cs.brown.edu/color https://carto.com/carto-colors/ https://colorbrewer2.org/ https://stackoverflow.com/questions/470690/how-to-automatically-generate-n-distinct-colors
 const COLORS = ["#c7ffdd", "#f5c8ff", "#86e4b8", "#f4ba9a", "#45e0e9", "#d9cc80", "#64d5ff", "#f3ffb6", "#abd7dd", "#ffe0c8"]
-
+let calledByUndoRedo = false;
 // note pane dnd
 const sortableOptions = {
   group: 'note',
   animation: 150,
   fallbackOnBody: true,
   swapThreshold: 0.65,
-  handle: '.drag-handle'
+  handle: '.drag-handle',
+  onEnd: function(evt){
+    // update concept pane data after drag and drop
+    const draggedItem = evt.item
+    if (draggedItem.classList.contains(`concept`)){}
+    else if(draggedItem.classList.contains(`note`)){
+      const propContent = draggedItem.querySelector(`.content`).textContent
+      const currentConcept = evt.to.getAttribute('data-concept')
+      updateConceptPaneData([propContent, currentConcept], 'drag-proposition')
+    }
+    redoList = []
+  },
+  // only update operation history data when the dragged item's position is changed
+  onUpdate: function(evt){
+    const draggedItem = evt.item
+    const operationData = {'name': 'drag-and-drop-update', 'data':[draggedItem, evt.from, evt.to, evt.oldIndex, evt.newIndex]}
+    updateOperationHistory(operationData)
+  },
+  onRemove: function(evt){
+    const draggedItem = evt.item
+    const operationData = {'name': 'drag-and-drop-remove', 'data':[draggedItem, evt.from, evt.to, evt.oldIndex, evt.newIndex]}
+    updateOperationHistory(operationData)
+  }
 }
 // note pane popover button menu
 let lastPopoverReference;
 
 let answers; // 全局answers（应该不需要全局留着question吧）
 let collapsedAnswers;
+let notePaneData = []; // [{'content': ,'concept': ,'subconcept':}, {...}]
+let operationHistory = []; // [{'name': 'add-proposition', 'data': prop}, {'name': 'drag-and-drop', 'data':[prop/concept, from, to]}, {'name': 'edit-note', 'data':prop/concept}]
+let redoList = [];
+
 
 function fetchPageData(question) {
   return new Promise((resolve) => {
@@ -134,15 +160,19 @@ function addToNote(data) {
   // check whether the concept name already exists or not
   const conceptElements = noteContainer.querySelectorAll(".concept .content")
   const prop = getProposition(data)
-
   let conceptExist = false;
   const conceptName = prop.concept
   const propositionContent = prop.content
+  const subconceptName = prop.subconcept
   conceptElements.forEach(concept_el => {
     if (concept_el.textContent == conceptName){
       conceptExist = true;
     }
   })
+  
+
+  
+  // change the color of the concept badge in concept pane if the concept exists
   
   let propositionContainer;
   // if not exists, just create a new <li> containing the concept, and a <ul> containing the corresponding <li>proposition under it.
@@ -157,10 +187,12 @@ function addToNote(data) {
     propositionContainer.classList.add('proposition-container')
     propositionContainer.id = `proposition-${data.propIdx}-container`
     propositionContainer.setAttribute('data-concept', conceptName)
+    propositionContainer.setAttribute('data-subconcept', subconceptName)
     conceptElement.append(propositionContainer)
 
     // Initialize drag'n'drop
     new Sortable(propositionContainer, sortableOptions)
+
   }
   // if exists, just find the target concept and add the <li>proposition in the <ul> proposition container
   else{
@@ -170,6 +202,19 @@ function addToNote(data) {
   propositionElement.querySelector('.content').textContent = propositionContent
   setElData(propositionElement, data)
   propositionContainer.append(propositionElement)
+  
+  updateConceptPaneData(prop, operation='add')
+  prop['propIdx'] = data['propIdx']
+  if(data.hasOwnProperty('ansIdx')){
+    prop['ansIdx'] = data['ansIdx']
+  }
+  else {
+    prop['simAnsIdx'] = data['simAnsIdx']
+    prop['colAnsIdx'] = data['colAnsIdx']
+  }
+
+  const operationData = {'name': 'add-note', 'data': prop}
+  updateOperationHistory(operationData)
 }
 
 function removeFromNote(data) {
@@ -177,8 +222,13 @@ function removeFromNote(data) {
   // remove the proposition
   const propositionElement = getPropositionEl(data, noteContainer)
   const propositionContainer = propositionElement.parentElement
+  let propData = {'content' : propositionElement.querySelector(`.content`).textContent}
   const conceptName = propositionContainer.getAttribute('data-concept')
   const conceptElement = noteContainer.querySelector(`[concept-name="${conceptName}"]`)
+
+  propData['propIdx'] = propositionElement.getAttribute('data-proposition')
+  propData['ansIdx'] = propositionElement.getAttribute('data-answer')
+
   propositionElement.remove()
   
   // after removal, if there is no proposition under a concept, delete it
@@ -189,10 +239,17 @@ function removeFromNote(data) {
     propositionContainer.remove()
     conceptElement.remove()
   }
-  if (!noteContainer.childElementCount) noteContainer.nextElementSibling.classList.remove('d-none')
+  if (!noteContainer.childElementCount) {noteContainer.nextElementSibling.classList.remove('d-none')}
+  
+  updateConceptPaneData(data=propData, operation='delete')
+
+  
+  const operationData = {'name': 'remove-note', 'data': propData}
+  updateOperationHistory(operationData)
 }
 
 function handlePropositionClicked(el, ctrlKey, isClickingCheckbox) {
+  
   const data = getElData(el)
   // const propIdx = el.dataset.proposition
   const checkbox = getPropositionCheckboxEl(data)
@@ -211,6 +268,9 @@ function handlePropositionClicked(el, ctrlKey, isClickingCheckbox) {
     addToNote(data)
   } else { // uncheck并移除
     removeFromNote(data)
+  }
+  if(!calledByUndoRedo){
+    redoList = []
   }
 }
 
@@ -365,12 +425,19 @@ function addSimilarAnswer(ansIdx) {
     const contentNode = node.querySelector('.content')
     node.classList.add(`similar-answer-${simAnsIdx}`)
     node.querySelector('.author-name').textContent = simAns.author?.name ?? 'Anonymous'
-    node.querySelector('.concept').append(...simAns.propositions.map(p => {
+    
+    const conceptList = Array.from(new Set(simAns['propositions'].map((item) => {
+      return item['concept']
+    })))
+
+    node.querySelector('.concept').append(...conceptList.map((item) => {
       const el = document.createElement('span')
-      el.textContent = p.concept
+      el.textContent = item
       el.classList.add('badge', 'bg-secondary', 'me-1')
+      
       return el
     }))
+    
     contentNode.innerHTML = simAns.html
     markPropositions(contentNode, simAns.propositions, {colAnsIdx, simAnsIdx})
     linkPropositionAndNote(contentNode, simAns.propositions)
@@ -379,39 +446,47 @@ function addSimilarAnswer(ansIdx) {
   allSimAnsContainer.querySelector('ul').append(...simAnsNodes)
 }
 
-function initConceptPane() {
-  const id = 'mindmap-container'
-  document.getElementById(id).style.setProperty('height', '500px')
-  const mind = {
-    "meta":{
-      "name": "CQA", // 这个参数居然是必须的？？
-      "author": "HCI Lab, HKUST",
-      "version": "1"
-    },
-    "format":"node_tree",
-    "data": {"id":"root","topic":"Diet","children":[
-        {"id":"diet1","topic":"Eat this"},
-        {"id":"diet2","topic":"Eat that"},
-        {"id":"diet3","topic":"Don't eat this"},
-        {"id":"diet4","topic":"Don't eat that"},
-    ]}
-  };
-  const options = {
-    container: id,
-    theme: 'orange',
-    view: {
-      hmargin: 0,        // 思维导图距容器外框的最小水平距离
-      vmargin: 0,         // 思维导图距容器外框的最小垂直距离
-    },
-  };
-  const jm = new jsMind(options)
-  jm.show(mind)
+function initConceptPane(answers) {
+  // add concept badges to the concept-list-container
+  const conceptListContainer = document.getElementById('concept-list-container')
+  
+  const conceptSet = new Set(answers.map(p => {
+    const propositions = p['propositions']
+    let concepts = []
+    concepts.push(...propositions.map(el => {
+      return el['concept']
+    }))
+    return concepts
+  }).flat())
+
+  conceptSet.forEach(el =>{
+    const badge = document.createElement('span')
+    badge.textContent = el
+    badge.classList.add('badge', 'bg-secondary', 'me-1', 'concept-badge')
+    badge.setAttribute('concept-name', `${el}`)
+    conceptListContainer.append(badge)
+  })
+
+  const conceptElements = conceptListContainer.querySelectorAll(`.concept-badge`)
+  conceptElements.forEach(el =>{
+    el.addEventListener('mouseenter', () => {
+      el.style.cursor = 'pointer'
+    })
+    el.title = 'Add some marked propositions to generate the mind map.'
+    el.setAttribute('previous-color', 'bg-secondary')
+    
+  })
+
+
+
 }
 
 // 等价于jQuery的 $.ready(...) 即 $(...)
 document.addEventListener('DOMContentLoaded', async () => {
+
   const res = await fetchPageData();
   const {question, description} = res; // answers 和 collapsedAnswers在await之后已经写入全局
+
 
   // 加载问题
   document.getElementById('question').textContent = question
@@ -428,6 +503,20 @@ document.addEventListener('DOMContentLoaded', async () => {
     answerNode.querySelector('.date').textContent = dayjs(ans.date).format('MMM D, YYYY')
     answerNode.querySelector('.author-name').textContent = ans.author?.name ?? 'Anonymous'
     answerNode.querySelector('.author-description').textContent = ans.author?.description
+    const conceptList = Array.from(new Set(ans['propositions'].map((item) => {
+      return item['concept']
+    })))
+
+    answerNode.querySelector('.concept').append(...conceptList.map((item) => {
+      const el = document.createElement('span')
+      el.textContent = item
+      el.classList.add('badge', 'bg-secondary', 'me-1')
+      
+      return el
+    }))
+
+
+
     // answerNode.querySelector('.avatar').src = ans.author.avatar
     answerContainer.append(answerNode)
 
@@ -437,6 +526,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // 增加单个回答的所有类似回答
     addSimilarAnswer(ansIdx)
+
   })
 
   // 初始化note pane外层的dnd
@@ -451,7 +541,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   initNotePaneDoubleClickNote()
 
   // 初始化concept pane
-  initConceptPane()
+  initConceptPane(answers)
 })
 
 // 监听所有(Expand)按钮的事件
@@ -469,6 +559,9 @@ document.addEventListener('click', (e) => {
   } else if (e.target && e.target.matches('.content:not(.truncate) .proposition~input[type="checkbox"]')) {
     handlePropositionClicked(e.target.previousSibling, e.ctrlKey, true)
   }
+  else if (e.target && e.target.matches('.concept-badge')){
+    onConceptBadgeClick(e.target)
+  }
 })
 
 // 监听ctrl键有没有按下并调整style
@@ -481,13 +574,23 @@ document.addEventListener('keyup', ctrlHandler)
 function onEditNoteClick() {
   const newProp = prompt('Please enter your proposition')
   if (!newProp) return
-  lastPopoverReference.closest('li').querySelector('.content').textContent = newProp
+  const changedEl = lastPopoverReference.closest('li').querySelector('.content')
+
+  const operationData = {'name': 'edit-note', 'data':[changedEl, changedEl.textContent]}
+  changedEl.textContent = newProp
+
+  updateOperationHistory(operationData)
+
+  
 }
 
 function onResetNoteClick() {
   const li = lastPopoverReference.closest('li')
   const data = getElData(li)
-  li.querySelector('.content').textContent = getProposition(data).content
+  const changedEl = li.querySelector('.content')
+  const operationData = {'name': 'reset-note', 'data':[changedEl, changedEl.textContent]}
+  changedEl.textContent = getProposition(data).content
+  updateOperationHistory(operationData)
 }
 
 function onRemoveNoteClick() {
@@ -497,12 +600,420 @@ function onRemoveNoteClick() {
 }
 
 function onEditConceptClick() {
-  onEditNoteClick()
+  const newConcept = prompt('Please enter your concept')
+  if (!newConcept) return
+  const changedEl = lastPopoverReference.closest('li').querySelector('.content')
+  const originalConcept = changedEl.textContent
+  changedEl.textContent = newConcept
+
+  const operationData = {'name': 'edit-concept', 'data': [changedEl, originalConcept]}
+  updateOperationHistory(operationData)
+  updateConceptPaneData([originalConcept, newConcept], 'edit-concept')
+  
 }
+
 function onResetConceptClick() {
   const li = lastPopoverReference.closest('li')
-  li.querySelector('.content').textContent = li.getAttribute('concept-name')
+  const changedEl = li.querySelector('.content')
+  const originalConcept = changedEl.textContent
+  changedEl.textContent = li.getAttribute('concept-name')
+  const newConcept = li.getAttribute('concept-name')
+  const operationData = {'name': 'reset-concept', 'data': [changedEl, originalConcept]}
+  updateOperationHistory(operationData)
+  updateConceptPaneData([originalConcept, newConcept], 'reset-concept')
 }
-function onColorConceptClick() {
 
+
+function onConceptBadgeClick(el) {
+  // construct or delete the mind map when the concept badges are clicked
+
+  if (el.classList.contains('bg-primary')){
+    el.classList.remove('bg-primary')
+
+    let changeToColor = 'bg-secondary'
+    for(let i=0; i<notePaneData.length;++i){
+      if(notePaneData[i]['concept'] === el.textContent){
+        changeToColor = 'bg-success'
+        break;
+      }
+    }
+
+    el.classList.add(changeToColor)
+    mindmapConfiguration(el.textContent, false)
+    return
+  }
+
+  else if (el.classList.contains('bg-secondary')){
+    el.setAttribute('previous-color', 'bg-secondary')
+    // hide other mind maps and generate and show the mind map
+  }
+  else if (el.classList.contains('bg-success')){
+    el.setAttribute('previous-color', 'bg-success')
+  }
+  const conceptListContainer = document.getElementById('concept-list-container')
+  const conceptBadgeEls = conceptListContainer.querySelectorAll(`.concept-badge`)
+  conceptBadgeEls.forEach(p => {
+    if (p.classList.contains('bg-primary')){
+      p.classList.remove('bg-primary')
+      p.classList.add(p.getAttribute('previous-color'))
+    }
+  })
+
+  el.classList.remove(el.getAttribute('previous-color'))
+  el.classList.add('bg-primary')
+  optionsAndMind = mindmapConfiguration(el.textContent, true)
+  const jm = new jsMind(optionsAndMind[0])
+  jm.show(optionsAndMind[1])
+
+  // change the color of the "subconcept" nodes if the corresponding proposition is checked by user
+  const checkedChildrenNodes = optionsAndMind[3]
+  jm.set_node_color('root', '#0d6efd', '#fff')
+  checkedChildrenNodes.forEach(item => {
+    jm.set_node_color(item['id'], '#198754', '#fff')
+  })
+  
+}
+
+
+function mindmapConfiguration(conceptName, construct){
+
+  // configuration about the mind map based on the note pane data
+  if (document.querySelector('.jsmind-inner')){ 
+    const mindMapEl = document.querySelector('.jsmind-inner')
+    mindMapEl.remove()
+  }
+  if (construct){
+    const id = 'mindmap-container'
+    document.getElementById(id).style.setProperty('height', '700px')
+
+    let childrenNodes = []
+    let checkedChildrenNodes = []
+    let allAns = []
+    allAns.push(...answers)
+    allAns.push(...collapsedAnswers)
+    const subconceptSet = new Set(allAns.map(p => {
+      const propositions = p['propositions']
+      let subconcepts = []
+
+      propositions.forEach(el => {
+        if (el['concept'] === conceptName){
+          subconcepts.push(el['subconcept'])
+        }
+      })
+
+      return subconcepts
+    }).flat())
+    const subconceptList = Array.from(subconceptSet)
+    subconceptList.forEach((el, idx) =>{
+      childrenNodes.push({"id": `subconcept${idx}`, "topic": el})
+      for (let i = 0; i < notePaneData.length; ++i){
+        if(el === notePaneData[i]['subconcept']){
+          checkedChildrenNodes.push({"id": `subconcept${idx}`, "topic": el})
+          break
+        }
+      }
+    })
+
+    let data = {"id":"root", "topic":conceptName,"children":childrenNodes}
+
+
+    const mind = {
+      "meta":{
+        "name": "CQA", // 这个参数居然是必须的？？
+        "author": "HCI Lab, HKUST",
+        "version": "1"
+      },
+      "format":"node_tree",
+      "data" : data
+    };
+
+    const options = {
+      container: id,
+      editable: true,
+      theme: 'asbestos',
+      view: {
+        hmargin: 0,        // 思维导图距容器外框的最小水平距离
+        vmargin: 0,         // 思维导图距容器外框的最小垂直距离
+      },
+    };
+    return [options, mind, childrenNodes, checkedChildrenNodes]
+
+  }
+}
+
+function updateConceptPaneData(data, operation){
+  // update info in concept everytime when note pane has some changes
+  // The global variable is called note pane data because it keeps synchronized with the note pane.
+  // But actually it is for the concept pane's outlook and mind map generation, that's why this function is called "updateConceptData"
+  if (operation == 'add'){
+    notePaneData.push(data)
+  }
+  else if(operation == 'delete'){
+    notePaneData = notePaneData.filter((el) => {
+      return el['content'] !== data['content']
+    })
+  }
+  else if(operation === 'edit-concept' || operation === 'reset-concept'){
+    const originalConcept = data[0]
+    const newConcept = data[1]
+    const conceptListContainer = document.getElementById('concept-list-container')
+    const originalConceptBadge = conceptListContainer.querySelector(`[concept-name = "${originalConcept}"]`)
+    if(!originalConceptBadge) return
+    originalConceptBadge.textContent = newConcept
+    originalConceptBadge.setAttribute('concept-name', newConcept)
+    notePaneData.forEach(el => {
+      if (el['concept'] === originalConcept){
+        el['concept'] = newConcept
+      }
+    })
+  }
+  else if(operation === 'drag-proposition'){
+    const propContent = data[0]
+    const targetConcept = data[1]
+    for (let i = 0; i < notePaneData.length; ++i){
+      if(notePaneData[i]['content'] === propContent){
+        notePaneData[i]['concept'] = targetConcept
+        break;
+      }
+    }
+  }
+
+  // change the badges' color after updating the record note pane data 
+
+  const conceptListContainer = document.getElementById('concept-list-container')
+  const conceptBadgeEls = conceptListContainer.querySelectorAll(`.concept-badge`)
+
+  let checkedConcepts= []
+  conceptBadgeEls.forEach(el => {
+    for (let i =0; i < notePaneData.length; ++i){
+      if (el.textContent === notePaneData[i]['concept']){
+        checkedConcepts.push(el)
+        break
+      }
+    }
+  })
+
+  conceptBadgeEls.forEach(el => {
+    if (checkedConcepts.indexOf(el) != -1){
+      if(el.classList.contains('bg-secondary')){
+        el.classList.remove('bg-secondary');
+        el.classList.add('bg-success');
+      }
+    }
+    else {
+      if(el.classList.contains('bg-success')){
+        el.classList.remove('bg-success');
+        el.classList.add('bg-secondary');
+      }
+    }
+  })
+}
+
+function updateOperationHistory(operationData){
+  operationHistory.push(operationData)
+}
+
+function onUndoClicked(){
+  calledByUndoRedo = true;
+  if(operationHistory.length === 0) return
+  const previousOperation = operationHistory.pop()
+  if(previousOperation['name'] === 'add-note' || previousOperation['name'] === 'remove-note'){
+    let idxData;
+    if(previousOperation['data'].hasOwnProperty('ansIdx')){
+      idxData = {'propIdx': previousOperation['data']['propIdx'], 'ansIdx': previousOperation['data']['ansIdx']}
+    }
+    else{
+      idxData = {'propIdx': previousOperation['data']['propIdx'], 'simAnsIdx': previousOperation['data']['simAnsIdx'], 'colAnsIdx': previousOperation['data']['colAnsIdx']}
+    }
+
+    getPropositionEl(idxData, document.getElementById('answer-container')).click()
+    operationHistory.pop()
+  }
+  else if(previousOperation['name'] === 'clear'){
+    const operationHistoryCopy = [...operationHistory]
+    const redoListCopy = [...redoList]
+    redoList = [...operationHistory].reverse()
+    while(redoList.length !== 0){
+      onRedoClicked()
+    }
+    operationHistory = [...operationHistoryCopy]
+    redoList = [...redoListCopy]
+
+  }
+  else if(previousOperation['name'] === 'drag-and-drop-remove'){
+    const operationData = previousOperation['data']
+    
+    //operationData = [item, from, to, old index, new index]
+    const fromContainer = operationData[1]
+    const toContainer = operationData[2]
+    const oldIndex = operationData[3]
+    const newIndex = operationData[4]
+    const draggedNode = toContainer.childNodes[newIndex]
+    if(oldIndex === fromContainer.childNodes.length && fromContainer.childNodes.length !== 0){
+      const toEl = fromContainer.childNodes[oldIndex - 1]
+      fromContainer.insertBefore(draggedNode, toEl.nextSibling)
+    }
+    else{
+      const toEl = fromContainer.childNodes[oldIndex]
+      fromContainer.insertBefore(draggedNode ,toEl)
+    }
+    previousOperation['data'][1] = toContainer
+    previousOperation['data'][2] = fromContainer
+    previousOperation['data'][3] = newIndex
+    previousOperation['data'][4] = oldIndex
+
+    const propContent = draggedNode.querySelector('.content').textContent
+    const currentConcept = fromContainer.getAttribute('data-concept')
+    updateConceptPaneData([propContent, currentConcept], 'drag-proposition')
+  }
+  else if(previousOperation['name'] === 'drag-and-drop-update'){
+    const operationData = previousOperation['data']
+    const fromContainer = operationData[1]
+    const toContainer = operationData[2]
+    const oldIndex = operationData[3]
+    const newIndex = operationData[4]
+    const draggedNode = toContainer.childNodes[newIndex]
+    if(oldIndex > newIndex){
+      // move forward
+      const toEl = toContainer.childNodes[oldIndex]
+      toContainer.insertBefore(draggedNode, toEl.nextSibling)
+    }
+    else if(oldIndex < newIndex) {
+      const toEl = toContainer.childNodes[oldIndex]
+      toContainer.insertBefore(draggedNode, toEl)
+    }
+    previousOperation['data'][1] = toContainer
+    previousOperation['data'][2] = fromContainer
+    previousOperation['data'][3] = newIndex
+    previousOperation['data'][4] = oldIndex
+  }
+  else if(previousOperation['name'] === 'edit-note' || previousOperation['name'] === 'edit-concept' || previousOperation['name'] === 'reset-note' || previousOperation['name'] === 'reset-concept'){
+    const changedEl = previousOperation['data'][0]
+    const originalText = changedEl.textContent
+    const newText = previousOperation['data'][1]
+    changedEl.textContent = newText
+    previousOperation['data'][1] = originalText
+    updateConceptPaneData([originalText, newText], 'edit-concept')
+  }
+
+  updateRedoList(previousOperation)
+  calledByUndoRedo = false
+}
+
+
+function onSaveClicked(){
+  if(notePaneData.length === 0) return
+  let dataDownload = []
+  const noteContainer = document.getElementById('note-container')
+  const conceptEls = noteContainer.querySelectorAll('.concept')
+
+  conceptEls.forEach(el => {
+    let propData = []
+    const propEls = el.querySelectorAll('.note')
+    propEls.forEach(p => {
+      propData.push(p.querySelector('.content').textContent)
+    })
+    dataDownload.push({'concept-name': el.getAttribute('concept-name'), 'propositions': propData})
+  })
+  const filename = window.location.href.split('/').slice(-1)[0].trim() + '.json';
+  const jsonStr = JSON.stringify(dataDownload, null, 2);
+  let element = document.createElement('a');
+  element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(jsonStr));
+  element.setAttribute('download', filename);
+  element.style.display = 'none';
+  document.body.appendChild(element);
+  element.click();
+  document.body.removeChild(element);
+}
+
+function onClearClicked(){
+  const operationHistoryCopy = [...operationHistory]
+  while(operationHistory.length !== 0){
+    onUndoClicked()
+  }
+  operationHistory = operationHistoryCopy
+  updateOperationHistory({'name': 'clear'})
+  redoList = []
+}
+
+function updateRedoList(data){
+  redoList.push(data)
+}
+function onRedoClicked(){
+  calledByUndoRedo = true
+  if(redoList.length === 0) return
+  const previousOperation = redoList.pop()
+  if(previousOperation['name'] === 'add-note' || previousOperation['name'] === 'remove-note'){
+    let idxData;
+    if(previousOperation['data'].hasOwnProperty('ansIdx')){
+      idxData = {'propIdx': previousOperation['data']['propIdx'], 'ansIdx': previousOperation['data']['ansIdx']}
+    }
+    else{
+      idxData = {'propIdx': previousOperation['data']['propIdx'], 'simAnsIdx': previousOperation['data']['simAnsIdx'], 'colAnsIdx': previousOperation['data']['colAnsIdx']}
+    }
+
+    getPropositionEl(idxData, document.getElementById('answer-container')).click()
+  }
+  else if(previousOperation['name'] === 'clear'){
+    onClearClicked()
+  }
+  else if(previousOperation['name'] === 'drag-and-drop-remove'){
+    const operationData = previousOperation['data']
+    
+    //operationData = [item, from, to, old index, new index]
+    const fromContainer = operationData[1]
+    const toContainer = operationData[2]
+    const oldIndex = operationData[3]
+    const newIndex = operationData[4]
+    const draggedNode = toContainer.childNodes[newIndex]
+    if(oldIndex === fromContainer.childNodes.length && fromContainer.childNodes.length !== 0){
+      const toEl = fromContainer.childNodes[oldIndex - 1]
+      fromContainer.insertBefore(draggedNode, toEl.nextSibling)
+    }
+    else{
+      const toEl = fromContainer.childNodes[oldIndex]
+      fromContainer.insertBefore(draggedNode ,toEl)
+    }
+    previousOperation['data'][1] = toContainer
+    previousOperation['data'][2] = fromContainer
+    previousOperation['data'][3] = newIndex
+    previousOperation['data'][4] = oldIndex
+
+    updateOperationHistory(previousOperation)
+    const propContent = draggedNode.querySelector('.content').textContent
+    const currentConcept = fromContainer.getAttribute('data-concept')
+    updateConceptPaneData([propContent, currentConcept], 'drag-proposition')
+  }
+  else if(previousOperation['name'] === 'drag-and-drop-update'){
+    const operationData = previousOperation['data']
+    const fromContainer = operationData[1]
+    const toContainer = operationData[2]
+    const oldIndex = operationData[3]
+    const newIndex = operationData[4]
+    const draggedNode = toContainer.childNodes[newIndex]
+    if(oldIndex > newIndex){
+      // move forward
+      const toEl = toContainer.childNodes[oldIndex]
+      toContainer.insertBefore(draggedNode, toEl.nextSibling)
+    }
+    else if(oldIndex < newIndex) {
+      const toEl = toContainer.childNodes[oldIndex]
+      toContainer.insertBefore(draggedNode, toEl)
+    }
+    previousOperation['data'][1] = toContainer
+    previousOperation['data'][2] = fromContainer
+    previousOperation['data'][3] = newIndex
+    previousOperation['data'][4] = oldIndex
+    updateOperationHistory(previousOperation)
+  }
+  else if(previousOperation['name'] === 'edit-note' || previousOperation['name'] === 'edit-concept' || previousOperation['name'] === 'reset-note' || previousOperation['name'] === 'reset-concept'){
+    const changedEl = previousOperation['data'][0]
+    const originalText = changedEl.textContent
+    const newText = previousOperation['data'][1]
+    changedEl.textContent = newText
+    previousOperation['data'][1] = originalText
+    updateOperationHistory(previousOperation)
+    updateConceptPaneData([originalText, newText], 'edit-concept')
+  }
+  calledByUndoRedo = false
 }
