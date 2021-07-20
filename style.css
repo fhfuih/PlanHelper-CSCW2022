@@ -155,14 +155,17 @@ body.ctrl-down mark.proposition, body.ctrl-down .note > .content {
 .truncate {
   display: -webkit-box;
   -webkit-line-clamp: 3;
+  line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
 .truncate.truncate-large {
   -webkit-line-clamp: 8;
+  line-clamp: 8;
 }
 .truncate.truncate-small {
   -webkit-line-clamp: 3;
+  line-clamp: 3;
 }
 
 .blink {
