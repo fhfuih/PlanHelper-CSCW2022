@@ -161,7 +161,7 @@ ul#note-container, #note-container ul {
 #note-pane-card > .card-body, #concept-pane-card > .card-body {
   overflow: auto;
 }
-#note-pane-card > .card-body::-webkit-scrollbar,
+/* #note-pane-card > .card-body::-webkit-scrollbar,
 #concept-pane-card > .card-body::-webkit-scrollbar {
   width: 12px;
 }
@@ -169,7 +169,7 @@ ul#note-container, #note-container ul {
 #concept-pane-card > .card-body::-webkit-scrollbar-thumb {
   border-radius: 10px;
   background-color: rgb(223, 223, 223);
-}
+} */
 .gutter.gutter-vertical { /* Created by Split.js */
   cursor: row-resize;
   text-align: center;
