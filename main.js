@@ -328,7 +328,7 @@ function initNotePaneDoubleClickNote() {
 
 function initNoteConceptPaneSplit() {
   window.Split(['#note-pane-card', '#concept-pane-card'], {
-    sizes: [60, 40],
+    sizes: [40, 60],
     gutterSize: 24,
     direction: 'vertical',
     cursor: 'row-resize',
@@ -627,6 +627,14 @@ function onResetConceptClick() {
   const operationData = {'name': 'reset-concept', 'data': [changedEl, originalConcept]}
   updateOperationHistory(operationData)
   updateConceptPaneData([originalConcept, newConcept], 'reset-concept')
+}
+
+function onRemoveConceptClick() {
+  const lis = lastPopoverReference.closest('li').querySelectorAll('li.note')
+  lis.forEach(li => {
+    const data = getElData(li)
+    getPropositionEl(data, document.getElementById('answer-container')).click()
+  })
 }
 
 
