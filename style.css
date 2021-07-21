@@ -190,6 +190,24 @@ ul#note-container, #note-container ul {
   background-color: rgba(216, 216, 216, 0.25);
 }
 
+/* back to top */
+#back-to-top {
+  position: fixed;
+  bottom: 3rem;
+  right: 3rem;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: none;
+  text-align: center;
+}
+#back-to-top div {
+  font-size: 20px;
+  margin: -5px 0 -10px;
+}
+#back-to-top span {
+  font-size: 12px;
+}
 
 /* common */
 body.ctrl-down mark.proposition, body.ctrl-down .note > .content {

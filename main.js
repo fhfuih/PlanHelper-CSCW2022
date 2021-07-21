@@ -485,10 +485,23 @@ function initConceptPane(answers) {
   })
 }
 
+function initToTopButton() {
+  const mybutton = document.getElementById("back-to-top");
+  window.onscroll = function () {
+    if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+      mybutton.style.setProperty('display', 'block')
+    } else {
+      mybutton.style.setProperty('display', 'none')
+    }
+  }
+}
+
 // 等价于jQuery的 $.ready(...) 即 $(...)
 document.addEventListener('DOMContentLoaded', async () => {
-    // 初始化note/concept两个pane的resize
-    initNoteConceptPaneSplit()
+  // 初始化totop button
+  initToTopButton()
+  // 初始化note/concept两个pane的resize
+  initNoteConceptPaneSplit()
 
   const res = await fetchPageData();
   const {question, description} = res; // answers 和 collapsedAnswers在await之后已经写入全局
@@ -532,7 +545,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // 增加单个回答的所有类似回答
     addSimilarAnswer(ansIdx)
-
   })
 
   // 初始化note pane外层的dnd
