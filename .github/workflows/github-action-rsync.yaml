@@ -16,5 +16,6 @@ jobs:
         # path: src/
         remote_path: /home/zsx/cqa_rsync/
         remote_host: ${{ secrets.REMOTE_HOST }}
+        remote_port: ${{ secrets.REMOTE_PORT }}
         remote_user: ${{ secrets.REMOTE_USER }}
         remote_key: ${{ secrets.SSH_PRIVATE_KEY }}
