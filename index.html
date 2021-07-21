@@ -100,7 +100,8 @@
           <div class="card-body" id="note-pane-card-body">
             <template id="template-single-concept">
               <li class="concept position-relative">
-                <span class="drag-handle"><i class="bi bi-grip-vertical"></i></span>
+                <span class="handle drag-handle"><i class="bi bi-grip-vertical"></i></span>
+                <span class="handle collapse-handle" role="button" data-bs-toggle="collapse" data-bs-target="" aria-expanded="true" aria-controls=""><i class="bi bi-chevron-down"></i></span>
                 <span class="content"></span>
                 <a class="popover-concept-menu" tabindex="0" role="button" data-bs-toggle="popover">
                   <i class="bi bi-three-dots"></i>
@@ -109,7 +110,7 @@
             </template>
             <template id="single-note-template">
               <li class="note position-relative">
-                <span class="drag-handle"><i class="bi bi-grip-vertical"></i></span>
+                <span class="handle drag-handle"><i class="bi bi-grip-vertical"></i></span>
                 <span class="content" title="Ctrl+click to jump to the original text"></span>
                 <a class="popover-note-menu" tabindex="0" role="button" data-bs-toggle="popover">
                   <i class="bi bi-three-dots"></i>

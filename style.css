@@ -117,18 +117,20 @@ ul#note-container, #note-container ul {
   transform: translateX(-100%);
   box-sizing: border-box;
   cursor: move;
-  color: rgba(60, 60, 60, 0.75);
 }
-#note-container .drag-handle:hover::before { /* 悬浮半透明背景 */
-  content: '';
-  position: absolute;
-  top: 0px;
-  bottom: 0px;
-  left: 0px;
-  right: 0px;
-  background-color: rgba(224, 224, 224, 0.5);
+#note-container .collapse-handle > i {
+  display: inline-block;
+  transition: transform .35s ease;
+}
+#note-container .collapse-handle[aria-expanded="false"] > i {
+  transform: rotate(-90deg);
+}
+#note-container .handle {
+  color: rgba(60, 60, 60, 0.75);
   border-radius: 5px;
-  z-index: -1;
+}
+#note-container .handle:hover { /* 悬浮半透明背景 */
+  background-color: rgba(224, 224, 224, 0.5);
 }
 
 .popover-body { /* 这是bootstrap的类 */

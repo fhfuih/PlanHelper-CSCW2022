@@ -192,6 +192,11 @@ function addToNote(data) {
     // Initialize drag'n'drop
     new Sortable(propositionContainer, sortableOptions)
 
+    // Initialize collapse
+    const collapseHandle = conceptElement.querySelector('.collapse-handle')
+    collapseHandle.setAttribute('data-bs-target', '#'+propositionContainer.id)
+    collapseHandle.setAttribute('aria-controls', propositionContainer.id)
+    propositionContainer.classList.add('collapse', 'show')
   }
   // if exists, just find the target concept and add the <li>proposition in the <ul> proposition container
   else{
@@ -562,7 +567,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   initConceptPane(answers)
 })
 
-// 监听所有(Expand)按钮的事件
+// 监听所有点击事件
 document.addEventListener('click', (e) => {
   if (e.target && e.target.matches('.content-collapse-button')) {
     const buttonEl = e.target
@@ -598,8 +603,6 @@ function onEditNoteClick() {
   changedEl.textContent = newProp
 
   updateOperationHistory(operationData)
-
-  
 }
 
 function onResetNoteClick() {
