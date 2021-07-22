@@ -181,6 +181,19 @@ ul#note-container, #note-container ul {
   text-align: center;
 }
 
+.concept-badge {
+  cursor: pointer;
+}
+.concept-badge[selected]:not([active]) {
+  box-shadow: 0 0rem 0.3rem 0.15rem #9ec5fed9;
+}
+.concept-badge[active]:not([selected]) {
+  box-shadow: inset 0 0 0 0.2rem #A3CFBB;
+}
+.concept-badge[active][selected] {
+  box-shadow: 0 0rem 0.3rem 0.15rem #9ec5fed9, inset 0 0 0 0.2rem #A3CFBB;
+}
+
 /* note pane + concept pane layout */
 #note-pane-card > .card-body, #concept-pane-card > .card-body {
   overflow: auto;

@@ -303,20 +303,26 @@ function linkPropositionAndNote(contextElement, propositionList) {
 }
 
 function changeConceptColor(concept, color, isDark) {
-  document.querySelectorAll(`mark.proposition.concept-${concept}`).forEach((el) => {
-    el.style.backgroundColor = color
-    el.style.color = isDark ? 'white' : 'black'
+  const els = [
+    document.querySelector(`#note-container > li[concept-name="${concept}"] > .content`), // note pane concept
+    ...document.querySelectorAll(`mark.proposition.concept-${concept}`), // answer pane propositions
+    ...document.querySelectorAll(`.badge[concept-name="${concept}"]`) // answer+concept pane badges
+  ]
+  els.forEach((el) => {
+    // 因为有 !important，必须setAttribute修改，不能.style.setProperty或者.style.backgroundColor = 修改
+    el.setAttribute('style', `background-color: ${color} !important; color: ${isDark ? 'white' : 'black'} !important;`)
   })
-  const el = lastPopoverReference.closest('li').querySelector('.content')
-  el.style.backgroundColor = color
-  el.style.color = isDark ? 'white' : 'black'
 }
 
 function clearConceptColor(concept) {
-  document.querySelectorAll(`mark.proposition.concept-${concept}`).forEach((el) => {
+  const els = [
+    document.querySelector(`#note-container > li[concept-name="${concept}"] > .content`), // note pane concept
+    ...document.querySelectorAll(`mark.proposition.concept-${concept}`), // answer pane propositions
+    ...document.querySelectorAll(`.badge[concept-name="${concept}"]`) // answer+concept pane badges
+  ]
+  els.forEach((el) => {
     el.removeAttribute('style')
   })
-  document.querySelector(`li[concept-name="${concept}"] .content`).removeAttribute('style')
 }
 
 function initNotePaneDoubleClickNote() {
@@ -446,7 +452,7 @@ function addSimilarAnswer(ansIdx) {
       const el = document.createElement('span')
       el.textContent = item
       el.classList.add('badge', 'bg-secondary', 'me-1')
-      
+      el.setAttribute('concept-name', item)
       return el
     }))
     
@@ -475,18 +481,10 @@ function initConceptPane(answers) {
     const badge = document.createElement('span')
     badge.textContent = el
     badge.classList.add('badge', 'bg-secondary', 'me-1', 'concept-badge')
-    badge.setAttribute('concept-name', `${el}`)
+    badge.title = 'Add some marked propositions to generate the mind map.'
+    badge.setAttribute('previous-color', 'bg-secondary')
+    badge.setAttribute('concept-name', el)
     conceptListContainer.append(badge)
-  })
-
-  const conceptElements = conceptListContainer.querySelectorAll(`.concept-badge`)
-  conceptElements.forEach(el =>{
-    el.addEventListener('mouseenter', () => {
-      el.style.cursor = 'pointer'
-    })
-    el.title = 'Add some marked propositions to generate the mind map.'
-    el.setAttribute('previous-color', 'bg-secondary')
-    
   })
 }
 
@@ -535,11 +533,9 @@ document.addEventListener('DOMContentLoaded', async () => {
       const el = document.createElement('span')
       el.textContent = item
       el.classList.add('badge', 'bg-secondary', 'me-1')
-      
+      el.setAttribute('concept-name', item)
       return el
     }))
-
-
 
     // answerNode.querySelector('.avatar').src = ans.author.avatar
     answerContainer.append(answerNode)
@@ -655,54 +651,28 @@ function onRemoveConceptClick() {
 
 function onConceptBadgeClick(el) {
   // construct or delete the mind map when the concept badges are clicked
+  const isCurrentlySelected = el.hasAttribute('selected')
 
-  if (el.classList.contains('bg-primary')){
-    el.classList.remove('bg-primary')
-
-    let changeToColor = 'bg-secondary'
-    for(let i=0; i<notePaneData.length;++i){
-      if(notePaneData[i]['concept'] === el.textContent){
-        changeToColor = 'bg-success'
-        break;
-      }
-    }
-
-    el.classList.add(changeToColor)
-    mindmapConfiguration(el.textContent, false)
-    return
-  }
-
-  else if (el.classList.contains('bg-secondary')){
-    el.setAttribute('previous-color', 'bg-secondary')
-    // hide other mind maps and generate and show the mind map
-  }
-  else if (el.classList.contains('bg-success')){
-    el.setAttribute('previous-color', 'bg-success')
-  }
-  const conceptListContainer = document.getElementById('concept-list-container')
-  const conceptBadgeEls = conceptListContainer.querySelectorAll(`.concept-badge`)
+  const conceptBadgeEls = document.querySelectorAll(`#concept-list-container .concept-badge`)
   conceptBadgeEls.forEach(p => {
-    if (p.classList.contains('bg-primary')){
-      p.classList.remove('bg-primary')
-      p.classList.add(p.getAttribute('previous-color'))
-    }
+    p.removeAttribute('selected')
   })
+  if (!isCurrentlySelected) el.setAttribute('selected', '')
 
-  el.classList.remove(el.getAttribute('previous-color'))
-  el.classList.add('bg-primary')
-  optionsAndMind = mindmapConfiguration(el.textContent, true)
-  const jm = new jsMind(optionsAndMind[0])
-  jm.show(optionsAndMind[1])
-
-  // change the color of the "subconcept" nodes if the corresponding proposition is checked by user
-  const checkedChildrenNodes = optionsAndMind[3]
-  jm.set_node_color('root', '#0d6efd', '#fff')
-  checkedChildrenNodes.forEach(item => {
-    jm.set_node_color(item['id'], '#198754', '#fff')
-  })
+  if (isCurrentlySelected) mindmapConfiguration(el.textContent, false)
+  else {
+    const optionsAndMind = mindmapConfiguration(el.textContent, true)
+    const jm = new jsMind(optionsAndMind[0])
+    jm.show(optionsAndMind[1])
   
+    // change the color of the "subconcept" nodes if the corresponding proposition is checked by user
+    const checkedChildrenNodes = optionsAndMind[3]
+    jm.set_node_color('root', '#0d6efd', '#fff')
+    checkedChildrenNodes.forEach(item => {
+      jm.set_node_color(item['id'], '#198754', '#fff')
+    })
+  }
 }
-
 
 function mindmapConfiguration(conceptName, construct){
 
@@ -827,16 +797,10 @@ function updateConceptPaneData(data, operation){
 
   conceptBadgeEls.forEach(el => {
     if (checkedConcepts.indexOf(el) != -1){
-      if(el.classList.contains('bg-secondary')){
-        el.classList.remove('bg-secondary');
-        el.classList.add('bg-success');
-      }
+      el.setAttribute('active', '')
     }
     else {
-      if(el.classList.contains('bg-success')){
-        el.classList.remove('bg-success');
-        el.classList.add('bg-secondary');
-      }
+      el.removeAttribute('active')
     }
   })
 }
