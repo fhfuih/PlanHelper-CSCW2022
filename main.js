@@ -573,9 +573,9 @@ document.addEventListener('click', (e) => {
     const buttonEl = e.target
     const contentEl = buttonEl.parentElement.querySelector('.content')
     if (contentEl.classList.toggle('truncate')) { // returns true if now present
-      buttonEl.innerHTML = '<i class="bi bi-caret-up-fill"></i> Expand'
+      buttonEl.innerHTML = '<i class="bi bi-caret-down-fill"></i> Expand'
     } else {
-      buttonEl.innerHTML = '<i class="bi bi-caret-down-fill"></i> Collapse'
+      buttonEl.innerHTML = '<i class="bi bi-caret-up-fill"></i> Collapse'
     }
   } else if (e.target && e.target.matches('.content:not(.truncate) .proposition')) {
     handlePropositionClicked(e.target, e.ctrlKey, false)
