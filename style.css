@@ -58,6 +58,30 @@ mark, .mark {
   cursor: auto !important;
 }
 
+.content {
+  position: relative;
+}
+.content.truncate::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 5rem;
+  background: linear-gradient(to top, #ffff, #fff0);
+}
+.content.truncate.truncate-small::before {
+  height: 2rem;
+}
+
+.content-collapse-button {
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding: 0;
+  text-decoration: none;
+}
+
 /* similar answer & its propositions */
 .similar-answers .author-name {
   font-size: 12px;
