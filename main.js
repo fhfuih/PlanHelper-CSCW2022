@@ -39,7 +39,7 @@ let collapsedAnswers;
 let notePaneData = []; // [{'content': ,'concept': ,'subconcept':}, {...}]
 let operationHistory = []; // [{'name': 'add-proposition', 'data': prop}, {'name': 'drag-and-drop', 'data':[prop/concept, from, to]}, {'name': 'edit-note', 'data':prop/concept}]
 let redoList = [];
-
+let subConceptModal;
 
 function fetchPageData(question) {
   return new Promise((resolve) => {
@@ -78,7 +78,7 @@ function setElData(el, data) {
   if (ansIdx != undefined) {
     el.setAttribute('data-answer', ansIdx)
   }
-  if (simAnsIdx != undefined && colAnsIdx != undefined) {
+  else {
     el.setAttribute('data-similar-answer', simAnsIdx)
     el.setAttribute('data-collapsed-answer', colAnsIdx)
   }
@@ -87,14 +87,14 @@ function setElData(el, data) {
 function getElData(el) {
   const propEl = el.closest('[data-proposition]')
   const ansEl = el.closest('[data-answer]')
-  const simAnsEl = el.closest('[data-similar-answer]')
+  const colAnsEl = el.closest('[data-collapsed-answer]')
   if (!propEl) return null
-  if (!ansEl && !simAnsEl) return null
-  else if (simAnsEl) {
+  if (!ansEl && !colAnsEl) return null
+  else if (colAnsEl) {
     return {
       propIdx: propEl.dataset.proposition,
-      simAnsIdx: simAnsEl.dataset.similarAnswer,
-      colAnsIdx: simAnsEl.dataset.collapsedAnswer,
+      simAnsIdx: colAnsEl.dataset.similarAnswer,
+      colAnsIdx: colAnsEl.dataset.collapsedAnswer,
     }
   } else {
     return {
@@ -107,7 +107,8 @@ function getElData(el) {
 function getDataSelector(data) {
   const {ansIdx, colAnsIdx, simAnsIdx, propIdx} = data
   if (ansIdx != undefined) return `[data-answer="${ansIdx}"][data-proposition="${propIdx}"]`
-  else if (colAnsIdx != undefined && simAnsIdx != undefined) return `[data-similar-answer="${simAnsIdx}"][data-collapsed-answer="${colAnsIdx}"][data-proposition="${propIdx}"]`
+  // 没有加similar answer index因为这样能兼容modal框的调用（modal框里面的proposition是“指定subconcept的所有proposition”，故只有ansIdx或colAnsIdx）
+  else if (colAnsIdx != undefined) return `[data-collapsed-answer="${colAnsIdx}"][data-proposition="${propIdx}"]`
 }
 
 function getAnswer(data) {
@@ -252,9 +253,7 @@ function removeFromNote(data) {
 }
 
 function handlePropositionClicked(el, ctrlKey, isClickingCheckbox) {
-  
   const data = getElData(el)
-  // const propIdx = el.dataset.proposition
   const checkbox = getPropositionCheckboxEl(data)
   console.debug(data, 'clicked')
   // 跳转到note
@@ -275,6 +274,21 @@ function handlePropositionClicked(el, ctrlKey, isClickingCheckbox) {
   if(!calledByUndoRedo){
     redoList = []
   }
+}
+
+function handleSubConceptPropositionClicked(el, checkboxEl, isClickingCheckbox) {
+  const data = getElData(el)
+  console.log(data)
+  const checkboxInAnswerPane = getPropositionCheckboxEl(data)
+  if (!isClickingCheckbox) {
+    checkboxEl.checked = !checkboxEl.checked
+  }
+  if (checkboxEl.checked) {
+    addToNote(data)
+  } else {
+    removeFromNote(data)
+  }
+  checkboxInAnswerPane.checked = checkboxEl.checked
 }
 
 function linkPropositionAndNote(contextElement, propositionList) {
@@ -499,12 +513,48 @@ function initToTopButton() {
   }
 }
 
+function initSubConceptModal() {
+  const subConceptModalEl = document.getElementById('subConceptModal')
+  subConceptModal = new bootstrap.Modal(subConceptModalEl)
+  const modalTitleEl = subConceptModalEl.querySelector('#subConceptModalLabel > span')
+  // 当打开时（加载modal内容）
+  subConceptModalEl.addEventListener('show.bs.modal', e => {
+    const jmnode = e.relatedTarget
+    const subconcept = jmnode.textContent
+    modalTitleEl.textContent = subconcept
+    const propElList = answers
+      .reduce((acc, cur, ansIdx) => [
+        ...acc,
+        ...cur.propositions.map((p, propIdx) => {
+          if (p.subconcept !== subconcept) return null
+          const el = document.createElement('li')
+          el.innerHTML = `<span class="proposition" data-proposition="${propIdx}" data-answer="${ansIdx}">${p.content}</span><input type="checkbox" class="form-check-input">`
+          return el
+        }).filter(el => !!el)
+      ], [])
+      .concat(collapsedAnswers.reduce((acc, cur, colAnsIdx) => [
+        ...acc,
+        ...cur.propositions.map((p, propIdx) => {
+          if (p.subconcept !== subconcept) return null
+          const el = document.createElement('li')
+          el.innerHTML = `<span class="proposition" data-proposition="${propIdx}" data-collapsed-answer="${colAnsIdx}">${p.content}</span><input type="checkbox" class="form-check-input">`
+          return el
+        }).filter(el => !!el)
+      ], []))
+    subConceptModalEl.querySelector('.modal-body > ul').replaceChildren(...propElList)
+    // 将answer pane已经勾选的状态同步上来（还好搞了个全局的notepanedata呜呜呜）
+    notePaneData.forEach(d => {
+      subConceptModalEl.querySelector(`.modal-body > ul ${getDataSelector(d)}~input[type="checkbox"]`)?.setAttribute('checked', 'true')
+    })
+  })
+}
+
 // 等价于jQuery的 $.ready(...) 即 $(...)
 document.addEventListener('DOMContentLoaded', async () => {
-  // 初始化totop button
-  initToTopButton()
-  // 初始化note/concept两个pane的resize
+  // 把和数据无关的UI init放到fetchPageData之前，防止用户看到尚未初始化的丑逼UI
   initNoteConceptPaneSplit()
+  initToTopButton()
+  initSubConceptModal()
 
   const res = await fetchPageData();
   const {question, description} = res; // answers 和 collapsedAnswers在await之后已经写入全局
@@ -565,7 +615,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 // 监听所有点击事件
 document.addEventListener('click', (e) => {
-  if (e.target && e.target.matches('.content-collapse-button')) {
+  if (!e.target) return
+  if (e.target.matches('.content-collapse-button')) {
     const buttonEl = e.target
     const contentEl = buttonEl.parentElement.querySelector('.content')
     if (contentEl.classList.toggle('truncate')) { // returns true if now present
@@ -573,13 +624,18 @@ document.addEventListener('click', (e) => {
     } else {
       buttonEl.innerHTML = '<i class="bi bi-caret-up-fill"></i> Collapse'
     }
-  } else if (e.target && e.target.matches('.content:not(.truncate) .proposition')) {
+  } else if (e.target.matches('.content:not(.truncate) .proposition')) {
     handlePropositionClicked(e.target, e.ctrlKey, false)
-  } else if (e.target && e.target.matches('.content:not(.truncate) .proposition~input[type="checkbox"]')) {
+  } else if (e.target.matches('.content:not(.truncate) .proposition~input[type="checkbox"]')) {
     handlePropositionClicked(e.target.previousSibling, e.ctrlKey, true)
-  }
-  else if (e.target && e.target.matches('.concept-badge')){
+  } else if (e.target.matches('.concept-badge')){
     onConceptBadgeClick(e.target)
+  } else if (e.target.matches('jmnode:not(.root)')) {
+    subConceptModal.show(e.target)
+  } else if (e.target.matches('#subConceptModal .proposition')) {
+    handleSubConceptPropositionClicked(e.target, e.target.nextElementSibling, false)
+  } else if (e.target.matches('#subConceptModal .proposition~input[type="checkbox"]')) {
+    handleSubConceptPropositionClicked(e.target.previousSibling, e.target, true)
   }
 })
 
