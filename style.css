@@ -74,13 +74,19 @@ mark, .mark {
 .content.truncate.truncate-small::before {
   height: 2rem;
 }
-
 .content-collapse-button {
   display: block;
   width: 100%;
   text-align: center;
   padding: 0;
   text-decoration: none;
+}
+.content:not(.truncate)~.content-collapse-button {
+  position: sticky;
+  bottom: 0;
+  background: #fff;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
 }
 
 #answer-container .badge {
