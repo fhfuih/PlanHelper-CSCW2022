@@ -2,8 +2,14 @@
  * Use mouse to highlight. Then click space to mark. Finally click C to copy json or D to download */
 
 const _outerSelector = '#mainContent div.q-box.qu-pt--medium:not(span[data-nosnippet] > div > div > div >div):not(.qu-bg--gray_ultralight)';
+const relatedQuestionColumn = document.querySelector('div.q-box[width="314"] .q-box[role=list]')
+const relatedQuestionEls = Array.from(relatedQuestionColumn.querySelectorAll('span.q-box.qu-userSelect--text span'))
+const relatedQuestions = relatedQuestionEls.map(p => {
+  return p.textContent
+})
 const data = {
   question: document.querySelector('div.q-text.qu-bold.qu-fontSize--xlarge.qu-color--gray_dark_dim').textContent.trim(),
+  relatedQuestions: relatedQuestions,
   answers: []
 }
 document.addEventListener('DOMContentLoaded', () => { // 确保找到了title
@@ -52,12 +58,36 @@ function getAnswer(el) {
     let date = dateRaw.replace(/^(Answered|Updated) /, '')
     date = new Date(date).toJSON()
 
+    const statisticsEl = el.querySelector('div.q-text.qu-mt--small.qu-color--gray_light.qu-fontSize--small.qu-passColorToLinks')
+    const viewsEl = statisticsEl.querySelector('span.bxBZxD')
+    const upvotesEl = statisticsEl.querySelector('span.diCWLm')
+
+    let views = viewsEl.textContent.trim()
+    const kilo = /K/i.test(views)
+    views = parseFloat(views.replace(/[^0-9\.]/g, '').trim())
+    if(kilo) views *= 1000
+
+    let upvotes;
+    if(upvotesEl){
+      upvotes = upvotesEl.querySelector('div').textContent.trim();
+      upvotes = upvotes.replace(/\D/g, '').trim()
+      upvotes = parseFloat(upvotes)
+    }
+    else{
+      upvotes = 0
+    }
+    if(/share/i.test(upvotes)){
+      upvotes = 0
+    }
+    const statisticsData = {views: views, upvotes: upvotes}
+
     return {
         html: answer_html,
         content: answer_text,
         paragraphs,
         author,
         date,
+        statisticsData,
     }
 }
 function highlightSelection() {

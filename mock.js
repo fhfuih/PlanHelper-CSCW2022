@@ -271,6 +271,7 @@
 //     },
 //   ]
 // }
+
 const mock = {
   "question": "What are some tips for starting bodybuilding?",  
   
@@ -528,42 +529,15 @@ const mock = {
             ],
             "collapsed": "false",
             "similarAnswers": [
-                0,
+                9,
+                16,
                 1,
-                2,
+                10,
+                26,
+                52,
                 3,
                 4,
-                5,
-                6,
-                7,
-                9,
-                10,
-                11,
-                12,
-                16,
-                18,
-                20,
-                22,
-                24,
-                26,
-                29,
-                30,
-                32,
-                33,
-                34,
-                35,
-                36,
-                37,
-                38,
-                40,
-                42,
-                43,
-                44,
-                46,
-                47,
-                50,
-                52,
-                54
+                5
             ]
         },
         {
@@ -651,155 +625,16 @@ const mock = {
             ],
             "collapsed": "false",
             "similarAnswers": [
-                8,
                 17,
-                19,
                 27,
-                55,
-                57
+                37,
+                2,
+                7,
+                12,
+                15,
+                21,
+                28
             ]
-        },
-        {
-            "html": "<p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">This is it off the top of my head. Will add more when I get time.<br></span></p> <ul class=\"q-box\" style=\"box-sizing: border-box; direction: ltr; overflow-wrap: break-word; list-style: disc; margin-bottom: 1em; margin-right: 2em;\"><li class=\"q-relative\" style=\"box-sizing: border-box; position: relative; margin-left: 2em; padding-bottom: 0.7em;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">Know that is more about what eat that you think it is. </span></li><li class=\"q-relative\" style=\"box-sizing: border-box; position: relative; margin-left: 2em; padding-bottom: 0.7em;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">It will take time to get used to the weights and knowing much you can lift and what routine fits you best. </span></li><li class=\"q-relative\" style=\"box-sizing: border-box; position: relative; margin-left: 2em; padding-bottom: 0.7em;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">To know about what to eat and what you eat: check out my answer here. </span><a class=\"q-box Link___StyledBox-t2xg9c-0 roKEj QTextLink___StyledLink-sc-1ho51qd-0 gwAtHk qu-cursor--pointer qu-hover--textDecoration--underline\" title=\"www.quora.com\" href=\"http://www.quora.com/What-type-of-exercises-can-make-your-stomach-flat/answers/11846258?srid=oC5E&amp;share=1\" target=\"_top\" style=\"box-sizing: border-box; border-radius: inherit; font-weight: normal; font-style: normal; background: none;\">Sid Thatham's answer to What type of exercises can make your stomach flat?</a><span style=\"font-weight: normal; font-style: normal; background: none;\"><br></span></li><li class=\"q-relative\" style=\"box-sizing: border-box; position: relative; margin-left: 2em; padding-bottom: 0.7em;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">It is okay if you friends dislike that you give more priority than you should. They don't have the commitment to stick to it. But make sure you do. </span></li><li class=\"q-relative\" style=\"box-sizing: border-box; position: relative; margin-left: 2em; padding-bottom: 0px;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">Do not skip leg days.</span></li></ul>",
-            "author": {
-                "avatar": "https://qph.fs.quoracdn.net/main-thumb-48587173-200-mqlhkcxxmoixdkylhkpvzvvbwosumxbs.jpeg",
-                "name": "Sid Thatham",
-                "description": "Grad @ Univ. of Cincinnati. Bearcat for life!",
-                "urlEncode": "Sid-Thatham"
-            },
-            "date": "2015-05-11T16:00:00.000Z",
-            "propositions": [
-                {
-                    "content": "It will take time to get used to the weights and knowing much you can lift and what routine fits you best.",
-                    "concept": "Patience",
-                    "subconcept": "diet",
-                    "content_typofree": "it will take time to get used to the weights and knowing much you can lift and what routine fits you best"
-                },
-                {
-                    "content": "To know about what to eat and what you eat",
-                    "concept": "Diet",
-                    "subconcept": "diet",
-                    "content_typofree": "to know about what to eat and what you eat"
-                },
-                {
-                    "content": "It is okay if you friends dislike that you give more priority than you should.",
-                    "concept": "Lifestyle",
-                    "subconcept": "diet",
-                    "content_typofree": "it is okay if you friends dislike that you give more priority than you should"
-                },
-                {
-                    "content": "Do not skip leg days.",
-                    "concept": "Persistence",
-                    "subconcept": "diet",
-                    "content_typofree": "do not skip leg days"
-                }
-            ],
-            "collapsed": "false",
-            "similarAnswers": [
-                51
-            ]
-        },
-        {
-            "html": "<p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 0px; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">If you're just starting out, it's really going to depend on your work schedule and hours that you can train, but I would suggest to try and get in three days a week and split them every other day. Start with basic exercises for each body part and do two exercises—3 sets of 8-12 reps for each part. \"Human evolution led to five basic movements, which encompass nearly all of our everyday motions.\" Meaning your workout needs just five exercises, one from each of these categories: push (pressing away from you), pull (tugging toward you), hip-hinge (bending from the middle), squat (flexing at the knee), and plank ( ... Go to my Profile and you can find all about Bodybuilding material there...</span></p> ",
-            "author": {
-                "avatar": "https://qph.fs.quoracdn.net/main-thumb-1300624483-200-ktjafwynmujxjlwklwxezgofqbcgvhcb.jpeg",
-                "name": "Annette Griffith",
-                "description": "",
-                "urlEncode": "Annette-Griffith-7"
-            },
-            "date": "2020-09-23T16:00:00.000Z",
-            "propositions": [
-                {
-                    "content": "try and get in three days a week and split them every other day",
-                    "concept": "Rountine",
-                    "subconcept": "sessions",
-                    "content_typofree": "try and get in three days a week and split them every other day"
-                },
-                {
-                    "content": "Start with basic exercises for each body part and do two exercises—3 sets of 8-12 reps for each part.",
-                    "concept": "Methodology",
-                    "subconcept": "exercises",
-                    "content_typofree": "start with basic exercises for each body part and do two exercises 3 sets of 8 12 reps for each part"
-                },
-                {
-                    "content": "Meaning your workout needs just five exercises, one from each of these categories: push (pressing away from you), pull (tugging toward you), hip-hinge (bending from the middle), squat (flexing at the knee), and plank",
-                    "concept": "Methodology",
-                    "subconcept": "exercises",
-                    "content_typofree": "meaning your workout needs just five exercises one from each of these categories push pressing away from you pull tugging toward you hip hinge bending from the middle squat flexing at the knee and plank"
-                }
-            ],
-            "collapsed": "false",
-            "similarAnswers": []
-        },
-        {
-            "html": "<p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">Git gud.</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">Do basic, compound strength exercises for 6-12 months. Start with low weight, focus on form and range of motion, progress slowly.</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">Download a sleep tracking app and get at least 8 hours every night no matter what.</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">Get a water bottle, carry it everywhere, and drink enough to pee clear several times each day.</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">Download a calorie counter app like My Fitness Pal and start learning how much of which foods you should be eating.</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">If you're a beginner you'll see result from anything that's close to correct. So just do simple stuff. If you can stick to it, build habits, and come to enjoy it, then you might build enough of a foundation to focus on pure bodybuilding in a 6-12 months when your easy newbie gains trail off.</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 0px; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">If you can't do it, or just don't like it, then at least you won't have wasted a bunch of money on advanced stuff you won't use or have injured yourself trying to do exercises you aren't capable of.</span></p> ",
-            "author": {
-                "avatar": "https://qph.fs.quoracdn.net/main-thumb-12688605-200-ybxWfje5uT6JoBcPDlkH1VgRsQqFh2EG.jpeg",
-                "name": "Matt Maier",
-                "description": "technically, round is a shape",
-                "urlEncode": "Matt-Maier-1"
-            },
-            "date": "2016-07-17T16:00:00.000Z",
-            "propositions": [
-                {
-                    "content": "Do basic, compound strength exercises for 6-12 months.",
-                    "concept": "Methodology",
-                    "subconcept": "exercises",
-                    "content_typofree": "do basic compound strength exercises for 6 12 months"
-                },
-                {
-                    "content": "Download a sleep tracking app and get at least 8 hours every night no matter what.",
-                    "concept": "Rest",
-                    "subconcept": "diet",
-                    "content_typofree": "download a sleep tracking app and get at least 8 hours every night no matter what"
-                },
-                {
-                    "content": "Get a water bottle, carry it everywhere, and drink enough to pee clear several times each day.",
-                    "concept": "Drink",
-                    "subconcept": "drink",
-                    "content_typofree": "get a water bottle carry it everywhere and drink enough to pee clear several times each day"
-                },
-                {
-                    "content": "Download a calorie counter app like My Fitness Pal and start learning how much of which foods you should be eating.",
-                    "concept": "Tracking",
-                    "subconcept": "diet",
-                    "content_typofree": "download a calorie counter app like my fitness pal and start learning how much of which foods you should be eating"
-                }
-            ],
-            "collapsed": "false",
-            "similarAnswers": []
-        },
-        {
-            "html": "<p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">Body by science</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">Hands down THE best. I have tried and analyzed many many things out of curiosity. This is by far the most time effective.</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">Here is summary.</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\"><br></span><span style=\"font-weight: bold; font-style: normal; background: none;\">Stop counting calories.</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">You must have come across these few extreme examples</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\"></span></p> <ol class=\"q-box\" style=\"box-sizing: border-box; direction: ltr; overflow-wrap: break-word; list-style: decimal; margin-bottom: 1em; margin-right: 2em;\"><li class=\"q-relative\" style=\"box-sizing: border-box; position: relative; margin-left: 2em; padding-bottom: 0.7em;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">Some guy watching his diet carefully gains weight no matter what he does or does not eat and how much exercise he does or does not do.</span></li><li class=\"q-relative\" style=\"box-sizing: border-box; position: relative; margin-left: 2em; padding-bottom: 0.7em;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">Another guy ravages on whatever he can find but still stays slim.</span></li><li class=\"q-relative\" style=\"box-sizing: border-box; position: relative; margin-left: 2em; padding-bottom: 0.7em;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">2 gym partners doing the exact same thing, with matvhing food intakes, one gains bulk muscle another does not. But strength wise the guy who bulked up is weaker than the guy who didnt.</span></li><li class=\"q-relative\" style=\"box-sizing: border-box; position: relative; margin-left: 2em; padding-bottom: 0px;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">An extreme athelate suffering from heart disease at early age, say soccar player falling to his death while playing soccar.</span></li></ol><p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\"><br>And there is a whole host of other people in between.</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">Why?</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: bold; font-style: normal; background: none;\">hormones</span><span style=\"font-weight: normal; font-style: normal; background: none;\">.</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">Everyone is different. </span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">In general, We are bags of water controled mainly by our hormone levels and loosely controlled by the amount of activity and diet.</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">Too much exercise can be bad for you so is too little. Where is the sweet spot then? </span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">Well as you might have guessed it its different for everyone. But one type of exercise comes close to being universally most effective for everyone.</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">Body by science, you can read book or go to website.</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: italic; background: none;\">In short, you do 3 exercises chest press, pull down and leg press, 10 sec up 10 sec down. If you last less than 90 sec decrease weight if you last more than 120 sec increase weight. No stopping, no jerking, steady smooth movement, deep and slow breathing, no stopping breath to give a push. Do this once or twice a week. Thats right it takes 20 min a session. If you do too many you wont recover fully, and </span><span style=\"font-weight: bold; font-style: italic; background: none;\">recovery is THE KEY.</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">Thats it.</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">You will reach your optimal muscle mass very fast and muscles will make you loose fat as they are energy hungry. You can add other compound exercises over time.</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 0px; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">The workout I am proposing is injury free because you will always start with 70% of one rep maximum and you will never give jolts which cause injuries in first place.</span></p> ",
-            "author": {
-                "avatar": "https://qph.fs.quoracdn.net/main-thumb-55486098-200-jrinkmcutrxulqhhgnramjqwotxndhxr.jpeg",
-                "name": "Ninad Pimparkar",
-                "description": "Engineer at GlobalFoundries (2008-present)",
-                "urlEncode": "Ninad-Pimparkar"
-            },
-            "date": "2014-09-11T16:00:00.000Z",
-            "propositions": [
-                {
-                    "content": "Stop counting calories",
-                    "concept": "Diet",
-                    "subconcept": "calorie",
-                    "content_typofree": "stop counting calories"
-                },
-                {
-                    "content": "Everyone is different.",
-                    "concept": "Diversity",
-                    "subconcept": "knowledge",
-                    "content_typofree": "everyone is different"
-                },
-                {
-                    "content": "Too much exercise can be bad for you so is too little.",
-                    "concept": "Amount",
-                    "subconcept": "exercise",
-                    "content_typofree": "too much exercise can be bad for you so is too little"
-                }
-            ],
-            "collapsed": "false",
-            "similarAnswers": []
         },
         {
             "html": "<p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">Do not try to do everything at the same time, I sadly put too much stuff in here.</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\"></span></p> <ul class=\"q-box\" style=\"box-sizing: border-box; direction: ltr; overflow-wrap: break-word; list-style: disc; margin-bottom: 1em; margin-right: 2em;\"><li class=\"q-relative\" style=\"box-sizing: border-box; position: relative; margin-left: 2em; padding-bottom: 0.7em;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">When you start, </span><span style=\"font-weight: bold; font-style: normal; background: none;\">make sure to keep going</span><span style=\"font-weight: normal; font-style: normal; background: none;\">: choose a gym that is close-by/no more than 3 days not going to the gym<br></span></li><li class=\"q-relative\" style=\"box-sizing: border-box; position: relative; margin-left: 2em; padding-bottom: 0.7em;\"><span style=\"font-weight: bold; font-style: normal; background: none;\">have a target</span><span style=\"font-weight: normal; font-style: normal; background: none;\">: choose multiples models, inspirations that you want to look like, print them and look at your references before going to the gym.</span></li><li class=\"q-relative\" style=\"box-sizing: border-box; position: relative; margin-left: 2em; padding-bottom: 0.7em;\"><span style=\"font-weight: bold; font-style: normal; background: none;\">do not read bodybuilding magazines</span></li><li class=\"q-relative\" style=\"box-sizing: border-box; position: relative; margin-left: 2em; padding-bottom: 0.7em;\"><span style=\"font-weight: bold; font-style: normal; background: none;\">Nutrition is really important but</span><span style=\"font-weight: normal; font-style: normal; background: none;\"> </span><span style=\"font-weight: bold; font-style: normal; background: none;\">go easy at first</span><span style=\"font-weight: normal; font-style: normal; background: none;\">, the transition might be harsh, slowly learn to cook, read nutrition guides, do not rush on supplements before you know what you are doing.</span></li><li class=\"q-relative\" style=\"box-sizing: border-box; position: relative; margin-left: 2em; padding-bottom: 0.7em;\"><span style=\"font-weight: bold; font-style: normal; background: none;\">Find a mentor and a program</span><span style=\"font-weight: normal; font-style: normal; background: none;\"> (it can be a book or a dvd at first)</span></li><li class=\"q-relative\" style=\"box-sizing: border-box; position: relative; margin-left: 2em; padding-bottom: 0.7em;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">Bodybuilding is a science, you can go on programs that are known to work or learn the science, do not do try to invent things or change your workout every day, it is a slow experiment on your body that you will calibrate with the knowledge you will get too fast.</span></li><li class=\"q-relative\" style=\"box-sizing: border-box; position: relative; margin-left: 2em; padding-bottom: 0.7em;\"><span style=\"font-weight: bold; font-style: normal; background: none;\">keep tracks</span><span style=\"font-weight: normal; font-style: normal; background: none;\">: reps, your weight (once a week not more, same day, same hour), mensurations (regularly if possible not more than once a month and before training after a rest day ideally) pictures are good too.</span></li><li class=\"q-relative\" style=\"box-sizing: border-box; position: relative; margin-left: 2em; padding-bottom: 0.7em;\"><span style=\"font-weight: bold; font-style: normal; background: none;\">learn the proper forms</span><span style=\"font-weight: normal; font-style: normal; background: none;\">, to breath, to use the machines, the movements, the small muscle groups, the big ones.</span></li><li class=\"q-relative\" style=\"box-sizing: border-box; position: relative; margin-left: 2em; padding-bottom: 0.7em;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">When you enter the gym you </span><span style=\"font-weight: bold; font-style: normal; background: none;\">focus</span><span style=\"font-weight: normal; font-style: normal; background: none;\"> on the work out, nothing else.</span></li><li class=\"q-relative\" style=\"box-sizing: border-box; position: relative; margin-left: 2em; padding-bottom: 0.7em;\"><span style=\"font-weight: bold; font-style: normal; background: none;\">get to know you</span><span style=\"font-weight: normal; font-style: normal; background: none;\">r strength, weakness</span></li><li class=\"q-relative\" style=\"box-sizing: border-box; position: relative; margin-left: 2em; padding-bottom: 0.7em;\"><span style=\"font-weight: bold; font-style: normal; background: none;\">do not hurt yourself</span></li><li class=\"q-relative\" style=\"box-sizing: border-box; position: relative; margin-left: 2em; padding-bottom: 0px;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">You may progress fast at first, it will slow down, it is normal, just go steady, </span><span style=\"font-weight: bold; font-style: normal; background: none;\">progress will come.</span></li></ul>",
@@ -886,21 +721,190 @@ const mock = {
             ],
             "collapsed": "false",
             "similarAnswers": [
-                13,
                 14,
-                15,
-                21,
                 23,
-                25,
-                28,
-                31,
-                39,
+                29,
+                33,
+                38,
+                49,
+                6,
+                8,
+                22
+            ]
+        },
+        {
+            "html": "<p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">This is it off the top of my head. Will add more when I get time.<br></span></p> <ul class=\"q-box\" style=\"box-sizing: border-box; direction: ltr; overflow-wrap: break-word; list-style: disc; margin-bottom: 1em; margin-right: 2em;\"><li class=\"q-relative\" style=\"box-sizing: border-box; position: relative; margin-left: 2em; padding-bottom: 0.7em;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">Know that is more about what eat that you think it is. </span></li><li class=\"q-relative\" style=\"box-sizing: border-box; position: relative; margin-left: 2em; padding-bottom: 0.7em;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">It will take time to get used to the weights and knowing much you can lift and what routine fits you best. </span></li><li class=\"q-relative\" style=\"box-sizing: border-box; position: relative; margin-left: 2em; padding-bottom: 0.7em;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">To know about what to eat and what you eat: check out my answer here. </span><a class=\"q-box Link___StyledBox-t2xg9c-0 roKEj QTextLink___StyledLink-sc-1ho51qd-0 gwAtHk qu-cursor--pointer qu-hover--textDecoration--underline\" title=\"www.quora.com\" href=\"http://www.quora.com/What-type-of-exercises-can-make-your-stomach-flat/answers/11846258?srid=oC5E&amp;share=1\" target=\"_top\" style=\"box-sizing: border-box; border-radius: inherit; font-weight: normal; font-style: normal; background: none;\">Sid Thatham's answer to What type of exercises can make your stomach flat?</a><span style=\"font-weight: normal; font-style: normal; background: none;\"><br></span></li><li class=\"q-relative\" style=\"box-sizing: border-box; position: relative; margin-left: 2em; padding-bottom: 0.7em;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">It is okay if you friends dislike that you give more priority than you should. They don't have the commitment to stick to it. But make sure you do. </span></li><li class=\"q-relative\" style=\"box-sizing: border-box; position: relative; margin-left: 2em; padding-bottom: 0px;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">Do not skip leg days.</span></li></ul>",
+            "author": {
+                "avatar": "https://qph.fs.quoracdn.net/main-thumb-48587173-200-mqlhkcxxmoixdkylhkpvzvvbwosumxbs.jpeg",
+                "name": "Sid Thatham",
+                "description": "Grad @ Univ. of Cincinnati. Bearcat for life!",
+                "urlEncode": "Sid-Thatham"
+            },
+            "date": "2015-05-11T16:00:00.000Z",
+            "propositions": [
+                {
+                    "content": "It will take time to get used to the weights and knowing much you can lift and what routine fits you best.",
+                    "concept": "Patience",
+                    "subconcept": "diet",
+                    "content_typofree": "it will take time to get used to the weights and knowing much you can lift and what routine fits you best"
+                },
+                {
+                    "content": "To know about what to eat and what you eat",
+                    "concept": "Diet",
+                    "subconcept": "diet",
+                    "content_typofree": "to know about what to eat and what you eat"
+                },
+                {
+                    "content": "It is okay if you friends dislike that you give more priority than you should.",
+                    "concept": "Lifestyle",
+                    "subconcept": "diet",
+                    "content_typofree": "it is okay if you friends dislike that you give more priority than you should"
+                },
+                {
+                    "content": "Do not skip leg days.",
+                    "concept": "Persistence",
+                    "subconcept": "diet",
+                    "content_typofree": "do not skip leg days"
+                }
+            ],
+            "collapsed": "false",
+            "similarAnswers": [
+                18,
+                19,
+                24,
+                35,
+                36,
+                40,
+                50,
+                51,
+                0
+            ]
+        },
+        {
+            "html": "<p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">Git gud.</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">Do basic, compound strength exercises for 6-12 months. Start with low weight, focus on form and range of motion, progress slowly.</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">Download a sleep tracking app and get at least 8 hours every night no matter what.</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">Get a water bottle, carry it everywhere, and drink enough to pee clear several times each day.</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">Download a calorie counter app like My Fitness Pal and start learning how much of which foods you should be eating.</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">If you're a beginner you'll see result from anything that's close to correct. So just do simple stuff. If you can stick to it, build habits, and come to enjoy it, then you might build enough of a foundation to focus on pure bodybuilding in a 6-12 months when your easy newbie gains trail off.</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 0px; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">If you can't do it, or just don't like it, then at least you won't have wasted a bunch of money on advanced stuff you won't use or have injured yourself trying to do exercises you aren't capable of.</span></p> ",
+            "author": {
+                "avatar": "https://qph.fs.quoracdn.net/main-thumb-12688605-200-ybxWfje5uT6JoBcPDlkH1VgRsQqFh2EG.jpeg",
+                "name": "Matt Maier",
+                "description": "technically, round is a shape",
+                "urlEncode": "Matt-Maier-1"
+            },
+            "date": "2016-07-17T16:00:00.000Z",
+            "propositions": [
+                {
+                    "content": "Do basic, compound strength exercises for 6-12 months.",
+                    "concept": "Methodology",
+                    "subconcept": "exercises",
+                    "content_typofree": "do basic compound strength exercises for 6 12 months"
+                },
+                {
+                    "content": "Download a sleep tracking app and get at least 8 hours every night no matter what.",
+                    "concept": "Rest",
+                    "subconcept": "diet",
+                    "content_typofree": "download a sleep tracking app and get at least 8 hours every night no matter what"
+                },
+                {
+                    "content": "Get a water bottle, carry it everywhere, and drink enough to pee clear several times each day.",
+                    "concept": "Drink",
+                    "subconcept": "drink",
+                    "content_typofree": "get a water bottle carry it everywhere and drink enough to pee clear several times each day"
+                },
+                {
+                    "content": "Download a calorie counter app like My Fitness Pal and start learning how much of which foods you should be eating.",
+                    "concept": "Tracking",
+                    "subconcept": "diet",
+                    "content_typofree": "download a calorie counter app like my fitness pal and start learning how much of which foods you should be eating"
+                }
+            ],
+            "collapsed": "false",
+            "similarAnswers": [
+                30,
+                20,
+                32,
                 41,
+                43,
+                44,
+                46,
+                47,
+                11
+            ]
+        },
+        {
+            "html": "<p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">Body by science</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">Hands down THE best. I have tried and analyzed many many things out of curiosity. This is by far the most time effective.</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">Here is summary.</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\"><br></span><span style=\"font-weight: bold; font-style: normal; background: none;\">Stop counting calories.</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">You must have come across these few extreme examples</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\"></span></p> <ol class=\"q-box\" style=\"box-sizing: border-box; direction: ltr; overflow-wrap: break-word; list-style: decimal; margin-bottom: 1em; margin-right: 2em;\"><li class=\"q-relative\" style=\"box-sizing: border-box; position: relative; margin-left: 2em; padding-bottom: 0.7em;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">Some guy watching his diet carefully gains weight no matter what he does or does not eat and how much exercise he does or does not do.</span></li><li class=\"q-relative\" style=\"box-sizing: border-box; position: relative; margin-left: 2em; padding-bottom: 0.7em;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">Another guy ravages on whatever he can find but still stays slim.</span></li><li class=\"q-relative\" style=\"box-sizing: border-box; position: relative; margin-left: 2em; padding-bottom: 0.7em;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">2 gym partners doing the exact same thing, with matvhing food intakes, one gains bulk muscle another does not. But strength wise the guy who bulked up is weaker than the guy who didnt.</span></li><li class=\"q-relative\" style=\"box-sizing: border-box; position: relative; margin-left: 2em; padding-bottom: 0px;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">An extreme athelate suffering from heart disease at early age, say soccar player falling to his death while playing soccar.</span></li></ol><p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\"><br>And there is a whole host of other people in between.</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">Why?</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: bold; font-style: normal; background: none;\">hormones</span><span style=\"font-weight: normal; font-style: normal; background: none;\">.</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">Everyone is different. </span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">In general, We are bags of water controled mainly by our hormone levels and loosely controlled by the amount of activity and diet.</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">Too much exercise can be bad for you so is too little. Where is the sweet spot then? </span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">Well as you might have guessed it its different for everyone. But one type of exercise comes close to being universally most effective for everyone.</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">Body by science, you can read book or go to website.</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: italic; background: none;\">In short, you do 3 exercises chest press, pull down and leg press, 10 sec up 10 sec down. If you last less than 90 sec decrease weight if you last more than 120 sec increase weight. No stopping, no jerking, steady smooth movement, deep and slow breathing, no stopping breath to give a push. Do this once or twice a week. Thats right it takes 20 min a session. If you do too many you wont recover fully, and </span><span style=\"font-weight: bold; font-style: italic; background: none;\">recovery is THE KEY.</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">Thats it.</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 1em; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">You will reach your optimal muscle mass very fast and muscles will make you loose fat as they are energy hungry. You can add other compound exercises over time.</span></p> <p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 0px; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">The workout I am proposing is injury free because you will always start with 70% of one rep maximum and you will never give jolts which cause injuries in first place.</span></p> ",
+            "author": {
+                "avatar": "https://qph.fs.quoracdn.net/main-thumb-55486098-200-jrinkmcutrxulqhhgnramjqwotxndhxr.jpeg",
+                "name": "Ninad Pimparkar",
+                "description": "Engineer at GlobalFoundries (2008-present)",
+                "urlEncode": "Ninad-Pimparkar"
+            },
+            "date": "2014-09-11T16:00:00.000Z",
+            "propositions": [
+                {
+                    "content": "Stop counting calories",
+                    "concept": "Diet",
+                    "subconcept": "calorie",
+                    "content_typofree": "stop counting calories"
+                },
+                {
+                    "content": "Everyone is different.",
+                    "concept": "Diversity",
+                    "subconcept": "knowledge",
+                    "content_typofree": "everyone is different"
+                },
+                {
+                    "content": "Too much exercise can be bad for you so is too little.",
+                    "concept": "Amount",
+                    "subconcept": "exercise",
+                    "content_typofree": "too much exercise can be bad for you so is too little"
+                }
+            ],
+            "collapsed": "false",
+            "similarAnswers": [
+                13,
+                25,
+                31,
+                34,
+                39,
+                42,
                 45,
                 48,
-                49,
-                53,
+                53
+            ]
+        },
+        {
+            "html": "<p class=\"q-text qu-display--block\" style=\"box-sizing: border-box; margin-bottom: 0px; overflow-wrap: anywhere; word-break: break-word; direction: ltr; text-align: start;\"><span style=\"font-weight: normal; font-style: normal; background: none;\">If you're just starting out, it's really going to depend on your work schedule and hours that you can train, but I would suggest to try and get in three days a week and split them every other day. Start with basic exercises for each body part and do two exercises—3 sets of 8-12 reps for each part. \"Human evolution led to five basic movements, which encompass nearly all of our everyday motions.\" Meaning your workout needs just five exercises, one from each of these categories: push (pressing away from you), pull (tugging toward you), hip-hinge (bending from the middle), squat (flexing at the knee), and plank ( ... Go to my Profile and you can find all about Bodybuilding material there...</span></p> ",
+            "author": {
+                "avatar": "https://qph.fs.quoracdn.net/main-thumb-1300624483-200-ktjafwynmujxjlwklwxezgofqbcgvhcb.jpeg",
+                "name": "Annette Griffith",
+                "description": "",
+                "urlEncode": "Annette-Griffith-7"
+            },
+            "date": "2020-09-23T16:00:00.000Z",
+            "propositions": [
+                {
+                    "content": "try and get in three days a week and split them every other day",
+                    "concept": "Rountine",
+                    "subconcept": "sessions",
+                    "content_typofree": "try and get in three days a week and split them every other day"
+                },
+                {
+                    "content": "Start with basic exercises for each body part and do two exercises—3 sets of 8-12 reps for each part.",
+                    "concept": "Methodology",
+                    "subconcept": "exercises",
+                    "content_typofree": "start with basic exercises for each body part and do two exercises 3 sets of 8 12 reps for each part"
+                },
+                {
+                    "content": "Meaning your workout needs just five exercises, one from each of these categories: push (pressing away from you), pull (tugging toward you), hip-hinge (bending from the middle), squat (flexing at the knee), and plank",
+                    "concept": "Methodology",
+                    "subconcept": "exercises",
+                    "content_typofree": "meaning your workout needs just five exercises one from each of these categories push pressing away from you pull tugging toward you hip hinge bending from the middle squat flexing at the knee and plank"
+                }
+            ],
+            "collapsed": "false",
+            "similarAnswers": [
+                54,
+                55,
                 56,
+                57,
                 58,
                 59
             ]
@@ -3645,4 +3649,3 @@ const mock = {
         }
     ]
 }
-
