@@ -415,7 +415,7 @@ function initNotePaneButtonMenu() {
           if (!color) return clearConceptColor(concept)
           const isDark = color.toHSLA()[2] < 50
           color = color.toHEXA().toString()
-          console.log('Saving color', color, 'to concept', concept);
+          console.log('Saving color', color, 'to aspect', concept);
           changeConceptColor(concept, color, isDark)
           instance.hide()
         })
@@ -466,7 +466,7 @@ function addSimilarAnswer(ansIdx) {
       el.textContent = item
       el.classList.add('badge', 'bg-secondary', 'me-1')
       el.setAttribute('concept-name', item)
-      el.title = 'Click to set the visual color of this concept'
+      el.title = 'Click to set the visual color of this aspect'
       return el
     }))
     
@@ -655,7 +655,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       el.textContent = item
       el.classList.add('badge', 'bg-secondary', 'me-1')
       el.setAttribute('concept-name', item)
-      el.title = 'Click to set the visual color of this concept'
+      el.title = 'Click to set the visual color of this aspect'
       return el
     }))
 
