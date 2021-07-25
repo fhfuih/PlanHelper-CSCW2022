@@ -33,6 +33,7 @@ const sortableOptions = {
 }
 // note pane popover button menu
 let lastPopoverReference;
+let lastClickedBadgeConcept;
 
 let answers; // 全局answers（应该不需要全局留着question吧）
 let collapsedAnswers;
@@ -318,7 +319,7 @@ function linkPropositionAndNote(contextElement, propositionList) {
 
 function changeConceptColor(concept, color, isDark) {
   const els = [
-    document.querySelector(`#note-container > li[concept-name="${concept}"] > .content`), // note pane concept
+    ...document.querySelectorAll(`#note-container > li[concept-name="${concept}"] > .content`), // note pane concept 应该只有一个，但是如果没有，querySelector就会返回一个null。使用querySelectorAll出一个空list
     ...document.querySelectorAll(`mark.proposition.concept-${concept}`), // answer pane propositions
     ...document.querySelectorAll(`.badge[concept-name="${concept}"]`) // answer+concept pane badges
   ]
@@ -330,7 +331,7 @@ function changeConceptColor(concept, color, isDark) {
 
 function clearConceptColor(concept) {
   const els = [
-    document.querySelector(`#note-container > li[concept-name="${concept}"] > .content`), // note pane concept
+    ...document.querySelectorAll(`#note-container > li[concept-name="${concept}"] > .content`), // note pane concept
     ...document.querySelectorAll(`mark.proposition.concept-${concept}`), // answer pane propositions
     ...document.querySelectorAll(`.badge[concept-name="${concept}"]`) // answer+concept pane badges
   ]
@@ -402,8 +403,6 @@ function initNotePaneButtonMenu() {
             preview: true,
             hue: true,
             interaction: {
-                hex: true,
-                rgba: true,
                 input: true,
                 clear: true,
                 save: true
@@ -467,6 +466,7 @@ function addSimilarAnswer(ansIdx) {
       el.textContent = item
       el.classList.add('badge', 'bg-secondary', 'me-1')
       el.setAttribute('concept-name', item)
+      el.title = 'Click to set the visual color of this concept'
       return el
     }))
     
@@ -549,6 +549,77 @@ function initSubConceptModal() {
   })
 }
 
+function initColorjoe() {
+  colorjoe.registerExtra('swatch', (parent, joe, option) => {
+    const cont = document.createElement('div')
+    cont.classList.add('swatch')
+    cont.append(...option.map(c => {
+      const block = document.createElement('button')
+      block.onclick = () => joe.set(c)
+      block.style.setProperty('--pcr-color', c)
+      return block
+    }))
+    parent.append(cont)
+  })
+  colorjoe.registerExtra('save', (parent, joe) => {
+    const b = document.getElementById('template-colorjoe-buttons').content.firstElementChild.cloneNode(true)
+    parent.querySelector('.hex').append(b)
+  })
+  colorjoe.registerExtra('clear', (parent, joe) => {
+    const b = document.getElementById('template-colorjoe-buttons').content.lastElementChild.cloneNode(true)
+    parent.querySelector('.hex').append(b)
+  })
+  const joe = colorjoe.rgb('colorjoe-container', 'black', [
+    'currentColor',
+    ['swatch', COLORS],
+    // ['fields', {space: 'RGB', limit: 255, fix: 0}],
+    'hex',
+    'save',
+    'clear',
+  ]);
+  console.log(joe)
+
+  const firstAnswerConceptBadge = document.querySelector('#answer-container .badge')
+  const colorjoePopover = document.getElementById('colorjoe-popover')
+  const popperInstance = Popper.createPopper(firstAnswerConceptBadge, colorjoePopover, {
+    modifiers: [
+      {
+        name: 'offset',
+        options: {
+          offset: [0, 8],
+        },
+      },
+      { name: 'eventListeners', enabled: false }
+    ],
+  })
+  console.log(popperInstance)
+
+  document.addEventListener('click', (e) => {
+    if (!e.target) return
+    if (e.target.matches('#answer-container .badge')) {
+      const reference = e.target
+      lastClickedBadgeConcept = reference.textContent
+      const currentColor = reference.style.getPropertyValue('background-color')
+      if (currentColor) joe.set(currentColor)
+      popperInstance.state.elements.reference = reference
+      popperInstance.update()
+      colorjoePopover.setAttribute('data-show', '')
+    } else if (e.target.matches('#colorjoe-popover input.save')) {
+      const c = joe.get()
+      // console.log(c.hex(), c.lightness())
+      changeConceptColor(lastClickedBadgeConcept, c.hex(), c.lightness() < 0.5)
+      colorjoePopover.removeAttribute('data-show')
+    } else if (e.target.matches('#colorjoe-popover input.clear')) {
+      clearConceptColor(lastClickedBadgeConcept)
+      colorjoePopover.removeAttribute('data-show')
+      joe.set('#000')
+    }
+    else if (!e.target.closest('#colorjoe-popover')) {
+      colorjoePopover.removeAttribute('data-show')
+    }
+  })
+}
+
 // 等价于jQuery的 $.ready(...) 即 $(...)
 document.addEventListener('DOMContentLoaded', async () => {
   // 把和数据无关的UI init放到fetchPageData之前，防止用户看到尚未初始化的丑逼UI
@@ -578,12 +649,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     const conceptList = Array.from(new Set(ans['propositions'].map((item) => {
       return item['concept']
     })))
-
+    // 加载单个回答的badge
     answerNode.querySelector('.concept').append(...conceptList.map((item) => {
       const el = document.createElement('span')
       el.textContent = item
       el.classList.add('badge', 'bg-secondary', 'me-1')
       el.setAttribute('concept-name', item)
+      el.title = 'Click to set the visual color of this concept'
       return el
     }))
 
@@ -611,6 +683,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // 初始化concept pane
   initConceptPane(answers)
+  // 初始化answer pane 的调色板
+  initColorjoe()
 })
 
 // 监听所有点击事件

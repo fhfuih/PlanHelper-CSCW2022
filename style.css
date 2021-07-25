@@ -83,6 +83,10 @@ mark, .mark {
   text-decoration: none;
 }
 
+#answer-container .badge {
+  cursor: pointer;
+}
+
 /* similar answer & its propositions */
 .similar-answers .author-name {
   font-size: 12px;
@@ -239,6 +243,46 @@ ul#note-container, #note-container ul {
 
 .modal-subtitle {
   font-size: 12px;
+}
+
+/* answer pane color picker popover */
+#colorjoe-popover {
+  background-color: #fff;
+  transition: opacity .3s;
+}
+#colorjoe-popover:not([data-show]) {
+  opacity: 0;
+  pointer-events: none;
+  cursor: inherit;
+}
+#colorjoe-popover[data-show] {
+  opacity: 1;
+}
+.arrow, .arrow::before {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: inherit;
+}
+.arrow {
+  visibility: hidden;
+}
+.arrow::before {
+  visibility: visible;
+  content: '';
+  transform: rotate(45deg);
+}
+#colorjoe-popover[data-popper-placement^='top'] > .arrow {
+  bottom: -4px;
+}
+#colorjoe-popover[data-popper-placement^='bottom'] > .arrow {
+  top: -4px;
+}
+#colorjoe-popover[data-popper-placement^='left'] > .arrow {
+  right: -4px;
+}
+#colorjoe-popover[data-popper-placement^='right'] > .arrow {
+  left: -4px;
 }
 
 /* back to top */
