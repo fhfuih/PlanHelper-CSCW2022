@@ -813,7 +813,7 @@ function mindmapConfiguration(conceptName, construct){
   }
   if (construct){
     const id = 'mindmap-container'
-    document.getElementById(id).style.setProperty('height', '700px')
+    // document.getElementById(id).style.setProperty('height', '700px')
     // document.getElementById(id).style.setProperty()
 
     let childrenNodes = []
@@ -865,8 +865,12 @@ function mindmapConfiguration(conceptName, construct){
       theme: 'asbestos',
       view: {
         hmargin: 0,        // 思维导图距容器外框的最小水平距离
-        vmargin: 0,         // 思维导图距容器外框的最小垂直距离
+        vmargin: 10,         // 思维导图距容器外框的最小垂直距离
       },
+      layout: {
+        vspace: 10,
+        hspace: 10,
+      }
     };
     return [options, mind, childrenNodes, checkedChildrenNodes]
 

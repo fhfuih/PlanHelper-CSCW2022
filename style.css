@@ -182,6 +182,18 @@ ul#note-container, #note-container ul {
 }
 
 /* Concept pane */
+#concept-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+#concept-list-container {
+  flex: 0;
+  margin-bottom: .75rem;
+}
+#mindmap-container {
+  flex: 1;
+}
 #concept-list-container:empty::after {
   content: 'Loading...';
   color: rgb(185, 194, 204);
@@ -203,6 +215,15 @@ ul#note-container, #note-container ul {
 }
 .concept-badge[active][selected] {
   box-shadow: 0 0rem 0.3rem 0.15rem #9ec5fed9, inset 0 0 0 0.2rem #A3CFBB;
+}
+
+jmnode {
+  font-size: 12px;
+  padding: 5px;
+}
+jmnode.root {
+  font-size: 16px;
+  padding: 8px;
 }
 
 /* note pane + concept pane layout */
