@@ -49,7 +49,7 @@ mark, .mark {
 .content .proposition ~ input[type="checkbox"]:checked {
   visibility: visible;
 }
-.conent.truncate .proposition ~ input[type="checkbox"] {
+.content.truncate .proposition ~ input[type="checkbox"] {
   visibility: hidden !important;
 }
 
