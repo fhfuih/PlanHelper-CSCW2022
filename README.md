@@ -21,7 +21,7 @@ Concept Map暂时使用的是[这个库](https://github.com/hizzgdev/jsmind/blob
 * [ ] ~~adjust proposition click behavior~~ (或许不需要了？因为有了note pane的拖拽排序减少用户的recover成本，同时增加了proposition的悬浮提示。如果只点击checkbox才添加到note的话，点击区域还是有点小了。不好操作。而且现有的coding实现比较麻烦)
 * [ ] note pane metadata (redundancy 等) (wait for data processing)
 * [ ] note pane ordering (ranx by x) (Overlap with dnd ordering?)
-* [ ] vote number (wait for data; need to re-crawl)
+* [x] vote number (wait for data; need to re-crawl)
 
 后端（数据处理）
 
@@ -29,7 +29,7 @@ Concept Map暂时使用的是[这个库](https://github.com/hizzgdev/jsmind/blob
 
 数据爬取和标记
 
-* [ ] 标sub concept
+* [ ] ~~标sub concept~~
 * [ ] 计算redundancy
 * [ ] 再找一两个qustion
-* [ ] （minor）重爬带votes的数据
+* [x] （minor）重爬带votes的数据

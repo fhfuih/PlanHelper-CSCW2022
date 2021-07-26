@@ -435,11 +435,11 @@ function initNotePaneButtonMenu() {
 
 function addSimilarAnswer(ansIdx) {
   const ans = answers[ansIdx]
-  if (!ans.similarAnswers.length) return;
+  if (!ans.similarAnswers || !ans.similarAnswers.length) return;
   const allSimAnsContainer = document.querySelector(`.answer-${ansIdx} .similar-answers`)
   const accordionButton = allSimAnsContainer.querySelector('.accordion-button')
   const accordionCollapse = allSimAnsContainer.querySelector('.accordion-collapse.collapse')
-  allSimAnsContainer.classList.remove('d-none')
+  allSimAnsContainer.classList.remove('invisible')
   // 折叠容器配置，参见bootstrap文档
   const accordionId = `similar-answer-accordion-${ansIdx}`
   const collapseId = `similar-answer-collapse-${ansIdx}`
@@ -455,8 +455,9 @@ function addSimilarAnswer(ansIdx) {
     const node = document.getElementById('template-similar-answer').content.firstElementChild.cloneNode(true)
     const contentNode = node.querySelector('.content')
     node.classList.add(`similar-answer-${simAnsIdx}`)
+    node.querySelector('.date').textContent = dayjs(simAns.date).format('MMM D, YYYY')
     node.querySelector('.author-name').textContent = simAns.author?.name ?? 'Anonymous'
-    
+    node.querySelector('.author-description').textContent = simAns.author?.description
     const conceptList = Array.from(new Set(simAns['propositions'].map((item) => {
       return item['concept']
     })))
@@ -469,6 +470,9 @@ function addSimilarAnswer(ansIdx) {
       el.title = 'Click to set the visual color of this aspect'
       return el
     }))
+
+    node.querySelector('.views').textContent = simAns.statisticsData?.views
+    node.querySelector('.upvotes').textContent = simAns.statisticsData?.upvotes
     
     contentNode.innerHTML = simAns.html
     markPropositions(contentNode, simAns.propositions, {colAnsIdx, simAnsIdx})
@@ -643,12 +647,16 @@ document.addEventListener('DOMContentLoaded', async () => {
     const answerNode = answerTemplate.cloneNode(true)
     answerNode.classList.add(`answer-${ansIdx}`)
     answerNode.querySelector('.content').innerHTML = ans.html
+    // answerNode.querySelector('.avatar').src = ans.author.avatar
     answerNode.querySelector('.date').textContent = dayjs(ans.date).format('MMM D, YYYY')
     answerNode.querySelector('.author-name').textContent = ans.author?.name ?? 'Anonymous'
     answerNode.querySelector('.author-description').textContent = ans.author?.description
     const conceptList = Array.from(new Set(ans['propositions'].map((item) => {
       return item['concept']
     })))
+    //加载单个回答的数据
+    answerNode.querySelector('.views').textContent = ans.statisticsData?.views
+    answerNode.querySelector('.upvotes').textContent = ans.statisticsData?.upvotes
     // 加载单个回答的badge
     answerNode.querySelector('.concept').append(...conceptList.map((item) => {
       const el = document.createElement('span')
@@ -659,7 +667,6 @@ document.addEventListener('DOMContentLoaded', async () => {
       return el
     }))
 
-    // answerNode.querySelector('.avatar').src = ans.author.avatar
     answerContainer.append(answerNode)
 
     // mark单个回答的所有proposition

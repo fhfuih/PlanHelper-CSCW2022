@@ -23,11 +23,9 @@
   max-width: 36px;
   max-height: 36px;
 }
-
 .profile-text {
   font-size: 14px;
 }
-
 .date {
   font-size: 10px;
 }
@@ -93,8 +91,22 @@ mark, .mark {
   cursor: pointer;
 }
 
+/* statistics */
+.statistics {
+  margin: calc(.5rem + 1px) 0; /* match "similar answer" accordion's padding & border */
+}
+.statistics > .views {
+  margin-right: .75ch;
+}
+.statistics > .views:empty::before, .statistics > .upvotes:empty::before {
+  content: '0';
+}
+
 /* similar answer & its propositions */
-.similar-answers .author-name {
+.similar-answers .statistics {
+  margin: 0;
+}
+.similar-answers .profile-text, .similar-answers .statistics {
   font-size: 12px;
 }
 
