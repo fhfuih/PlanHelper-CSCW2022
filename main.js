@@ -242,7 +242,7 @@ function removeFromNote(data) {
   
   // after removal, if there is no proposition under a concept, delete it
   if (propositionContainer.childElementCount == 0){
-    clearConceptColor(conceptName)
+    // clearConceptColor(conceptName)
     // Destroy d'n'd
     Sortable.get(propositionContainer).destroy()
     propositionContainer.remove()
