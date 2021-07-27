@@ -172,8 +172,6 @@ function addToNote(data) {
     }
   })
   
-
-  
   // change the color of the concept badge in concept pane if the concept exists
   
   let propositionContainer;
@@ -191,14 +189,21 @@ function addToNote(data) {
     propositionContainer.setAttribute('data-subconcept', subconceptName)
     conceptElement.append(propositionContainer)
 
-    // Initialize drag'n'drop
+    // 初始化新concept下的 drag'n'drop
     new Sortable(propositionContainer, sortableOptions)
 
-    // Initialize collapse
+    // 初始化新concept下的 collapse
     const collapseHandle = conceptElement.querySelector('.collapse-handle')
     collapseHandle.setAttribute('data-bs-target', '#'+propositionContainer.id)
     collapseHandle.setAttribute('aria-controls', propositionContainer.id)
     propositionContainer.classList.add('collapse', 'show')
+
+    // 同步之前设置的concept颜色（如有）
+    const badge = document.querySelector(`#answer-container .badge[concept-name="${conceptName}"]`)
+    const conceptColor = badge.style.getPropertyValue('background-color')
+    const isDark = (badge.style.getPropertyValue('color') || 'black') === 'white'
+    // console.debug('while adding concept', conceptName, 'got badge', badge, 'current color is', conceptColor, isDark)
+    if (conceptColor) changeConceptColor(conceptName, conceptColor, isDark)
   }
   // if exists, just find the target concept and add the <li>proposition in the <ul> proposition container
   else{
