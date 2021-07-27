@@ -172,15 +172,14 @@ function addToNote(data) {
     }
   })
   
-
-  
   // change the color of the concept badge in concept pane if the concept exists
   
   let propositionContainer;
   // if not exists, just create a new <li> containing the concept, and a <ul> containing the corresponding <li>proposition under it.
   if (!conceptExist){
     const conceptElement = document.getElementById('template-single-concept').content.firstElementChild.cloneNode(true)
-    conceptElement.querySelector('.content').textContent = conceptName
+    const conceptConcentElement = conceptElement.querySelector('.content')
+    conceptConcentElement.textContent = conceptName
     conceptElement.setAttribute('concept-name', conceptName)
     noteContainer.append(conceptElement)
 
@@ -191,14 +190,18 @@ function addToNote(data) {
     propositionContainer.setAttribute('data-subconcept', subconceptName)
     conceptElement.append(propositionContainer)
 
-    // Initialize drag'n'drop
+    // 初始化新concept下的 drag'n'drop
     new Sortable(propositionContainer, sortableOptions)
 
-    // Initialize collapse
+    // 初始化新concept下的 collapse
     const collapseHandle = conceptElement.querySelector('.collapse-handle')
     collapseHandle.setAttribute('data-bs-target', '#'+propositionContainer.id)
     collapseHandle.setAttribute('aria-controls', propositionContainer.id)
     propositionContainer.classList.add('collapse', 'show')
+
+    // 同步之前设置的concept颜色（如有）
+    const badge = document.querySelector(`#answer-container .badge[concept-name="${conceptName}"]`)
+    conceptConcentElement.setAttribute('style', badge.getAttribute('style'))
   }
   // if exists, just find the target concept and add the <li>proposition in the <ul> proposition container
   else{
@@ -239,7 +242,7 @@ function removeFromNote(data) {
   
   // after removal, if there is no proposition under a concept, delete it
   if (propositionContainer.childElementCount == 0){
-    clearConceptColor(conceptName)
+    // clearConceptColor(conceptName)
     // Destroy d'n'd
     Sortable.get(propositionContainer).destroy()
     propositionContainer.remove()
@@ -708,9 +711,9 @@ document.addEventListener('click', (e) => {
     } else {
       buttonEl.innerHTML = '<i class="bi bi-caret-up-fill"></i> Collapse'
     }
-  } else if (e.target.matches('.content:not(.truncate) .proposition')) {
+  } else if (e.target.matches('.content .proposition')) {
     handlePropositionClicked(e.target, e.ctrlKey, false)
-  } else if (e.target.matches('.content:not(.truncate) .proposition~input[type="checkbox"]')) {
+  } else if (e.target.matches('.content .proposition~input[type="checkbox"]')) {
     handlePropositionClicked(e.target.previousSibling, e.ctrlKey, true)
   } else if (e.target.matches('.concept-badge')){
     onConceptBadgeClick(e.target)
