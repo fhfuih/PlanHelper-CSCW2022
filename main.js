@@ -178,7 +178,8 @@ function addToNote(data) {
   // if not exists, just create a new <li> containing the concept, and a <ul> containing the corresponding <li>proposition under it.
   if (!conceptExist){
     const conceptElement = document.getElementById('template-single-concept').content.firstElementChild.cloneNode(true)
-    conceptElement.querySelector('.content').textContent = conceptName
+    const conceptConcentElement = conceptElement.querySelector('.content')
+    conceptConcentElement.textContent = conceptName
     conceptElement.setAttribute('concept-name', conceptName)
     noteContainer.append(conceptElement)
 
@@ -200,10 +201,7 @@ function addToNote(data) {
 
     // 同步之前设置的concept颜色（如有）
     const badge = document.querySelector(`#answer-container .badge[concept-name="${conceptName}"]`)
-    const conceptColor = badge.style.getPropertyValue('background-color')
-    const isDark = (badge.style.getPropertyValue('color') || 'black') === 'white'
-    // console.debug('while adding concept', conceptName, 'got badge', badge, 'current color is', conceptColor, isDark)
-    if (conceptColor) changeConceptColor(conceptName, conceptColor, isDark)
+    conceptConcentElement.setAttribute('style', badge.getAttribute('style'))
   }
   // if exists, just find the target concept and add the <li>proposition in the <ul> proposition container
   else{
