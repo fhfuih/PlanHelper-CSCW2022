@@ -108,76 +108,15 @@
       <div class="col col-4 side">
         <div class="card" id="note-pane-card">
           <div class="card-header">
-            Note Pane
-            <button type = "button" class = "btn btn-light p-1" onclick="onUndoClicked()" title="Undo">
-              <i class="bi bi-arrow-90deg-left"></i>
-            </button>
-            <button type="button" class="btn btn-light p-1" onclick = "onRedoClicked()" title = "Redo">
-              <i class="bi bi-arrow-90deg-right"></i>
-            </button>
-            <button type="button" class="btn btn-light p-1" onclick="onSaveClicked()" title="Save">
-              <i class = "bi bi-download"></i>
-            </button>
-            <button type="button" class="btn btn-light p-1" onclick="onClearClicked()" title="Clear">
-              <i class = "bi bi-trash"></i>
-            </button>
+            Related Questions
           </div>
-          <div class="card-body" id="note-pane-card-body">
-            <template id="template-single-concept">
-              <li class="concept position-relative">
-                <span class="handle drag-handle"><i class="bi bi-grip-vertical"></i></span>
-                <span class="handle collapse-handle" role="button" data-bs-toggle="collapse" data-bs-target="" aria-expanded="true" aria-controls=""><i class="bi bi-chevron-down"></i></span>
-                <span class="content"></span>
-                <a class="popover-concept-menu" tabindex="0" role="button" data-bs-toggle="popover">
-                  <i class="bi bi-three-dots"></i>
-                </a>
-              </li>
-            </template>
-            <template id="single-note-template">
-              <li class="note position-relative">
-                <span class="handle drag-handle"><i class="bi bi-grip-vertical"></i></span>
-                <span class="content" title="Ctrl+click to jump to the original text"></span>
-                <a class="popover-note-menu" tabindex="0" role="button" data-bs-toggle="popover">
-                  <i class="bi bi-three-dots"></i>
-                </a>
-              </li>
-            </template>
-            <template id="template-note-popover">
-              <button type="button" class="btn btn-link p-0" onclick="onEditNoteClick()" title="Edit note">
-                <i class="bi bi-pencil-square"></i>
-              </button>
-              <button type="button" class="btn btn-link p-0" onclick="onResetNoteClick()" title="Reset note">
-                <i class="bi bi-arrow-counterclockwise"></i>
-              </button>
-              <button type="button" class="btn btn-link p-0" onclick="onRemoveNoteClick()" title="Remove note">
-                <i class="bi bi-trash"></i>
-              </button>
-            </template>
-            <template id="template-concept-popover">
-              <button type="button" class="btn btn-link p-0" onclick="onEditConceptClick()" title="Edit aspect">
-                <i class="bi bi-pencil-square"></i>
-              </button>
-              <button type="button" class="btn btn-link p-0" onclick="onResetConceptClick()" title="Reset aspect">
-                <i class="bi bi-arrow-counterclockwise"></i>
-              </button>
-              <button type="button" class="color-picker btn btn-link p-0" title="Color aspect">
-                <i class="bi bi-palette"></i>
-              </button>
-              <button type="button" class="btn btn-link p-0" onclick="onRemoveConceptClick()" title="Remove aspect">
-                <i class="bi bi-trash"></i>
-              </button>
-            </template>
-            <ul id="note-container"></ul>
-          </div>
-        </div>
-        <div class="card" id="concept-pane-card">
-          <div class="card-header">
-            Aspect Pane
-          </div>
-          <div id="concept-pane-card-body" class="card-body">
-            <div id="concept-container">
-              <div id="concept-list-container"></div>
-              <div id="mindmap-container"></div>
+          <div class="card-body" id="related-question-card-body">
+            <div id = 'related-question-container'>
+              <template id="template-related-question">
+                <div class = 'related-question'>
+                  <a class = 'related-question' href="#"></a>
+                </div>
+              </template>
             </div>
           </div>
         </div>
@@ -188,30 +127,6 @@
     <div><i class="bi bi-caret-up"></i></div>
     <span>Top</span>
   </button>
-  <div id="colorjoe-popover" role="tooltip">
-    <div id="colorjoe-container"></div>
-    <div class="arrow" data-popper-arrow></div>
-    <template id="template-colorjoe-buttons">
-      <input class="save" value="Save" type="button" aria-label="save and close">
-      <input class="clear" value="Clear" type="button" aria-label="clear and close">
-    </template>
-  </div>
-  <div class="modal fade" id="subConceptModal" tabindex="-1" aria-labelledby="subConceptModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header flex-wrap">
-          <h5 class="modal-title" id="subConceptModalLabel">Propositions with sub-aspect <span class="text-decoration-underline"></span></h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          <small class="modal-subtitle w-100 text-muted">Click propositions below to quickly add them to the note pane</small>
-        </div>
-        <div class="modal-body">
-          <ul></ul>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>
+
 </body>
 </html>

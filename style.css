@@ -380,3 +380,12 @@ body.ctrl-down .proposition, body.ctrl-down .note > .content {
     background-color: rgb(250, 206, 220);
   }
 }
+
+
+.related-question {
+  color: rgb(25, 95, 170);
+  background: none;
+  font-size: 15px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
