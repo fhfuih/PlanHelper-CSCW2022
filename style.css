@@ -56,6 +56,9 @@ mark, .mark {
   color: black !important;
   cursor: auto !important;
 }
+.content.truncate {
+  pointer-events: none;
+}
 
 .content {
   position: relative;

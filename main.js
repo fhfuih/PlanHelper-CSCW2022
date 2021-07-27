@@ -710,9 +710,9 @@ document.addEventListener('click', (e) => {
     } else {
       buttonEl.innerHTML = '<i class="bi bi-caret-up-fill"></i> Collapse'
     }
-  } else if (e.target.matches('.content:not(.truncate) .proposition')) {
+  } else if (e.target.matches('.content .proposition')) {
     handlePropositionClicked(e.target, e.ctrlKey, false)
-  } else if (e.target.matches('.content:not(.truncate) .proposition~input[type="checkbox"]')) {
+  } else if (e.target.matches('.content .proposition~input[type="checkbox"]')) {
     handlePropositionClicked(e.target.previousSibling, e.ctrlKey, true)
   } else if (e.target.matches('.concept-badge')){
     onConceptBadgeClick(e.target)
