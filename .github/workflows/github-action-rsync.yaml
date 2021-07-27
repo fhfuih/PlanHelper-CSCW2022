@@ -2,19 +2,19 @@ name: GitHub Action Deploy
 on:
   push:
     branches:
-    - master
+    - baseline
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: rsync deployments
+    - name: baseline rsync deployments
       uses: burnett01/rsync-deployments@4.1
       with:
         switches: -avzr --delete --exclude ".*" --exclude "scripts" --exclude "jsconfig.json"
         # path: src/
-        remote_path: /home/zsx/cqa_rsync/
+        remote_path: /home/zsx/cqa_baseline_rsync/
         remote_host: ${{ secrets.REMOTE_HOST }}
         remote_port: ${{ secrets.REMOTE_PORT }}
         remote_user: ${{ secrets.REMOTE_USER }}
