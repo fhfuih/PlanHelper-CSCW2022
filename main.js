@@ -279,7 +279,6 @@ function handlePropositionClicked(el, ctrlKey, isClickingCheckbox) {
 
 function handleSubConceptPropositionClicked(el, checkboxEl, isClickingCheckbox) {
   const data = getElData(el)
-  console.log(data)
   const checkboxInAnswerPane = getPropositionCheckboxEl(data)
   if (!isClickingCheckbox) {
     checkboxEl.checked = !checkboxEl.checked
@@ -323,10 +322,14 @@ function changeConceptColor(concept, color, isDark) {
     ...document.querySelectorAll(`mark.proposition.concept-${concept}`), // answer pane propositions
     ...document.querySelectorAll(`.badge[concept-name="${concept}"]`) // answer+concept pane badges
   ]
+  let fromColor = els[0].getAttribute('style');
+  console.log(els[0])
+  console.log(els[0].getAttribute('style'))
   els.forEach((el) => {
     // 因为有 !important，必须setAttribute修改，不能.style.setProperty或者.style.backgroundColor = 修改
     el.setAttribute('style', `background-color: ${color} !important; color: ${isDark ? 'white' : 'black'} !important;`)
   })
+  const operationHistory = {'name': 'change-color', 'data': []}
 }
 
 function clearConceptColor(concept) {
@@ -745,6 +748,9 @@ function onResetNoteClick() {
   const operationData = {'name': 'reset-note', 'data':[changedEl, changedEl.textContent]}
   changedEl.textContent = getProposition(data).content
   updateOperationHistory(operationData)
+  if(!calledByUndoRedo){
+    redoList = []
+  }
 }
 
 function onRemoveNoteClick() {
@@ -778,11 +784,18 @@ function onResetConceptClick() {
 }
 
 function onRemoveConceptClick() {
-  const lis = lastPopoverReference.closest('li').querySelectorAll('li.note')
-  lis.forEach(li => {
-    const data = getElData(li)
+  const noteContainer = document.getElementById('note-container')
+  const li = lastPopoverReference.closest('li')
+  const conceptName = li.getAttribute('concept-name')
+  const lis = li.querySelectorAll('li.note')
+  const liIdx = Array.prototype.indexOf.call(noteContainer.childNodes, lastPopoverReference.closest('li'))
+  lis.forEach(el => {
+    const data = getElData(el)
     getPropositionEl(data, document.getElementById('answer-container')).click()
+    operationHistory.pop()
   })
+  const operationData = {'name': 'remove-concept', 'data': [lis, liIdx, conceptName]}
+  updateOperationHistory(operationData)
 }
 
 
@@ -954,9 +967,9 @@ function onUndoClicked(){
   calledByUndoRedo = true;
   if(operationHistory.length === 0) return
   const previousOperation = operationHistory.pop()
-  if(previousOperation['name'] === 'add-note' || previousOperation['name'] === 'remove-note'){
+  if(previousOperation['name'] === 'add-note'){
     let idxData;
-    if(previousOperation['data'].hasOwnProperty('ansIdx')){
+    if(previousOperation['data'].hasOwnProperty('ansIdx') || previousOperation['name'] === 'remove-note'){
       idxData = {'propIdx': previousOperation['data']['propIdx'], 'ansIdx': previousOperation['data']['ansIdx']}
     }
     else{
@@ -1031,6 +1044,27 @@ function onUndoClicked(){
     changedEl.textContent = newText
     previousOperation['data'][1] = originalText
     updateConceptPaneData([originalText, newText], 'edit-concept')
+  }
+
+  else if(previousOperation['name'] === 'remove-concept'){
+    const operationHistoryCopy = [...operationHistory]
+    const redoListCopy = [...redoList]
+
+    const lis = previousOperation['data'][0]
+    const liIdx = previousOperation['data'][1]
+    const conceptName = previousOperation['data'][2]
+    lis.forEach(el => {
+      const data = getElData(el)
+      getPropositionEl(data, document.getElementById('answer-container')).click()
+    })
+    const noteContainer = document.getElementById('note-container')
+    const li = noteContainer.querySelector(`li[concept-name=${conceptName}]`)
+    if(noteContainer.childNodes && liIdx !== noteContainer.childNodes.length - 1){
+      const toNode = noteContainer.childNodes[liIdx]
+      noteContainer.insertBefore(li, toNode)
+    }
+    operationHistory = [...operationHistoryCopy]
+    redoList = [...redoListCopy]
   }
 
   updateRedoList(previousOperation)
@@ -1151,6 +1185,18 @@ function onRedoClicked(){
     previousOperation['data'][1] = originalText
     updateOperationHistory(previousOperation)
     updateConceptPaneData([originalText, newText], 'edit-concept')
+  }
+  else if(previousOperation['name'] === 'remove-concept'){
+    const redoListCopy = [...redoList]
+    const operationHistoryCopy = [...operationHistory]
+    const lis = previousOperation['data'][0]
+    lis.forEach(el => {
+      const data = getElData(el)
+      getPropositionEl(data, document.getElementById('answer-container')).click()
+    })
+    operationHistory = operationHistoryCopy
+    redoList = redoListCopy
+    operationHistory.push(previousOperation) 
   }
   calledByUndoRedo = false
 }
