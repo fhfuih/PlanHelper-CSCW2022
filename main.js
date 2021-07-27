@@ -221,9 +221,10 @@ function addToNote(data) {
     prop['simAnsIdx'] = data['simAnsIdx']
     prop['colAnsIdx'] = data['colAnsIdx']
   }
-
-  const operationData = {'name': 'add-note', 'data': prop}
-  updateOperationHistory(operationData)
+  if(!calledByUndoRedo){
+    const operationData = {'name': 'add-note', 'data': prop}
+    updateOperationHistory(operationData)
+  }
 }
 
 function removeFromNote(data) {
@@ -251,9 +252,10 @@ function removeFromNote(data) {
   
   updateConceptPaneData(data=propData, operation='delete')
 
-  
-  const operationData = {'name': 'remove-note', 'data': propData}
-  updateOperationHistory(operationData)
+  if(!calledByUndoRedo){
+    const operationData = {'name': 'remove-note', 'data': propData}
+    updateOperationHistory(operationData)
+  }
 }
 
 function handlePropositionClicked(el, ctrlKey, isClickingCheckbox) {
@@ -292,6 +294,9 @@ function handleSubConceptPropositionClicked(el, checkboxEl, isClickingCheckbox) 
     removeFromNote(data)
   }
   checkboxInAnswerPane.checked = checkboxEl.checked
+  if(!calledByUndoRedo){
+    redoList = []
+  }
 }
 
 function linkPropositionAndNote(contextElement, propositionList) {
@@ -325,14 +330,17 @@ function changeConceptColor(concept, color, isDark) {
     ...document.querySelectorAll(`mark.proposition.concept-${concept}`), // answer pane propositions
     ...document.querySelectorAll(`.badge[concept-name="${concept}"]`) // answer+concept pane badges
   ]
-  let fromColor = els[0].getAttribute('style');
-  console.log(els[0])
-  console.log(els[0].getAttribute('style'))
+  const fromColor = els[0].style.backgroundColor;
+  const fromIsDark = (els[0].style.color == 'white' || els[0].style.color == "") ? true : false
   els.forEach((el) => {
     // 因为有 !important，必须setAttribute修改，不能.style.setProperty或者.style.backgroundColor = 修改
     el.setAttribute('style', `background-color: ${color} !important; color: ${isDark ? 'white' : 'black'} !important;`)
   })
-  const operationHistory = {'name': 'change-color', 'data': []}
+  if(!calledByUndoRedo){
+    const operationHistory = {'name': 'change-concept-color', 'data': {'from-color': fromColor, 'to-color':color ,'concept-name': concept, 'from-is-dark': fromIsDark, 'to-is-dark': isDark}}
+    updateOperationHistory(operationHistory)
+    redoList = []
+  }
 }
 
 function clearConceptColor(concept) {
@@ -341,9 +349,16 @@ function clearConceptColor(concept) {
     ...document.querySelectorAll(`mark.proposition.concept-${concept}`), // answer pane propositions
     ...document.querySelectorAll(`.badge[concept-name="${concept}"]`) // answer+concept pane badges
   ]
+  let fromColor = els[0].style.backgroundColor
+  const isDark = els[0].style.color == 'white' ? true : false;
   els.forEach((el) => {
     el.removeAttribute('style')
   })
+  if(!calledByUndoRedo){
+    const operationHistory = {'name': 'change-concept-color', 'data': {'from-color': fromColor, 'to-color': '','concept-name': concept, 'from-is-dark': isDark, 'to-is-dark': ""}}
+    updateOperationHistory(operationHistory)
+    redoList = []
+  }
 }
 
 function initNotePaneDoubleClickNote() {
@@ -740,8 +755,10 @@ function onEditNoteClick() {
 
   const operationData = {'name': 'edit-note', 'data':[changedEl, changedEl.textContent]}
   changedEl.textContent = newProp
-
-  updateOperationHistory(operationData)
+  if(!calledByUndoRedo){
+    updateOperationHistory(operationData)
+    redoList = []
+  }
 }
 
 function onResetNoteClick() {
@@ -750,9 +767,9 @@ function onResetNoteClick() {
   const changedEl = li.querySelector('.content')
   const operationData = {'name': 'reset-note', 'data':[changedEl, changedEl.textContent]}
   changedEl.textContent = getProposition(data).content
-  updateOperationHistory(operationData)
   if(!calledByUndoRedo){
     redoList = []
+    updateOperationHistory(operationData)
   }
 }
 
@@ -770,8 +787,12 @@ function onEditConceptClick() {
   changedEl.textContent = newConcept
 
   const operationData = {'name': 'edit-concept', 'data': [changedEl, originalConcept]}
-  updateOperationHistory(operationData)
-  updateConceptPaneData([originalConcept, newConcept], 'edit-concept')
+  if(!calledByUndoRedo){
+    redoList = []
+    updateOperationHistory(operationData)
+    updateConceptPaneData([originalConcept, newConcept], 'edit-concept')
+  }
+  
   
 }
 
@@ -782,8 +803,13 @@ function onResetConceptClick() {
   changedEl.textContent = li.getAttribute('concept-name')
   const newConcept = li.getAttribute('concept-name')
   const operationData = {'name': 'reset-concept', 'data': [changedEl, originalConcept]}
-  updateOperationHistory(operationData)
-  updateConceptPaneData([originalConcept, newConcept], 'reset-concept')
+
+  if(!calledByUndoRedo){
+    redoList = []
+    updateOperationHistory(operationData)
+    updateConceptPaneData([originalConcept, newConcept], 'reset-concept')
+  }
+  
 }
 
 function onRemoveConceptClick() {
@@ -798,7 +824,11 @@ function onRemoveConceptClick() {
     operationHistory.pop()
   })
   const operationData = {'name': 'remove-concept', 'data': [lis, liIdx, conceptName]}
-  updateOperationHistory(operationData)
+  if(!calledByUndoRedo){
+    redoList = []
+    updateOperationHistory(operationData)
+  }
+  
 }
 
 
@@ -980,7 +1010,6 @@ function onUndoClicked(){
     }
 
     getPropositionEl(idxData, document.getElementById('answer-container')).click()
-    operationHistory.pop()
   }
   else if(previousOperation['name'] === 'clear'){
     const operationHistoryCopy = [...operationHistory]
@@ -1069,6 +1098,22 @@ function onUndoClicked(){
     operationHistory = [...operationHistoryCopy]
     redoList = [...redoListCopy]
   }
+  else if(previousOperation['name'] === 'change-concept-color'){
+    const fromColor = previousOperation['data']['from-color']
+    const toColor = previousOperation['data']['to-color']
+    const fromIsDark = previousOperation['data']['from-is-dark']
+    const toIsDark = previousOperation['data']['to-is-dark']
+    if(fromColor == ""){
+      clearConceptColor(previousOperation['data']['concept-name'])
+    }
+    else{
+      changeConceptColor(previousOperation['data']['concept-name'], fromColor, previousOperation['data']['from-is-dark'])
+    }
+    previousOperation['data']['from-color'] = toColor
+    previousOperation['data']['to-color'] = fromColor
+    previousOperation['data']['from-is-dark'] = toIsDark
+    previousOperation['data']['to-is-dark'] = fromIsDark
+  }
 
   updateRedoList(previousOperation)
   calledByUndoRedo = false
@@ -1127,6 +1172,7 @@ function onRedoClicked(){
     }
 
     getPropositionEl(idxData, document.getElementById('answer-container')).click()
+    updateOperationHistory(previousOperation)
   }
   else if(previousOperation['name'] === 'clear'){
     onClearClicked()
@@ -1200,6 +1246,24 @@ function onRedoClicked(){
     operationHistory = operationHistoryCopy
     redoList = redoListCopy
     operationHistory.push(previousOperation) 
+  }
+  else if(previousOperation['name'] === 'change-concept-color'){
+    const fromColor = previousOperation['data']['from-color']
+    const toColor = previousOperation['data']['to-color']
+    const fromIsDark = previousOperation['data']['from-is-dark']
+    const toIsDark = previousOperation['data']['to-is-dark']
+    if(fromColor == ""){
+      clearConceptColor(previousOperation['data']['concept-name'])
+    }
+    else{
+      changeConceptColor(previousOperation['data']['concept-name'], fromColor, previousOperation['data']['from-is-dark'])
+    }
+    previousOperation['data']['from-color'] = toColor
+    previousOperation['data']['to-color'] = fromColor
+    previousOperation['data']['from-is-dark'] = toIsDark
+    previousOperation['data']['to-is-dark'] = fromIsDark
+
+    updateOperationHistory(previousOperation)
   }
   calledByUndoRedo = false
 }
