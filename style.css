@@ -240,6 +240,9 @@ jmnode.root {
   font-size: 16px;
   padding: 8px;
 }
+jmnode:not(.root) {
+  cursor: pointer;
+}
 
 /* note pane + concept pane layout */
 #note-pane-card > .card-body, #concept-pane-card > .card-body {
