@@ -118,6 +118,9 @@
             <button type="button" class="btn btn-light p-1" onclick="onSaveClicked()" title="Save">
               <i class = "bi bi-download"></i>
             </button>
+            <button type="button" class="btn btn-light p-1" onclick="onUploadClicked()" title="Upload">
+              <i class="bi bi-upload"></i>
+            </button>
             <button type="button" class="btn btn-light p-1" onclick="onClearClicked()" title="Clear">
               <i class = "bi bi-trash"></i>
             </button>
@@ -213,5 +216,7 @@
       </div>
     </div>
   </div>
+  <input type="file" id="upload-file-input" hidden/>
+  <div id="uploaded-json" style="display: none;"></div>
 </body>
 </html>

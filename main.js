@@ -22,12 +22,12 @@ const sortableOptions = {
   // only update operation history data when the dragged item's position is changed
   onUpdate: function(evt){
     const draggedItem = evt.item
-    const operationData = {'name': 'drag-and-drop-update', 'data':[draggedItem, evt.from, evt.to, evt.oldIndex, evt.newIndex]}
+    const operationData = {'name': 'drag-and-drop-update', 'data':[draggedItem, evt.from.getAttribute('id'), evt.to.getAttribute('id'), evt.oldIndex, evt.newIndex]}
     updateOperationHistory(operationData)
   },
   onRemove: function(evt){
     const draggedItem = evt.item
-    const operationData = {'name': 'drag-and-drop-remove', 'data':[draggedItem, evt.from, evt.to, evt.oldIndex, evt.newIndex]}
+    const operationData = {'name': 'drag-and-drop-remove', 'data':[draggedItem, evt.from.getAttribute('id'), evt.to.getAttribute('id'), evt.oldIndex, evt.newIndex]}
     updateOperationHistory(operationData)
   }
 }
@@ -773,7 +773,7 @@ function onEditNoteClick() {
   if (!newProp) return
   const changedEl = lastPopoverReference.closest('li').querySelector('.content')
 
-  const operationData = {'name': 'edit-note', 'data':[changedEl, changedEl.textContent]}
+  const operationData = {'name': 'edit-note', 'data':[changedEl, changedEl.textContent, newProp]}
   changedEl.textContent = newProp
   if(!calledByUndoRedo){
     updateOperationHistory(operationData)
@@ -785,7 +785,7 @@ function onResetNoteClick() {
   const li = lastPopoverReference.closest('li')
   const data = getElData(li)
   const changedEl = li.querySelector('.content')
-  const operationData = {'name': 'reset-note', 'data':[changedEl, changedEl.textContent]}
+  const operationData = {'name': 'reset-note', 'data':[changedEl, changedEl.textContent, getProposition(data).content]}
   changedEl.textContent = getProposition(data).content
   if(!calledByUndoRedo){
     redoList = []
@@ -806,7 +806,7 @@ function onEditConceptClick() {
   const originalConcept = changedEl.textContent
   changedEl.textContent = newConcept
 
-  const operationData = {'name': 'edit-concept', 'data': [changedEl, originalConcept]}
+  const operationData = {'name': 'edit-concept', 'data': [changedEl, originalConcept, newConcept]}
   if(!calledByUndoRedo){
     redoList = []
     updateOperationHistory(operationData)
@@ -822,7 +822,7 @@ function onResetConceptClick() {
   const originalConcept = changedEl.textContent
   changedEl.textContent = li.getAttribute('concept-name')
   const newConcept = li.getAttribute('concept-name')
-  const operationData = {'name': 'reset-concept', 'data': [changedEl, originalConcept]}
+  const operationData = {'name': 'reset-concept', 'data': [changedEl, originalConcept, newConcept]}
 
   if(!calledByUndoRedo){
     redoList = []
@@ -1020,15 +1020,14 @@ function onUndoClicked(){
   calledByUndoRedo = true;
   if(operationHistory.length === 0) return
   const previousOperation = operationHistory.pop()
-  if(previousOperation['name'] === 'add-note'){
+  if(previousOperation['name'] === 'add-note' || previousOperation['name'] === 'remove-note'){
     let idxData;
-    if(previousOperation['data'].hasOwnProperty('ansIdx') || previousOperation['name'] === 'remove-note'){
+    if(previousOperation['data'].hasOwnProperty('ansIdx')){
       idxData = {'propIdx': previousOperation['data']['propIdx'], 'ansIdx': previousOperation['data']['ansIdx']}
     }
     else{
       idxData = {'propIdx': previousOperation['data']['propIdx'], 'simAnsIdx': previousOperation['data']['simAnsIdx'], 'colAnsIdx': previousOperation['data']['colAnsIdx']}
     }
-
     getPropositionEl(idxData, document.getElementById('answer-container')).click()
   }
   else if(previousOperation['name'] === 'clear'){
@@ -1046,8 +1045,8 @@ function onUndoClicked(){
     const operationData = previousOperation['data']
     
     //operationData = [item, from, to, old index, new index]
-    const fromContainer = operationData[1]
-    const toContainer = operationData[2]
+    const fromContainer = document.getElementById(operationData[1])
+    const toContainer = document.getElementById(operationData[2])
     const oldIndex = operationData[3]
     const newIndex = operationData[4]
     const draggedNode = toContainer.childNodes[newIndex]
@@ -1059,10 +1058,6 @@ function onUndoClicked(){
       const toEl = fromContainer.childNodes[oldIndex]
       fromContainer.insertBefore(draggedNode ,toEl)
     }
-    previousOperation['data'][1] = toContainer
-    previousOperation['data'][2] = fromContainer
-    previousOperation['data'][3] = newIndex
-    previousOperation['data'][4] = oldIndex
 
     const propContent = draggedNode.querySelector('.content').textContent
     const currentConcept = fromContainer.getAttribute('data-concept')
@@ -1070,32 +1065,27 @@ function onUndoClicked(){
   }
   else if(previousOperation['name'] === 'drag-and-drop-update'){
     const operationData = previousOperation['data']
-    const fromContainer = operationData[1]
-    const toContainer = operationData[2]
+    const fromContainer = document.getElementById(operationData[1])
+    const toContainer = document.getElementById(operationData[2])
     const oldIndex = operationData[3]
     const newIndex = operationData[4]
     const draggedNode = toContainer.childNodes[newIndex]
     if(oldIndex > newIndex){
       // move forward
-      const toEl = toContainer.childNodes[oldIndex]
-      toContainer.insertBefore(draggedNode, toEl.nextSibling)
+      const toEl = fromContainer.childNodes[oldIndex]
+      fromContainer.insertBefore(draggedNode, toEl.nextSibling)
     }
     else if(oldIndex < newIndex) {
-      const toEl = toContainer.childNodes[oldIndex]
-      toContainer.insertBefore(draggedNode, toEl)
+      const toEl = fromContainer.childNodes[oldIndex]
+      fromContainer.insertBefore(draggedNode, toEl)
     }
-    previousOperation['data'][1] = toContainer
-    previousOperation['data'][2] = fromContainer
-    previousOperation['data'][3] = newIndex
-    previousOperation['data'][4] = oldIndex
   }
   else if(previousOperation['name'] === 'edit-note' || previousOperation['name'] === 'edit-concept' || previousOperation['name'] === 'reset-note' || previousOperation['name'] === 'reset-concept'){
     const changedEl = previousOperation['data'][0]
-    const originalText = changedEl.textContent
-    const newText = previousOperation['data'][1]
-    changedEl.textContent = newText
-    previousOperation['data'][1] = originalText
-    updateConceptPaneData([originalText, newText], 'edit-concept')
+    const originalText = previousOperation['data'][1]
+    const newText = previousOperation['data'][2]
+    changedEl.textContent = originalText
+    updateConceptPaneData([newText, originalText], 'edit-concept')
   }
 
   else if(previousOperation['name'] === 'remove-concept'){
@@ -1122,17 +1112,13 @@ function onUndoClicked(){
     const fromColor = previousOperation['data']['from-color']
     const toColor = previousOperation['data']['to-color']
     const fromIsDark = previousOperation['data']['from-is-dark']
-    const toIsDark = previousOperation['data']['to-is-dark']
+    
     if(fromColor == ""){
       clearConceptColor(previousOperation['data']['concept-name'])
     }
     else{
-      changeConceptColor(previousOperation['data']['concept-name'], fromColor, previousOperation['data']['from-is-dark'])
+      changeConceptColor(previousOperation['data']['concept-name'], fromColor, fromIsDark)
     }
-    previousOperation['data']['from-color'] = toColor
-    previousOperation['data']['to-color'] = fromColor
-    previousOperation['data']['from-is-dark'] = toIsDark
-    previousOperation['data']['to-is-dark'] = fromIsDark
   }
 
   updateRedoList(previousOperation)
@@ -1142,7 +1128,7 @@ function onUndoClicked(){
 
 function onSaveClicked(){
   if(notePaneData.length === 0) return
-  let dataDownload = []
+  let planData = []
   const noteContainer = document.getElementById('note-container')
   const conceptEls = noteContainer.querySelectorAll('.concept')
 
@@ -1152,9 +1138,10 @@ function onSaveClicked(){
     propEls.forEach(p => {
       propData.push(p.querySelector('.content').textContent)
     })
-    dataDownload.push({'concept-name': el.getAttribute('concept-name'), 'propositions': propData})
+    planData.push({'aspect-name': el.getAttribute('concept-name'), 'propositions': propData})
   })
-  const filename = window.location.href.split('/').slice(-1)[0].trim() + '.json';
+  const filename = 'plan.json';
+  const dataDownload = {'plan': planData, 'operationHistory': operationHistory}
   const jsonStr = JSON.stringify(dataDownload, null, 2);
   let element = document.createElement('a');
   element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(jsonStr));
@@ -1166,6 +1153,7 @@ function onSaveClicked(){
 }
 
 function onClearClicked(){
+  if(operationHistory[operationHistory.length - 1]['name'] == 'clear'){return }
   const operationHistoryCopy = [...operationHistory]
   while(operationHistory.length !== 0){
     onUndoClicked()
@@ -1190,7 +1178,6 @@ function onRedoClicked(){
     else{
       idxData = {'propIdx': previousOperation['data']['propIdx'], 'simAnsIdx': previousOperation['data']['simAnsIdx'], 'colAnsIdx': previousOperation['data']['colAnsIdx']}
     }
-
     getPropositionEl(idxData, document.getElementById('answer-container')).click()
     updateOperationHistory(previousOperation)
   }
@@ -1201,57 +1188,50 @@ function onRedoClicked(){
     const operationData = previousOperation['data']
     
     //operationData = [item, from, to, old index, new index]
-    const fromContainer = operationData[1]
-    const toContainer = operationData[2]
+    const fromContainer = document.getElementById(operationData[1])
+    const toContainer = document.getElementById(operationData[2])
     const oldIndex = operationData[3]
     const newIndex = operationData[4]
-    const draggedNode = toContainer.childNodes[newIndex]
-    if(oldIndex === fromContainer.childNodes.length && fromContainer.childNodes.length !== 0){
-      const toEl = fromContainer.childNodes[oldIndex - 1]
-      fromContainer.insertBefore(draggedNode, toEl.nextSibling)
+    const draggedNode = fromContainer.childNodes[oldIndex]
+    if(newIndex === toContainer.childNodes.length && toContainer.childNodes.length !== 0){
+      const toEl = toContainer.childNodes[newIndex - 1]
+      toContainer.insertBefore(draggedNode, toEl.nextSibling)
     }
     else{
-      const toEl = fromContainer.childNodes[oldIndex]
-      fromContainer.insertBefore(draggedNode ,toEl)
+      const toEl = toContainer.childNodes[newIndex]
+      toContainer.insertBefore(draggedNode ,toEl)
     }
-    previousOperation['data'][1] = toContainer
-    previousOperation['data'][2] = fromContainer
-    previousOperation['data'][3] = newIndex
-    previousOperation['data'][4] = oldIndex
 
     updateOperationHistory(previousOperation)
     const propContent = draggedNode.querySelector('.content').textContent
-    const currentConcept = fromContainer.getAttribute('data-concept')
+    const currentConcept = toContainer.getAttribute('data-concept')
     updateConceptPaneData([propContent, currentConcept], 'drag-proposition')
   }
   else if(previousOperation['name'] === 'drag-and-drop-update'){
     const operationData = previousOperation['data']
-    const fromContainer = operationData[1]
-    const toContainer = operationData[2]
+    const fromContainer = document.getElementById(operationData[1])
+    const toContainer = document.getElementById(operationData[2])
     const oldIndex = operationData[3]
     const newIndex = operationData[4]
-    const draggedNode = toContainer.childNodes[newIndex]
+    const draggedNode = toContainer.childNodes[oldIndex]
     if(oldIndex > newIndex){
       // move forward
-      const toEl = toContainer.childNodes[oldIndex]
-      toContainer.insertBefore(draggedNode, toEl.nextSibling)
-    }
-    else if(oldIndex < newIndex) {
-      const toEl = toContainer.childNodes[oldIndex]
+      const toEl = toContainer.childNodes[newIndex]
       toContainer.insertBefore(draggedNode, toEl)
     }
-    previousOperation['data'][1] = toContainer
-    previousOperation['data'][2] = fromContainer
-    previousOperation['data'][3] = newIndex
-    previousOperation['data'][4] = oldIndex
+    else if(oldIndex < newIndex) {
+      const toEl = toContainer.childNodes[newIndex]
+      toContainer.insertBefore(draggedNode, toEl.nextSibling)
+    }
+
     updateOperationHistory(previousOperation)
   }
   else if(previousOperation['name'] === 'edit-note' || previousOperation['name'] === 'edit-concept' || previousOperation['name'] === 'reset-note' || previousOperation['name'] === 'reset-concept'){
     const changedEl = previousOperation['data'][0]
-    const originalText = changedEl.textContent
-    const newText = previousOperation['data'][1]
+    const originalText = previousOperation['data'][1]
+    const newText = previousOperation['data'][2]
     changedEl.textContent = newText
-    previousOperation['data'][1] = originalText
+
     updateOperationHistory(previousOperation)
     updateConceptPaneData([originalText, newText], 'edit-concept')
   }
@@ -1272,18 +1252,70 @@ function onRedoClicked(){
     const toColor = previousOperation['data']['to-color']
     const fromIsDark = previousOperation['data']['from-is-dark']
     const toIsDark = previousOperation['data']['to-is-dark']
-    if(fromColor == ""){
+    if(toColor == ""){
       clearConceptColor(previousOperation['data']['concept-name'])
     }
     else{
-      changeConceptColor(previousOperation['data']['concept-name'], fromColor, previousOperation['data']['from-is-dark'])
+      changeConceptColor(previousOperation['data']['concept-name'], toColor, toIsDark)
     }
-    previousOperation['data']['from-color'] = toColor
-    previousOperation['data']['to-color'] = fromColor
-    previousOperation['data']['from-is-dark'] = toIsDark
-    previousOperation['data']['to-is-dark'] = fromIsDark
 
     updateOperationHistory(previousOperation)
   }
   calledByUndoRedo = false
 }
+
+function onUploadClicked(){
+  const uploadFileEl = document.getElementById('upload-file-input')
+  uploadFileEl.click()
+  uploadFileEl.addEventListener('change', handleFileUpload)
+
+  async function readToText(file) {
+
+    const temporaryFileReader = new FileReader();
+
+    return new Promise((resolve, reject) => {
+        temporaryFileReader.onerror = () => {
+            temporaryFileReader.abort();
+            reject(new DOMException("Problem parsing input file."));
+        };
+
+        temporaryFileReader.onload = () => {
+            resolve(temporaryFileReader.result);
+        };
+        temporaryFileReader.readAsText(file);
+    });
+
+};
+  async function handleFileUpload(e){
+
+    const fileContents = await readToText(this.files[0])
+    
+    redoList = JSON.parse(fileContents)['operationHistory'].reverse()
+    while(redoList.length !== 0){
+      onRedoClicked()
+    }
+  
+
+}
+
+
+
+
+  // function handleFiles(){
+  //   const fileList = this.files
+  //   const file = fileList[0]
+  //   console.log(file)
+
+  //   const reader = new FileReader()
+  //   reader.onload = function(event) {
+  //     console.log(event.target.result)
+  //     redoList = event.target.result['operationHistory']
+  //     while(redoList.length != 0){
+  //       console.log('l')
+  //       onRedoClicked()
+  //     }
+  //   }
+  //   reader.readAsText(file)
+  // }
+}
+
