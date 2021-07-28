@@ -383,7 +383,7 @@ function clearConceptColor(concept) {
 
 function initNotePaneDoubleClickNote() {
   document.getElementById('note-container').addEventListener('click', (e) => {
-    if (e.target && e.target.matches('.note > .content') && e.ctrlKey) {
+    if (e.target && e.target.matches('.note > .content') && (e.ctrlKey || e.metaKey)) {
       e.preventDefault()
       const li = e.target.closest('li')
       const ansIdx = li.getAttribute('data-answer')
@@ -747,9 +747,9 @@ document.addEventListener('click', (e) => {
       buttonEl.innerHTML = '<i class="bi bi-caret-up-fill"></i> Collapse'
     }
   } else if (e.target.matches('.content .proposition')) {
-    handlePropositionClicked(e.target, e.ctrlKey, false)
+    handlePropositionClicked(e.target, (e.ctrlKey || e.metaKey), false)
   } else if (e.target.matches('.content .proposition~input[type="checkbox"]')) {
-    handlePropositionClicked(e.target.previousSibling, e.ctrlKey, true)
+    handlePropositionClicked(e.target.previousSibling, (e.ctrlKey || e.metaKey), true)
   } else if (e.target.matches('.concept-badge')){
     onConceptBadgeClick(e.target)
   } else if (e.target.matches('jmnode:not(.root)')) {
@@ -763,7 +763,7 @@ document.addEventListener('click', (e) => {
 
 // 监听ctrl键有没有按下并调整style
 function ctrlHandler(e) {
-  document.body.className = e.ctrlKey ? 'ctrl-down' : ''
+  document.body.className = (e.ctrlKey || e.metaKey) ? 'ctrl-down' : ''
 }
 document.addEventListener('keydown', ctrlHandler)
 document.addEventListener('keyup', ctrlHandler)
