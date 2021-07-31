@@ -71,7 +71,7 @@ mark, .mark {
   right: 0;
   height: 5rem;
   background: linear-gradient(to top, #ffff, #fff0);
-  z-index: 100;
+  z-index: 1;
 }
 .content.truncate.truncate-small::before {
   height: 2rem;
@@ -302,6 +302,7 @@ jmnode:not(.root) {
 #colorjoe-popover {
   background-color: #fff;
   transition: opacity .3s;
+  z-index: 100;
 }
 #colorjoe-popover:not([data-show]) {
   opacity: 0;
