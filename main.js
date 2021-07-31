@@ -44,6 +44,7 @@ let notePaneData = []; // [{'content': ,'concept': ,'subconcept':}, {...}]
 let operationHistory = []; // [{'name': 'add-proposition', 'data': prop}, {'name': 'drag-and-drop', 'data':[prop/concept, from, to]}, {'name': 'edit-note', 'data':prop/concept}]
 let redoList = [];
 let subConceptModal;
+let editModal;
 
 function fetchPageData() {
   const queryParams = new URLSearchParams(window.location.search)
@@ -665,16 +666,27 @@ function initColorjoe() {
   })
 }
 
+function initEditModal() {
+  // editModal的触发放在了那个大的'click'事件handler中
+  const editModalEl = document.getElementById('editModal')
+  editModal = new bootstrap.Modal(editModalEl)
+  editModalEl.addEventListener('show.bs.modal', e => {
+    const button = e.relatedTarget.closest('button')
+    editModalEl.querySelector('#editModalLabel>span').textContent = button.dataset.type
+    editModalEl.querySelector('#edit-input').value = ''
+  })
+}
+
 // 等价于jQuery的 $.ready(...) 即 $(...)
 document.addEventListener('DOMContentLoaded', async () => {
   // 把和数据无关的UI init放到fetchPageData之前，防止用户看到尚未初始化的丑逼UI
   initNoteConceptPaneSplit()
   initToTopButton()
   initSubConceptModal()
+  initEditModal()
 
   const res = await fetchPageData();
   const {question, description} = res; // answers 和 collapsedAnswers在await之后已经写入全局
-
 
   // 加载问题
   document.getElementById('question').textContent = question
@@ -758,6 +770,8 @@ document.addEventListener('click', (e) => {
     handleSubConceptPropositionClicked(e.target, e.target.nextElementSibling, false)
   } else if (e.target.matches('#subConceptModal .proposition~input[type="checkbox"]')) {
     handleSubConceptPropositionClicked(e.target.previousSibling, e.target, true)
+  } else if (e.target.matches('.edit-modal-button, .edit-modal-button *')) {
+    editModal.show(e.target)
   }
 })
 
@@ -768,8 +782,24 @@ function ctrlHandler(e) {
 document.addEventListener('keydown', ctrlHandler)
 document.addEventListener('keyup', ctrlHandler)
 
-function onEditNoteClick() {
-  const newProp = prompt('Please enter your proposition')
+function onEditClick() {
+  if(!document.getElementById('editModalForm').reportValidity()) return
+
+  const newStuff = document.getElementById('edit-input').value
+  const type = document.querySelector('#editModalLabel>span').textContent
+  switch(type) {
+    case 'proposition':
+      editNote(newStuff)
+      editModal.hide()
+      break
+    case 'aspect':
+      editConcept(newStuff)
+      editModal.hide()
+      break
+  }
+}
+
+function editNote(newProp) {
   if (!newProp) return
   const changedEl = lastPopoverReference.closest('li').querySelector('.content')
 
@@ -799,8 +829,7 @@ function onRemoveNoteClick() {
   getPropositionEl(data, document.getElementById('answer-container')).click()
 }
 
-function onEditConceptClick() {
-  const newConcept = prompt('Please enter your concept')
+function editConcept(newConcept) {
   if (!newConcept) return
   const changedEl = lastPopoverReference.closest('li').querySelector('.content')
   const originalConcept = changedEl.textContent

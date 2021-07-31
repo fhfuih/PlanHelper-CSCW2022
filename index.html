@@ -144,7 +144,7 @@
               </li>
             </template>
             <template id="template-note-popover">
-              <button type="button" class="btn btn-link p-0" onclick="onEditNoteClick()" title="Edit note">
+              <button type="button" class="btn btn-link p-0 edit-modal-button" title="Edit note" data-type="proposition">
                 <i class="bi bi-pencil-square"></i>
               </button>
               <button type="button" class="btn btn-link p-0" onclick="onResetNoteClick()" title="Reset note">
@@ -155,7 +155,7 @@
               </button>
             </template>
             <template id="template-concept-popover">
-              <button type="button" class="btn btn-link p-0" onclick="onEditConceptClick()" title="Edit aspect">
+              <button type="button" class="btn btn-link p-0 edit-modal-button" title="Edit aspect" data-type="aspect">
                 <i class="bi bi-pencil-square"></i>
               </button>
               <button type="button" class="btn btn-link p-0" onclick="onResetConceptClick()" title="Reset aspect">
@@ -210,6 +210,27 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editModalLabel">Please enter your <span></span></h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="editModalForm">
+            <div class="mb-3">
+              <input type="text" class="form-control" id="edit-input" required>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" onclick="onEditClick(event)">Confirm</button>
         </div>
       </div>
     </div>
