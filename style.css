@@ -71,6 +71,7 @@ mark, .mark {
   right: 0;
   height: 5rem;
   background: linear-gradient(to top, #ffff, #fff0);
+  z-index: 100;
 }
 .content.truncate.truncate-small::before {
   height: 2rem;
@@ -367,19 +368,22 @@ body.ctrl-down .proposition, body.ctrl-down .note > .content {
 }
 
 .truncate {
-  display: -webkit-box;
+  overflow: hidden;
+  height: 15rem;
+  /* display: -webkit-box;
   -webkit-line-clamp: 3;
   line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+  -webkit-box-orient: vertical; */
 }
 .truncate.truncate-large {
-  -webkit-line-clamp: 8;
-  line-clamp: 8;
+  height: 15rem;
+  /* -webkit-line-clamp: 8;
+  line-clamp: 8; */
 }
 .truncate.truncate-small {
-  -webkit-line-clamp: 3;
-  line-clamp: 3;
+  height: 5rem;
+  /* -webkit-line-clamp: 3;
+  line-clamp: 3; */
 }
 
 .blink {
