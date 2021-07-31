@@ -23,12 +23,15 @@ const sortableOptions = {
   onUpdate: function(evt){
     const draggedItem = evt.item
     const operationData = {'name': 'drag-and-drop-update', 'data':[draggedItem, evt.from.getAttribute('id'), evt.to.getAttribute('id'), evt.oldIndex, evt.newIndex]}
+    // console.log('dnd update:', operationData)
     updateOperationHistory(operationData)
   },
   onRemove: function(evt){
     const draggedItem = evt.item
     const operationData = {'name': 'drag-and-drop-remove', 'data':[draggedItem, evt.from.getAttribute('id'), evt.to.getAttribute('id'), evt.oldIndex, evt.newIndex]}
+    // console.log('dnd remove:', operationData)
     updateOperationHistory(operationData)
+    updateConceptColor(operationData)
   }
 }
 // note pane popover button menu
@@ -281,7 +284,6 @@ function removeFromNote(data) {
 function handlePropositionClicked(el, ctrlKey, isClickingCheckbox) {
   const data = getElData(el)
   const checkbox = getPropositionCheckboxEl(data)
-  console.debug(data, 'clicked')
   // 跳转到note
   if (ctrlKey) {
     scrollIntoView(`.note${getDataSelector(data)}`)
@@ -378,6 +380,22 @@ function clearConceptColor(concept) {
     const operationHistory = {'name': 'change-concept-color', 'data': {'from-color': fromColor, 'to-color': '','concept-name': concept, 'from-is-dark': isDark, 'to-is-dark': ""}}
     updateOperationHistory(operationHistory)
     redoList = []
+  }
+}
+
+function updateConceptColor (operationData) {
+  switch (operationData.name) {
+    case 'drag-and-drop-remove': // 当跨concept拖动时
+      const [el, _, toId] = operationData.data
+      const toConceptEl = document.getElementById(toId).previousElementSibling.previousElementSibling
+      const elData = getElData(el)
+      // 在answer pane的该proposition上色
+      const propositionEl = document.querySelector(`#answer-container ${getDataSelector(elData)}`)
+      propositionEl.setAttribute('style', toConceptEl.getAttribute('style'))
+      return
+    case 'drag-and-drop-update': // 当在concept内拖动时（或拖动concept时）
+    default:
+      return
   }
 }
 
@@ -622,7 +640,7 @@ function initColorjoe() {
     'save',
     'clear',
   ]);
-  console.log(joe)
+  console.debug( 'color joe instance', joe)
 
   const firstAnswerConceptBadge = document.querySelector('#answer-container .badge')
   const colorjoePopover = document.getElementById('colorjoe-popover')
@@ -637,7 +655,7 @@ function initColorjoe() {
       { name: 'eventListeners', enabled: false }
     ],
   })
-  console.log(popperInstance)
+  console.debug('color joe popper instance', popperInstance)
 
   document.addEventListener('click', (e) => {
     if (!e.target) return
