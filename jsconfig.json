@@ -6,7 +6,6 @@
       "lodash",
       "dayjs",
       "sortablejs",
-      "@simonwep/pickr",
       "split.js"
     ]
   }

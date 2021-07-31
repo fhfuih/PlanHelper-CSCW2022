@@ -353,12 +353,10 @@ function changeConceptColor(concept, color, isDark) {
   let els;
   const badgeEls = document.querySelectorAll(`.badge[concept-name="${concept}"]`)
   const notePaneConceptEl = document.querySelector(`#note-container > li[concept-name="${concept}"] > .content`)
-  console.log(notePaneConceptEl)
   if (notePaneConceptEl) {
     // 如果该concept在notepane中，以notepane当前拖拽结果包含的prop为准
     const notePanePropEls = Array.from(notePaneConceptEl.nextElementSibling.nextElementSibling.children) // proposition-container > *
     const answerPanePropEls = notePanePropEls.map(el => document.querySelector(`#answer-container mark${getDataSelector(getElData(el))}`))
-    console.log(notePanePropEls, answerPanePropEls)
     els = [
       ...badgeEls,
       ...answerPanePropEls,
@@ -452,6 +450,7 @@ function initNotePaneButtonMenu() {
       onFirstUpdate: (state) => {
         const {elements: {reference}} = state
         lastPopoverReference = reference
+        lastClickedBadgeConcept = reference.closest('li').getAttribute('concept-name')
       }
     }
   }
@@ -467,49 +466,6 @@ function initNotePaneButtonMenu() {
     ...options,
     selector: '.popover-concept-menu',
     content: document.getElementById('template-concept-popover').innerHTML.trim(),
-    popperConfig: {
-      onFirstUpdate: (state) => {
-        // console.log(state)
-        const {elements: {reference}} = state
-        lastPopoverReference = reference
-        const pickr = new Pickr({
-          el: '.color-picker',
-          theme: 'nano',
-          useAsButton: true,
-          swatches: COLORS,
-          default: '#000000',
-          lockOpacity: true,
-          components: {
-            preview: true,
-            hue: true,
-            interaction: {
-                input: true,
-                clear: true,
-                save: true
-            }
-          }
-        })
-        pickr.on('save', (color, instance) => {
-          const li = lastPopoverReference.closest('li')
-          const concept = li.getAttribute('concept-name')
-          if (!color) return clearConceptColor(concept)
-          const isDark = color.toHSLA()[2] < 50
-          color = color.toHEXA().toString()
-          console.log('Saving color', color, 'to aspect', concept);
-          changeConceptColor(concept, color, isDark)
-          instance.hide()
-        })
-        // 妈的这里不想处理了
-        // 总之就是，popover消失的时候是直接从DOM树删除了的，Pickr必须在构造的时候挂靠在当时popover（中的button）上。
-        // popover再点一遍的时候就是新的popover元素了，也要创建新的Pickr实例。
-        // 久而久之，老的Pickr实例也没有销毁，就有内存泄漏。
-        // naive的解决方法是在Pickr hide时自我销毁，因为打开Pickr的瞬间focus发生变化、popover已经没了，所以等这次Pickr隐藏时理论上可以销毁
-        // 但是这样做蜜汁在save时可以，在clear时报错。所以加了个1秒的延迟
-        pickr.on('hide', instance => {
-          if (!document.body.contains(instance.el)) setTimeout(() => instance.destroyAndRemove(), 1000)
-        })
-      }
-    }
   })
 }
 
@@ -661,36 +617,41 @@ function initColorjoe() {
     'save',
     'clear',
   ]);
-  console.debug( 'color joe instance', joe)
+  console.debug('color joe instance', joe)
 
   const firstAnswerConceptBadge = document.querySelector('#answer-container .badge')
   const colorjoePopover = document.getElementById('colorjoe-popover')
   const popperInstance = Popper.createPopper(firstAnswerConceptBadge, colorjoePopover, {
     modifiers: [
-      {
-        name: 'offset',
-        options: {
-          offset: [0, 8],
-        },
-      },
-      { name: 'eventListeners', enabled: false }
+      { name: 'offset', options: { offset: [0, 8] } },
+      { name: 'eventListeners', enabled: false },
     ],
   })
   console.debug('color joe popper instance', popperInstance)
 
   document.addEventListener('click', (e) => {
     if (!e.target) return
+
+    let reference = null;
+    let currentColor;
     if (e.target.matches('#answer-container .badge')) {
-      const reference = e.target
+      reference = e.target
       lastClickedBadgeConcept = reference.textContent
-      const currentColor = reference.style.getPropertyValue('background-color')
+      currentColor = reference.style.getPropertyValue('background-color')
+    }
+    else if (e.target.matches('button.color-picker, button.color-picker *')) {
+      reference = lastPopoverReference
+      currentColor = reference.closest('li').querySelector('.content').style.getPropertyValue('background-color')
+    }
+
+    if (reference) {
       if (currentColor) joe.set(currentColor)
+      else joe.set('#000')
       popperInstance.state.elements.reference = reference
       popperInstance.update()
       colorjoePopover.setAttribute('data-show', '')
     } else if (e.target.matches('#colorjoe-popover input.save')) {
       const c = joe.get()
-      // console.log(c.hex(), c.lightness())
       changeConceptColor(lastClickedBadgeConcept, c.hex(), c.lightness() < 0.5)
       colorjoePopover.removeAttribute('data-show')
     } else if (e.target.matches('#colorjoe-popover input.clear')) {
