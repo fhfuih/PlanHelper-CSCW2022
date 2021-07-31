@@ -350,11 +350,29 @@ function linkPropositionAndNote(contextElement, propositionList) {
 }
 
 function changeConceptColor(concept, color, isDark) {
-  const els = [
-    ...document.querySelectorAll(`#note-container > li[concept-name="${concept}"] > .content`), // note pane concept 应该只有一个，但是如果没有，querySelector就会返回一个null。使用querySelectorAll出一个空list
-    ...document.querySelectorAll(`mark.proposition.concept-${concept}`), // answer pane propositions
-    ...document.querySelectorAll(`.badge[concept-name="${concept}"]`) // answer+concept pane badges
-  ]
+  let els;
+  const badgeEls = document.querySelectorAll(`.badge[concept-name="${concept}"]`)
+  const notePaneConceptEl = document.querySelector(`#note-container > li[concept-name="${concept}"] > .content`)
+  console.log(notePaneConceptEl)
+  if (notePaneConceptEl) {
+    // 如果该concept在notepane中，以notepane当前拖拽结果包含的prop为准
+    const notePanePropEls = Array.from(notePaneConceptEl.nextElementSibling.nextElementSibling.children) // proposition-container > *
+    const answerPanePropEls = notePanePropEls.map(el => document.querySelector(`#answer-container mark${getDataSelector(getElData(el))}`))
+    console.log(notePanePropEls, answerPanePropEls)
+    els = [
+      ...badgeEls,
+      ...answerPanePropEls,
+      notePaneConceptEl,
+    ]
+  } else {
+    // 如果该concept不在notepane中，以我们自己划分的prop为准
+    const answerPanePropEls = document.querySelectorAll(`mark.proposition.concept-${concept}`)
+    els = [
+      ...badgeEls,
+      ...answerPanePropEls,
+    ]
+  }
+  // els[0]一定是一个badge
   const fromColor = els[0].style.backgroundColor;
   const fromIsDark = (els[0].style.color == 'white' || els[0].style.color == "") ? true : false
   els.forEach((el) => {
