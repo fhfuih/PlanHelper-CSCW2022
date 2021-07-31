@@ -257,7 +257,6 @@ function removeFromNote(data) {
   const propositionContainer = propositionElement.parentElement
   let propData = {'content' : propositionElement.querySelector(`.content`).textContent}
   const conceptName = propositionContainer.getAttribute('data-concept')
-  const conceptElement = noteContainer.querySelector(`[concept-name="${conceptName}"]`)
 
   propData['propIdx'] = propositionElement.getAttribute('data-proposition')
   propData['ansIdx'] = propositionElement.getAttribute('data-answer')
@@ -266,11 +265,7 @@ function removeFromNote(data) {
   
   // after removal, if there is no proposition under a concept, delete it
   if (propositionContainer.childElementCount == 0){
-    // clearConceptColor(conceptName)
-    // Destroy d'n'd
-    Sortable.get(propositionContainer).destroy()
-    propositionContainer.remove()
-    conceptElement.remove()
+    destroyNotePaneConceptContainer(conceptName)
   }
   
   updateConceptPaneData(data=propData, operation='delete')
@@ -279,6 +274,14 @@ function removeFromNote(data) {
     const operationData = {'name': 'remove-note', 'data': propData}
     updateOperationHistory(operationData)
   }
+}
+
+function destroyNotePaneConceptContainer(concept) {
+  const conceptOuterContainer = document.querySelector(`#note-container .concept[concept-name="${concept}"]`)
+  const propositionContainer = conceptOuterContainer.querySelector(`.proposition-container[data-concept="${concept}"]`)
+  Sortable.get(propositionContainer).destroy()
+  propositionContainer.remove()
+  conceptOuterContainer.remove()
 }
 
 function handlePropositionClicked(el, ctrlKey, isClickingCheckbox) {
@@ -851,22 +854,27 @@ function onResetConceptClick() {
 }
 
 function onRemoveConceptClick() {
+  const answerContainer = document.getElementById('answer-container')
   const noteContainer = document.getElementById('note-container')
   const li = lastPopoverReference.closest('li')
   const conceptName = li.getAttribute('concept-name')
   const lis = li.querySelectorAll('li.note')
-  const liIdx = Array.prototype.indexOf.call(noteContainer.childNodes, lastPopoverReference.closest('li'))
-  lis.forEach(el => {
-    const data = getElData(el)
-    getPropositionEl(data, document.getElementById('answer-container')).click()
-    operationHistory.pop()
-  })
+  const liIdx = Array.prototype.indexOf.call(noteContainer.childNodes, li)
+  if (lis.length) {
+    lis.forEach(el => {
+      const data = getElData(el)
+      getPropositionEl(data, answerContainer).click()
+      operationHistory.pop()
+    })
+  } else {
+    // 当前已经是空concept。成因应该是将prop拖走了。本来移除单个prop的最后会自动删除空concept，但是这里不会进行移除单个prop的操作，所以手动删除空concept
+    destroyNotePaneConceptContainer(conceptName)
+  }
   const operationData = {'name': 'remove-concept', 'data': [lis, liIdx, conceptName]}
   if(!calledByUndoRedo){
     redoList = []
     updateOperationHistory(operationData)
   }
-  
 }
 
 
