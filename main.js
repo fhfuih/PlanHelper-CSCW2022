@@ -184,14 +184,14 @@ function markPropositions(contextElement, propositionList, dataWithoutPropIdx) {
 function addToNote(data) {
   const noteContainer = document.getElementById('note-container')
   // check whether the concept name already exists or not
-  const conceptElements = noteContainer.querySelectorAll(".concept .content")
+  const conceptElements = noteContainer.querySelectorAll(".concept")
   const prop = getProposition(data)
   let conceptExist = false;
   const conceptName = prop.concept
   const propositionContent = prop.content
   const subconceptName = prop.subconcept
   conceptElements.forEach(concept_el => {
-    if (concept_el.textContent == conceptName){
+    if (concept_el.getAttribute('concept-name') == conceptName){
       conceptExist = true;
     }
   })
@@ -235,8 +235,7 @@ function addToNote(data) {
   propositionElement.querySelector('.content').textContent = propositionContent
   setElData(propositionElement, data)
   propositionContainer.append(propositionElement)
-  
-  updateConceptPaneData({...prop}, operation='add')
+  updateConceptPaneData({...prop, ...data}, operation='add')
 
   // console.log(prop)
   // updateConceptPaneData({''})
@@ -259,24 +258,24 @@ function removeFromNote(data) {
   // remove the proposition
   const propositionElement = getPropositionEl(data, noteContainer)
   const propositionContainer = propositionElement.parentElement
-  let propData = {'content' : propositionElement.querySelector(`.content`).textContent}
+  
   const conceptName = propositionContainer.getAttribute('data-concept')
+  const displayName = propositionContainer.parentElement.querySelector('.content').textContent
+  
+  const prop = getProposition(data)
 
-  propData['propIdx'] = propositionElement.getAttribute('data-proposition')
-  propData['ansIdx'] = propositionElement.getAttribute('data-answer')
-  const prop = getProposition({'propIdx': propData['propIdx'], 'ansIdx': propData['ansIdx']})
   propositionElement.remove()
   
   // after removal, if there is no proposition under a concept, delete it
   if (propositionContainer.childElementCount == 0){
     destroyNotePaneConceptContainer(conceptName)
-    updateConceptPaneData(data={...prop, 'reset-badge': true}, operation='delete')
+    updateConceptPaneData(data={...prop, 'reset-badge': true, 'reset-name': displayName}, operation='delete')
   }
   else{
     updateConceptPaneData(data={...prop, 'reset-badge': false}, operation='delete')
   }
   if(!calledByUndoRedo){
-    const operationData = {'name': 'remove-note', 'data': propData}
+    const operationData = {'name': 'remove-note', 'data': {...data, 'content': propositionElement.querySelector(`.content`).textContent}}
     updateOperationHistory(operationData)
   }
 }
@@ -590,6 +589,7 @@ function initSubConceptModal() {
     subConceptModalEl.querySelector('.modal-body > ul').replaceChildren(...propElList)
     // 将answer pane已经勾选的状态同步上来（还好搞了个全局的notepanedata呜呜呜）
     notePaneData.forEach(d => {
+      
       subConceptModalEl.querySelector(`.modal-body > ul ${getDataSelector(d)}~input[type="checkbox"]`)?.setAttribute('checked', 'true')
     })
   })
@@ -837,10 +837,7 @@ function editConcept(newConcept) {
   if (!newConcept) return
   const changedEl = lastPopoverReference.closest('li').querySelector('.content')
   const originalConcept = changedEl.textContent
-  console.log(answers[0].propositions[0])
   changedEl.textContent = newConcept
-  console.log("********")
-  console.log(answers[0].propositions[0])
   const operationData = {'name': 'edit-concept', 'data': [changedEl, originalConcept, newConcept]}
   if(!calledByUndoRedo){
     redoList = []
@@ -1007,7 +1004,7 @@ function updateConceptPaneData(data, operation){
     }
     if(data['reset-badge']){
       const conceptListContainer = document.getElementById('concept-list-container')
-      const originalConceptBadge = conceptListContainer.querySelector(`[concept-name = "${removedEl[0]['concept']}"]`)
+      const originalConceptBadge = conceptListContainer.querySelector(`[concept-name = "${data['reset-name']}"]`)
       if(!originalConceptBadge) return
       originalConceptBadge.textContent = data['concept']
       originalConceptBadge.setAttribute('concept-name', data['concept'])
