@@ -236,7 +236,10 @@ function addToNote(data) {
   setElData(propositionElement, data)
   propositionContainer.append(propositionElement)
   
-  updateConceptPaneData(prop, operation='add')
+  updateConceptPaneData({...prop}, operation='add')
+
+  // console.log(prop)
+  // updateConceptPaneData({''})
   prop['propIdx'] = data['propIdx']
   if(data.hasOwnProperty('ansIdx')){
     prop['ansIdx'] = data['ansIdx']
@@ -261,16 +264,17 @@ function removeFromNote(data) {
 
   propData['propIdx'] = propositionElement.getAttribute('data-proposition')
   propData['ansIdx'] = propositionElement.getAttribute('data-answer')
-
+  const prop = getProposition({'propIdx': propData['propIdx'], 'ansIdx': propData['ansIdx']})
   propositionElement.remove()
   
   // after removal, if there is no proposition under a concept, delete it
   if (propositionContainer.childElementCount == 0){
     destroyNotePaneConceptContainer(conceptName)
+    updateConceptPaneData(data={...prop, 'reset-badge': true}, operation='delete')
   }
-  
-  updateConceptPaneData(data=propData, operation='delete')
-
+  else{
+    updateConceptPaneData(data={...prop, 'reset-badge': false}, operation='delete')
+  }
   if(!calledByUndoRedo){
     const operationData = {'name': 'remove-note', 'data': propData}
     updateOperationHistory(operationData)
@@ -802,7 +806,6 @@ function onEditClick() {
 function editNote(newProp) {
   if (!newProp) return
   const changedEl = lastPopoverReference.closest('li').querySelector('.content')
-
   const operationData = {'name': 'edit-note', 'data':[changedEl, changedEl.textContent, newProp]}
   changedEl.textContent = newProp
   if(!calledByUndoRedo){
@@ -833,8 +836,10 @@ function editConcept(newConcept) {
   if (!newConcept) return
   const changedEl = lastPopoverReference.closest('li').querySelector('.content')
   const originalConcept = changedEl.textContent
+  console.log(answers[0].propositions[0])
   changedEl.textContent = newConcept
-
+  console.log("********")
+  console.log(answers[0].propositions[0])
   const operationData = {'name': 'edit-concept', 'data': [changedEl, originalConcept, newConcept]}
   if(!calledByUndoRedo){
     redoList = []
@@ -992,9 +997,23 @@ function updateConceptPaneData(data, operation){
     notePaneData.push(data)
   }
   else if(operation == 'delete'){
-    notePaneData = notePaneData.filter((el) => {
-      return el['content'] !== data['content']
-    })
+    let removedEl;
+    for(let i = 0; i < notePaneData.length; ++i){
+      if(notePaneData[i]['content'] === data['content']){
+        removedEl = notePaneData.splice(i, 1)
+        break
+      }
+    }
+    if(data['reset-badge']){
+      const conceptListContainer = document.getElementById('concept-list-container')
+      const originalConceptBadge = conceptListContainer.querySelector(`[concept-name = "${removedEl[0]['concept']}"]`)
+      if(!originalConceptBadge) return
+      originalConceptBadge.textContent = data['concept']
+      originalConceptBadge.setAttribute('concept-name', data['concept'])
+    }
+    
+    
+    
   }
   else if(operation === 'edit-concept' || operation === 'reset-concept'){
     const originalConcept = data[0]
