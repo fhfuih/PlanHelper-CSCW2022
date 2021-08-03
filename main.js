@@ -787,7 +787,8 @@ function ctrlHandler(e) {
 document.addEventListener('keydown', ctrlHandler)
 document.addEventListener('keyup', ctrlHandler)
 
-function onEditClick() {
+function onEditClick(e) {
+  e.preventDefault()
   if(!document.getElementById('editModalForm').reportValidity()) return
 
   const newStuff = document.getElementById('edit-input').value
@@ -995,7 +996,6 @@ function updateConceptPaneData(data, operation){
     notePaneData.push(data)
   }
   else if(operation == 'delete'){
-    let removedEl;
     for(let i = 0; i < notePaneData.length; ++i){
       if(notePaneData[i]['content'] === data['content']){
         removedEl = notePaneData.splice(i, 1)
