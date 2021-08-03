@@ -543,6 +543,7 @@ function initConceptPane(answers) {
     badge.title = 'Add some marked propositions to generate the mind map.'
     badge.setAttribute('previous-color', 'bg-secondary')
     badge.setAttribute('concept-name', el)
+    badge.setAttribute('mindmap-concept', el)
     conceptListContainer.append(badge)
   })
 }
@@ -901,9 +902,9 @@ function onConceptBadgeClick(el) {
   })
   if (!isCurrentlySelected) el.setAttribute('selected', '')
 
-  if (isCurrentlySelected) mindmapConfiguration(el.textContent, false)
+  if (isCurrentlySelected) mindmapConfiguration(el.getAttribute('mindmap-concept'), el.textContent,false)
   else {
-    const optionsAndMind = mindmapConfiguration(el.textContent, true)
+    const optionsAndMind = mindmapConfiguration(el.getAttribute('mindmap-concept'), el.textContent, true)
     const jm = new jsMind(optionsAndMind[0])
     jm.show(optionsAndMind[1])
   
@@ -916,7 +917,7 @@ function onConceptBadgeClick(el) {
   }
 }
 
-function mindmapConfiguration(conceptName, construct){
+function mindmapConfiguration(conceptName, rootText, construct){
 
   // configuration about the mind map based on the note pane data
   if (document.querySelector('.jsmind-inner')){ 
@@ -957,7 +958,7 @@ function mindmapConfiguration(conceptName, construct){
       }
     })
 
-    let data = {"id":"root", "topic":conceptName,"children":childrenNodes}
+    let data = {"id":"root", "topic":rootText,"children":childrenNodes}
 
 
     const mind = {
