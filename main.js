@@ -311,6 +311,14 @@ function handlePropositionClicked(el, ctrlKey, isClickingCheckbox) {
   }
 }
 
+function handleNotePanePropositionclicked(el, ctrlKey) {
+  if (ctrlKey) {
+    const li = el.closest('li')
+    const data = getElData(li)
+    scrollIntoView(`#answer-container ${getDataSelector(data)}`)
+  }
+}
+
 function handleSubConceptPropositionClicked(el, checkboxEl, isClickingCheckbox) {
   const data = getElData(el)
   const checkboxInAnswerPane = getPropositionCheckboxEl(data)
@@ -420,18 +428,6 @@ function updateConceptColor (operationData) {
     default:
       return
   }
-}
-
-function initNotePaneDoubleClickNote() {
-  document.getElementById('note-container').addEventListener('click', (e) => {
-    if (e.target && e.target.matches('.note > .content') && (e.ctrlKey || e.metaKey)) {
-      e.preventDefault()
-      const li = e.target.closest('li')
-      const ansIdx = li.getAttribute('data-answer')
-      const propIdx = li.getAttribute('data-proposition')
-      scrollIntoView(`.answer-${ansIdx} .proposition-${propIdx}`)
-    }
-  })
 }
 
 function initNoteConceptPaneSplit() {
@@ -743,8 +739,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   })
   // 初始化note pane的button menu
   initNotePaneButtonMenu()
-  // 初始化note pane双击跳转
-  initNotePaneDoubleClickNote()
 
   // 初始化concept pane
   initConceptPane(answers)
@@ -767,6 +761,8 @@ document.addEventListener('click', (e) => {
     handlePropositionClicked(e.target, (e.ctrlKey || e.metaKey), false)
   } else if (e.target.matches('.content .proposition~input[type="checkbox"]')) {
     handlePropositionClicked(e.target.previousSibling, (e.ctrlKey || e.metaKey), true)
+  } else if (e.target.matches('#note-container .note > .content') && (e.ctrlKey || e.metaKey)) {
+    handleNotePanePropositionclicked(e.target, (e.ctrlKey || e.metaKey))
   } else if (e.target.matches('.concept-badge')){
     onConceptBadgeClick(e.target)
   } else if (e.target.matches('jmnode:not(.root)')) {
