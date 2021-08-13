@@ -136,6 +136,10 @@ function getDataSelector(data) {
   else if (colAnsIdx != undefined) return `[data-collapsed-answer="${colAnsIdx}"][data-proposition="${propIdx}"]`
 }
 
+function getElDataIdentifier(el) {
+  return getDataSelector(getElData(el))
+}
+
 function getAnswer(data) {
   const {ansIdx, colAnsIdx} = data
   if (ansIdx != undefined) return answers[ansIdx]
@@ -362,26 +366,22 @@ function linkPropositionAndNote(contextElement, propositionList) {
 }
 
 function changeConceptColor(concept, color, isDark) {
-  let els;
   const badgeEls = document.querySelectorAll(`.badge[concept-name="${concept}"]`)
-  const notePaneConceptEl = document.querySelector(`#note-container > li[concept-name="${concept}"] > .content`)
-  if (notePaneConceptEl) {
-    // 如果该concept在notepane中，以notepane当前拖拽结果包含的prop为准
-    const notePanePropEls = Array.from(notePaneConceptEl.nextElementSibling.nextElementSibling.children) // proposition-container > *
-    const answerPanePropEls = notePanePropEls.map(el => document.querySelector(`#answer-container mark${getDataSelector(getElData(el))}`))
-    els = [
-      ...badgeEls,
-      ...answerPanePropEls,
-      notePaneConceptEl,
-    ]
-  } else {
-    // 如果该concept不在notepane中，以我们自己划分的prop为准
-    const answerPanePropEls = document.querySelectorAll(`mark.proposition.concept-${concept}`)
-    els = [
-      ...badgeEls,
-      ...answerPanePropEls,
-    ]
-  }
+  const notePaneConceptEl = document.querySelectorAll(`#note-container > li[concept-name="${concept}"] > .content`) // 只有一个或零个，但是返回一个[]比返回null方便
+  // 添加在notepane中、该concept含有的props，
+  // 添加尚未加到notepane、默认归为该concept的props
+  // 不添加在notepane中、其他concept含有的props
+  const notePaneExcludedNoteEls = document.querySelectorAll(`#note-container > li:not([concept-name="${concept}"]) .note`)
+  const notePaneIncludedNoteEls = document.querySelectorAll(`#note-container > li[concept-name="${concept}"] .note`)
+  const excludedSet = new Set(Array.from(notePaneExcludedNoteEls).map(el => getElDataIdentifier(el)))
+  const originalAnswerPanePropEls = Array.from(document.querySelectorAll(`mark.proposition.concept-${concept}`)).filter(el => !excludedSet.has(getElDataIdentifier(el)))
+  const additionalAnswerPanePropEls = Array.from(notePaneIncludedNoteEls).map(el => document.querySelector(`#answer-container mark${getDataSelector(getElData(el))}`))
+  const els = [
+    ...badgeEls,
+    ...originalAnswerPanePropEls,
+    ...additionalAnswerPanePropEls,
+    ...notePaneConceptEl,
+  ]
   // els[0]一定是一个badge
   const fromColor = els[0].style.backgroundColor;
   const fromIsDark = (els[0].style.color == 'white' || els[0].style.color == "") ? true : false
