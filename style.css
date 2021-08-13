@@ -370,19 +370,19 @@ body.ctrl-down .proposition, body.ctrl-down .note > .content {
 
 .truncate {
   overflow: hidden;
-  height: 15rem;
+  max-height: 15rem;
   /* display: -webkit-box;
   -webkit-line-clamp: 3;
   line-clamp: 3;
   -webkit-box-orient: vertical; */
 }
 .truncate.truncate-large {
-  height: 15rem;
+  max-height: 15rem;
   /* -webkit-line-clamp: 8;
   line-clamp: 8; */
 }
 .truncate.truncate-small {
-  height: 5rem;
+  max-height: 5rem;
   /* -webkit-line-clamp: 3;
   line-clamp: 3; */
 }
