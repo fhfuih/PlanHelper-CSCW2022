@@ -348,7 +348,7 @@ function linkPropositionAndNote(contextElement, propositionList) {
     const checkbox = document.createElement('input')
     checkbox.type = 'checkbox'
     checkbox.classList.add('form-check-input')
-    markedLast.insertAdjacentElement('afterend', checkbox)
+    markedLast && markedLast.insertAdjacentElement('afterend', checkbox)
     
     // 点击proposition的时候自动check
     markedElements.forEach(el => {
