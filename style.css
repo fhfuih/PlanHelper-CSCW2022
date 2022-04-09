@@ -35,6 +35,9 @@ mark, .mark {
   padding-left: 0;
   padding-right: 0;
 }
+mark:hover, .mark:hover {
+  text-decoration: underline;
+}
 .proposition {
   cursor: pointer;
 }
