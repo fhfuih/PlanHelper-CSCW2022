@@ -1,0 +1,12 @@
+{
+  "typeAcquisition": {
+    "include": [
+      "bootstrap",
+      "popper.js",
+      "lodash",
+      "dayjs",
+      "sortablejs",
+      "split.js"
+    ]
+  }
+}
