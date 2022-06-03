@@ -1,35 +1,32 @@
-# CQA 奥里给
+# PlanHelper: Supporting Activity Plan Construction with Answer Posts in Community-based QA Platforms
 
-我暂时没有加jQuery，因为现在好多地方都不用jQuery了，纯原生API已经做的比较全（且比jQ快了）。
-如果想加jQuery的话，我在index.html里面留了一个comment直接打开就有了
+This is the source code for the prototype system PlanHelper, an information digest tool for Community-based QA (CQA) Platforms.
+The system is part of a research paperwork in the above name,
+which is accepted by CSCW 2022.
 
-Concept Map暂时使用的是[这个库](https://github.com/hizzgdev/jsmind/blob/master/docs/zh/1.usage.md)
+You are welcomed to [cite](#cite) the paper if you find it insightful.
 
-## TODO
+## Abstract
 
-> 20210707
+Community-based Question Answering (CQA) platforms can provide rich experience and suggestions for people who seek to construct Activity Plans (AP), such as bodybuilding or sightseeing. However, answer posts in CQA platforms could be too unstructured and overwhelming to be easily applied to AP construction, as validated by our formative study for understanding relevant user challenges. We therefore proposed an answer-post processing pipeline, based on which we built PlanHelper, a tool assisting users in processing the CQA information and constructing AP interactively. We conducted a within-subject study (N=24) with a Quora-like interface as the baseline. Results suggested that when creating AP with PlanHelper, users were significantly more satisfied with the informational support and more engaged during the interaction. Moreover, we performed an in-depth analysis on the user behaviors with PlanHelper and summarized the design considerations for such supporting tools.
 
-前端
+## Run
 
-* [x] Concept text 自定义
-* [x] Contept 颜色自定义
-* [x] answer pane 根据concept来highlight（同2）
-* [x] note pane drag&drop ordering
-* [x] note pane icon button clustering
-* [x] similar answer concept hashtag-style
-* [x] ~~dbclick~~ctrl+click note to jump to original answer (or overleaf synctax-style arrows) (Also: ctrl+click a proposition in answer pane to jump to note pane. Not using double click because it will confuse "click to add prop. to note pane")
-* [ ] ~~adjust proposition click behavior~~ (或许不需要了？因为有了note pane的拖拽排序减少用户的recover成本，同时增加了proposition的悬浮提示。如果只点击checkbox才添加到note的话，点击区域还是有点小了。不好操作。而且现有的coding实现比较麻烦)
-* [ ] note pane metadata (redundancy 等) (wait for data processing)
-* [ ] note pane ordering (ranx by x) (Overlap with dnd ordering?)
-* [x] vote number (wait for data; need to re-crawl)
+The website is self-contained.
+Simply open the index.html to run it.
 
-后端（数据处理）
+It contains the augmented information for two threads.
+To switch between the two threads, provide the URL param `question=body` or `question=paris`.
+The system defaults to `body` if not provided.
 
-* [ ] 计算good answer和折叠answer
+It also contains the baseline version, which is no more than a port of plain Quora website,
+with UI elements aligned.
+To switch to the baseline version, `git switch baseline` and then
+provide the URL param `control=bs`.
+The default value is `control=exp` for the experiment group (the PlanHelper system),
+which you can also explicitly specify.
 
-数据爬取和标记
+## Cite
 
-* [ ] ~~标sub concept~~
-* [ ] 计算redundancy
-* [ ] 再找一两个qustion
-* [x] （minor）重爬带votes的数据
+TODO. Accepted but not published yet.
+
