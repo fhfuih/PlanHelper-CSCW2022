@@ -48,32 +48,21 @@ let editModal;
 
 function fetchPageData() {
   const queryParams = new URLSearchParams(window.location.search)
-  const isBaseline = window.location.port == '8001'
-  const question = queryParams.get('question')
-  if (!question) {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        answers = mock.answers
-        collapsedAnswers = mock.collapsedAnswers
-        resolve(mock)
-      }, 1000)
+  const control = queryParams.get('control') || 'exp'
+  const question = queryParams.get('question') || 'body'
+  const path = `${control}.${question}.js`
+  return new Promise((resolve) => {
+    const documentHead = document.getElementsByTagName('head')[0]
+    const el = document.createElement('script')
+    documentHead.appendChild(el)
+    el.addEventListener('load', () => {
+      answers = mock.answers
+      collapsedAnswers = mock.collapsedAnswers
+      resolve(mock)
     })
-  }
-  const url = `http://106.55.11.129:8000/${isBaseline ? 'bs' : 'exp'}/${question}.json`
-  return fetch(url)
-    .then(res => {
-      if (res.ok) return res.json()
-      else if (res.status == 404) throw new Error('Unknown question')
-      throw new Error(`Unknown error: ${res.status} (${res.statusText}) while fetching page data`)
-    })
-    .then(j => {
-      answers = j.answers
-      collapsedAnswers = j.collapsedAnswers
-      return j
-    })
-    .catch(e => {
-      alert(e.message)
-    })
+    el.type = 'text/javascript'
+    el.src = path
+  })
 }
 
 function scrollIntoView(el) {
